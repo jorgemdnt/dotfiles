@@ -1,5 +1,16 @@
 [user]
 	email = jorgemodes@gmail.com
-	name = Jorge Modesto Neto
+	name = jorgemdnt
 [color]
 	ui = true
+[push]
+	default = current
+[alias]
+	a = add
+	aa = add . # ADICIONA TUTO CHESUS
+	b = branch
+	cm = commit -m
+	cam = commit -am
+	s = status
+	cid = commit --amend -v # edita ultima msg de commit
+	d = diff
