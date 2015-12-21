@@ -26,6 +26,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround' 
 Plugin 'rking/ag.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on    " required
@@ -59,7 +60,7 @@ noremap <F3> :Autoformat<CR>
 " modes)
 " " ]M            Jump on next class or method (normal, visual, operator
 " modes)
-let g:pymode_rope = 0
+let g:pymode_rope = 1
 " " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'

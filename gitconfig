@@ -15,3 +15,5 @@
 	cid = commit --amend -v # edita ultima msg de commit
 	d = diff
 	p = push
+[core]
+	excludesfile = ~/.gitignore
