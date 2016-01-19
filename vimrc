@@ -26,6 +26,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround' 
 Plugin 'rking/ag.vim'
+Plugin 'vim-scripts/indentpython.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -33,16 +34,29 @@ filetype plugin indent on    " required
 
 syntax enable on
 colorscheme Tomorrow-Night-Eighties
+let mapleader = ","
+set cursorline
+set wildmenu
+set incsearch
+set hlsearch
+nnoremap <leader><space> :nohlsearch<CR>
 " Powerline setup
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 set guifont=Ubuntu\ Mono\ derivative\ Powerline
 set laststatus=2
+
+" Silver SEarcher
+nnoremap <leader>a :Ag
+
+set foldmethod=indent
+set foldlevel=129
 "NERDTREE
 map <F2> :NERDTreeToggle<CR>
+map <F3> :NERDTreeFind<CR>
 "autoform
-noremap <F3> :Autoformat<CR>
+noremap <F4> :Autoformat<CR>
 " Python-mode
 " " Activate rope
 " Keys:
@@ -93,9 +107,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -115,6 +126,7 @@ au BufNewFile,BufRead *.js,*.html,*.css
 
 set term=screen-256color
 set encoding=utf-8
+set clipboard=unnamed
 
 let NERDTreeIgnore = ['\.pyc$']
 runtime macros/matchit.vim
@@ -137,3 +149,9 @@ autocmd FocusLost * call ToggleRelativeOn()
 autocmd FocusGained * call ToggleRelativeOn()
 autocmd InsertEnter * call ToggleRelativeOn()
 autocmd InsertLeave * call ToggleRelativeOn()
+
+" CtrlP
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
+set fileformats=unix
