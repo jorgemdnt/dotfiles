@@ -1,11 +1,14 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-set background=dark
+set t_Co=256
+let g:solarized_termcolors=256
+set background=light
 set number
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
-set t_Co=256
+autocmd! bufwritepost .vimrc source %
+
 " set the runtime path to include Vundle and initialize
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -33,7 +36,7 @@ call vundle#end()
 filetype plugin indent on    " required
 
 syntax enable on
-colorscheme Tomorrow-Night-Eighties
+colorscheme solarized
 let mapleader = ","
 set cursorline
 set wildmenu
@@ -49,6 +52,9 @@ set laststatus=2
 
 " Silver SEarcher
 nnoremap <leader>a :Ag
+
+set pastetoggle=<F8>
+set clipboard=unnamed
 
 set foldmethod=indent
 set foldlevel=129
@@ -82,9 +88,10 @@ let g:pymode_doc_key = 'K'
 " "Linting
 let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore = "W0611,W0612,E501"
+let g:pymode_lint_ignore = "W0611,W0612,E501,W391"
+
 " " Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 "
 " " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -98,9 +105,16 @@ let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime', 'django']
 "
 " " Don't autofold code
 let g:pymode_folding = 0
+"
+" " Procurar ropeproject
+let g:pymode_rope_lookup_project = 1
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -124,9 +138,7 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
 
-set term=screen-256color
 set encoding=utf-8
-set clipboard=unnamed
 
 let NERDTreeIgnore = ['\.pyc$']
 runtime macros/matchit.vim
