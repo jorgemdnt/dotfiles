@@ -34,6 +34,7 @@ filetype plugin indent on    " required
 
 syntax enable on
 colorscheme Tomorrow-Night-Eighties
+
 let mapleader = ","
 set cursorline
 set wildmenu
@@ -50,6 +51,10 @@ set laststatus=2
 " Silver SEarcher
 nnoremap <leader>a :Ag
 
+nnoremap <leader>w :w<CR>
+nnoremap <leader>x :wq<CR>
+nnoremap <leader>q :q<CR>
+
 set foldmethod=indent
 set foldlevel=129
 "NERDTREE
@@ -57,6 +62,8 @@ map <F2> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
+
+set pastetoggle=<F8>
 " Python-mode
 " " Activate rope
 " Keys:
@@ -75,16 +82,21 @@ noremap <F4> :Autoformat<CR>
 " " ]M            Jump on next class or method (normal, visual, operator
 " modes)
 let g:pymode_rope = 1
+let g:pymode_virtualenv = 1
+let g:pymode_rope_completion = 1
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_rope_completion_bind = '<C-Space>'
 " " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
 "
 " "Linting
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore = "W0611,W0612,E501"
+let g:pymode_lint_ignore = "W0611,W0612,E501,W391"
 " " Auto check on save
-let g:pymode_lint_write = 1
+let g:pymode_lint_write = 0
 "
 " " Support virtualenv
 let g:pymode_virtualenv = 1
@@ -155,3 +167,7 @@ let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 
 set fileformats=unix
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|pyc))$'
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
