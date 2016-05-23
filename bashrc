@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-export TERM=xterm-256color
+
+export TERM="screen-256color"
 source "/usr/local/bin/virtualenvwrapper_lazy.sh"
 export WORKON_HOME=$HOME/.virtualenvs
 
@@ -8,7 +9,7 @@ export BASH_IT="/home/jorge/.bash_it"
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-export BASH_IT_THEME='powerline-plain'
+export BASH_IT_THEME='tylenol'
 
 # Your place for hosting Git repos. I use this for private repos.
 export GIT_HOSTING='git@git.domain.com'
