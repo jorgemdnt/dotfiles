@@ -1,5 +1,9 @@
 filetype off
+set number
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 
+autocmd! bufwritepost .vimrc source %
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -18,25 +22,30 @@ Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'benmills/vimux'
+Plugin 'Chun-Yang/vim-action-ag'
+Plugin 'ervandew/supertab'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-repeat'
 
+
 call vundle#end()
-
 filetype plugin indent on
-set number
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
 
-autocmd! bufwritepost .vimrc source %
-
-syntax enable on
-let g:solarized_termcolors=256
-"set t_Co=256
-set background=dark
+syntax enable
+let g:solarized_termcolors=16
 colorscheme Tomorrow-Night
+set background=dark
+
+nnoremap <F5> :set background=light<CR>
+nnoremap <F6> :set background=dark<CR>
+inoremap <F5> <ESC>:set background=light<CR>a
+inoremap <F6> <ESC>:set background=dark<CR>a
+vnoremap <F5> <ESC>:set background=light<CR>
+vnoremap <F6> <ESC>:set background=dark<CR>
+
+
 let mapleader = ","
 set cursorline
 set wildmenu
@@ -51,7 +60,13 @@ let g:airline_powerline_fonts = 1
 " Silver SEarcher
 nnoremap <leader>a :Ag<space>
 
-set pastetoggle=<F8>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>x :wq<CR>
+nnoremap <leader>q :q<CR>
+
+" Airline
+let g:airline_powerline_fonts = 1
+
 set clipboard=unnamed
 
 set foldmethod=indent
@@ -62,28 +77,27 @@ map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
 
-
+set pastetoggle=<F8>
 let g:pymode_rope = 1
+let g:pymode_virtualenv = 1
+let g:pymode_rope_completion = 1
+let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_rope_completion_bind = '<C-Space>'
 " " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
-"
 " "Linting
 let g:pymode_lint = 1
 nnoremap <leader>l :PymodeLint<cr>
 let g:pymode_lint_checker = "pyflakes,pep8"
 let g:pymode_lint_ignore = "W0611,W0612,E501,W391"
-
 " " Auto check on save
 let g:pymode_lint_write = 0
-"
 " " Support virtualenv
-let g:pymode_virtualenv = 1
-"
 " " Enable breakpoints plugin
 let g:pymode_breakpoint = 1
 let g:pymode_breakpoint_bind = '<leader>b'
-"
 " " syntax highlighting
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
@@ -92,17 +106,15 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 let g:pymode_rope_autoimport = 1
 let g:pymode_rope_autoimport_import_after_complete = 1
-"
 " " Don't autofold code
 let g:pymode_folding = 0
-"
 " " Procurar ropeproject
 let g:pymode_rope_lookup_project = 1
 
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+noremap <C-J> <C-W><C-J>
+noremap <C-K> <C-W><C-K>
+noremap <C-L> <C-W><C-L>
+noremap <C-H> <C-W><C-H>
 
 if !has('nvim')
     set ttymouse=xterm2
@@ -125,7 +137,10 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
 
-"set encoding=utf-8
+if !has('nvim')
+  set encoding=utf-8
+endif
+
 
 let NERDTreeIgnore = ['\.pyc$', '__pycache__$']
 runtime macros/matchit.vim
@@ -149,10 +164,16 @@ autocmd FocusGained * call ToggleRelativeOn()
 autocmd InsertEnter * call ToggleRelativeOn()
 autocmd InsertLeave * call ToggleRelativeOn()
 
-" CtrlP
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+hi CursorLineNR cterm=bold
+
 
 set exrc
 
 set fileformats=unix
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|pyc))$'
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" Supertab autocompletar descendente
+let g:SuperTabDefaultCompletionType = "<c-n>"
