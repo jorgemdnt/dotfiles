@@ -28,6 +28,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-repeat'
+Plugin 'morhetz/gruvbox'
 
 
 call vundle#end()
@@ -35,8 +36,8 @@ filetype plugin indent on
 
 syntax enable
 let g:solarized_termcolors=16
-colorscheme Tomorrow-Night
 set background=dark
+colorscheme gruvbox
 
 nnoremap <F5> :set background=light<CR>
 nnoremap <F6> :set background=dark<CR>
@@ -122,6 +123,9 @@ endif
 
 " Enable folding with the spacebar
 nnoremap <space> za
+
+set listchars=tab:▸\ ,eol:¬
+set list
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |

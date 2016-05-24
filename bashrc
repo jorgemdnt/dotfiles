@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 export TERM="screen-256color"
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
 source "/usr/local/bin/virtualenvwrapper_lazy.sh"
 export WORKON_HOME=$HOME/.virtualenvs
+
+source "$HOME/gruvboxcolors.sh"
 
 # Path to the bash it configuration
 export BASH_IT="/home/jorge/.bash_it"
