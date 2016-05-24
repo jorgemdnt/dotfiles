@@ -1,58 +1,55 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-set t_Co=256
-let g:solarized_termcolors=256
-set background=light
-set number
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
+filetype off
 
-autocmd! bufwritepost .vimrc source %
-
-" set the runtime path to include Vundle and initialize
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call undle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'scrooloose/nerdtree'
 Plugin 'klen/python-mode'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround' 
+Plugin 'tpope/vim-surround'
 Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'benmills/vimux'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-repeat'
 
-" All of your Plugins must be added before the following line
 call vundle#end()
-filetype plugin indent on    " required
+
+filetype plugin indent on
+set number
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+
+autocmd! bufwritepost .vimrc source %
 
 syntax enable on
-colorscheme solarized
+let g:solarized_termcolors=256
+"set t_Co=256
+set background=dark
+colorscheme Tomorrow-Night
 let mapleader = ","
 set cursorline
 set wildmenu
 set incsearch
 set hlsearch
 nnoremap <leader><space> :nohlsearch<CR>
-" Powerline setup
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
 set guifont=Ubuntu\ Mono\ derivative\ Powerline
 set laststatus=2
 
+let g:airline_powerline_fonts = 1
+
 " Silver SEarcher
-nnoremap <leader>a :Ag
+nnoremap <leader>a :Ag<space>
 
 set pastetoggle=<F8>
 set clipboard=unnamed
@@ -64,23 +61,8 @@ map <F2> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
-" Python-mode
-" " Activate rope
-" Keys:
-" " K             Show python docs
-" " <Ctrl-Space>  Rope autocomplete
-" " <Ctrl-c>g     Rope goto definition
-" " <Ctrl-c>d     Rope show documentation
-" " <Ctrl-c>f     Rope find occurrences
-" " <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" " [[            Jump on previous class or function (normal, visual, operator
-" modes)
-" " ]]            Jump on next class or function (normal, visual, operator
-" modes)
-" " [M            Jump on previous class or method (normal, visual, operator
-" modes)
-" " ]M            Jump on next class or method (normal, visual, operator
-" modes)
+
+
 let g:pymode_rope = 1
 " " Documentation
 let g:pymode_doc = 1
@@ -88,6 +70,7 @@ let g:pymode_doc_key = 'K'
 "
 " "Linting
 let g:pymode_lint = 1
+nnoremap <leader>l :PymodeLint<cr>
 let g:pymode_lint_checker = "pyflakes,pep8"
 let g:pymode_lint_ignore = "W0611,W0612,E501,W391"
 
@@ -109,7 +92,6 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 let g:pymode_rope_autoimport = 1
 let g:pymode_rope_autoimport_import_after_complete = 1
-let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime', 'django']
 "
 " " Don't autofold code
 let g:pymode_folding = 0
@@ -121,6 +103,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+if !has('nvim')
+    set ttymouse=xterm2
+endif
 
 " Enable folding with the spacebar
 nnoremap <space> za
@@ -139,9 +125,9 @@ au BufNewFile,BufRead *.js,*.html,*.css
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
 
-set encoding=utf-8
+"set encoding=utf-8
 
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__$']
 runtime macros/matchit.vim
 
 noremap <Up> <NOP>
@@ -166,5 +152,7 @@ autocmd InsertLeave * call ToggleRelativeOn()
 " CtrlP
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
+
+set exrc
 
 set fileformats=unix
