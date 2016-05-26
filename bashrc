@@ -5,7 +5,7 @@ export NVIM_TUI_ENABLE_TRUE_COLOR=1
 source "/usr/local/bin/virtualenvwrapper_lazy.sh"
 export WORKON_HOME=$HOME/.virtualenvs
 
-source "$HOME/gruvboxcolors.sh"
+# source "$HOME/gruvboxcolors.sh"
 
 # Path to the bash it configuration
 export BASH_IT="/home/jorge/.bash_it"
@@ -37,3 +37,8 @@ alias vim="nvim"
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-brewer.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+clear

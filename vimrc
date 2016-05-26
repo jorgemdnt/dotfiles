@@ -5,37 +5,32 @@ highlight nonText ctermbg=NONE
 
 autocmd! bufwritepost .vimrc source %
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'klen/python-mode'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'rking/ag.vim'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'benmills/vimux'
-Plugin 'Chun-Yang/vim-action-ag'
-Plugin 'ervandew/supertab'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-repeat'
-Plugin 'morhetz/gruvbox'
+Plug 'VundleVim/Vundle.vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'scrooloose/nerdtree'
+Plug 'klen/python-mode'
+Plug 'Chiel92/vim-autoformat'
+Plug 'tmhedberg/SimpylFold'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'rking/ag.vim'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'
+Plug 'Chun-Yang/vim-action-ag'
+Plug 'ervandew/supertab'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-repeat'
+Plug 'morhetz/gruvbox'
 
+call plug#end()
 
-call vundle#end()
-filetype plugin indent on
-
-syntax enable
-let g:solarized_termcolors=16
 set background=dark
 colorscheme gruvbox
 
@@ -181,3 +176,10 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Supertab autocompletar descendente
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:gruvbox_contrast_light="soft"
+let g:gruvbox_contrast_dark="soft"
+
+" busca insensitive
+set ignorecase
+set infercase
