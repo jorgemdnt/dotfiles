@@ -113,7 +113,7 @@ noremap <C-L> <C-W><C-L>
 noremap <C-H> <C-W><C-H>
 
 if !has('nvim')
-    set ttymouse=xterm2
+	set ttymouse=xterm2
 endif
 
 " Enable folding with the spacebar
@@ -123,21 +123,21 @@ set listchars=tab:▸\ ,eol:¬
 set list
 
 au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
+	\ set tabstop=4 |
+	\ set softtabstop=4 |
+	\ set shiftwidth=4 |
+	\ set textwidth=79 |
+	\ set expandtab |
+	\ set autoindent |
+	\ set fileformat=unix |
 
 au BufNewFile,BufRead *.js,*.html,*.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
+	\ set tabstop=2 |
+	\ set softtabstop=2 |
+	\ set shiftwidth=2 |
 
 if !has('nvim')
-  set encoding=utf-8
+	set encoding=utf-8
 endif
 
 
