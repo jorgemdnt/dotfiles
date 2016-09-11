@@ -30,6 +30,7 @@ export TODO="t"
 export SCM_CHECK=true
 
 alias vim="nvim"
+alias vimrc="nvim ~/.config/nvim/init.vim"
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
