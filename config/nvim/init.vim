@@ -38,6 +38,13 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'pangloss/vim-javascript'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Raimondi/delimitMate'
+Plug 'mxw/vim-jsx'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/yajs'
 
 call plug#end()
 filetype plugin indent on
@@ -239,5 +246,15 @@ vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
 let g:easytags_async = 1
-
+let g:easytags_auto_update = 0
+let g:easytags_auto_highlight = 0
 noremap <Leader>et :UpdateTags -R .<CR>
+
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_browser='Google Chrome'
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:jsx_ext_required = 0
+
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
