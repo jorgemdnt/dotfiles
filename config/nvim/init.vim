@@ -45,6 +45,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 filetype plugin indent on
@@ -258,3 +259,5 @@ let g:jsx_ext_required = 0
 
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
+
+noremap <Leader>wb :Dispatch ./node_modules/webpack/bin/webpack.js -d<CR>
