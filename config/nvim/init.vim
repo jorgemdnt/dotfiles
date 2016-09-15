@@ -46,6 +46,7 @@ Plug 'mxw/vim-jsx'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
 Plug 'tpope/vim-dispatch'
+Plug 'ternjs/tern_for_vim'
 
 call plug#end()
 filetype plugin indent on
