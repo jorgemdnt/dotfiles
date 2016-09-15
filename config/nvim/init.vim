@@ -255,10 +255,9 @@ noremap <Leader>et :UpdateTags -R .<CR>
 let vim_markdown_preview_hotkey='<C-m>'
 let vim_markdown_preview_browser='Google Chrome'
 
-let g:neomake_javascript_enabled_makers = ['eslint']
 let g:jsx_ext_required = 0
 
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
-noremap <Leader>wb :Dispatch ./node_modules/webpack/bin/webpack.js -d<CR>
+noremap <Leader>jb :Dispatch! ./node_modules/webpack/bin/webpack.js -d<CR>
