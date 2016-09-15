@@ -6,7 +6,7 @@ highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.config/nvim/bundle')
 
 Plug 'VundleVim/Vundle.vim'
 Plug 'flazz/vim-colorschemes'
