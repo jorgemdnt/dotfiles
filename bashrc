@@ -40,3 +40,9 @@ alias vimrc="nvim ~/.config/nvim/init.vim"
 source $BASH_IT/bash_it.sh
 
 . /usr/share/autojump/autojump.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# added by travis gem
+[ -f /home/jorge/.travis/travis.sh ] && source /home/jorge/.travis/travis.sh
