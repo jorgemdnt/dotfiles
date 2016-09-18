@@ -39,14 +39,13 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'pangloss/vim-javascript'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Raimondi/delimitMate'
 Plug 'mxw/vim-jsx'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'othree/yajs'
 Plug 'tpope/vim-dispatch'
-Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && npm install
+Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
 Plug 'Valloric/YouCompleteMe' " pip install jedi && cd ~/.config/nvim/bundle/YouCompleteMe && ./install.py --clang-completer
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 filetype plugin indent on
@@ -261,6 +260,12 @@ let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
 noremap <Leader>jb :Dispatch! ./node_modules/webpack/bin/webpack.js -d<CR>
-
+noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
 let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'flake8']
+
+let g:user_emmet_leader_key= '<C-Z>'
+tnoremap <Esc> <C-\><C-n>
+
+nnoremap <leader>bn :bn<cr>
+nnoremap <leader>bp :bn<cr>
