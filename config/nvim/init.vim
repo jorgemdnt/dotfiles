@@ -11,7 +11,6 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'VundleVim/Vundle.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
-Plug 'klen/python-mode'
 Plug 'Chiel92/vim-autoformat'
 Plug 'tmhedberg/SimpylFold'
 Plug 'kien/ctrlp.vim'
@@ -46,6 +45,8 @@ Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm i
 Plug 'Valloric/YouCompleteMe' " pip install jedi && cd ~/.config/nvim/bundle/YouCompleteMe && ./install.py --clang-completer
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'davidhalter/jedi-vim'
+Plug 'hdima/python-syntax'
 
 call plug#end()
 filetype plugin indent on
@@ -116,29 +117,28 @@ map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
 
-let g:pymode_rope = 0
-let g:pymode_virtualenv = 1
-let g:pymode_rope_completion = 0
-let g:pymode_rope_autoimport = 1
-let g:pymode_rope_autoimport_import_after_complete = 1
-let g:pymode_rope_completion_bind = '<C-Space>'
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-" Fuck this, use Neomake
-let g:pymode_lint = 0
-let g:pymode_lint_write = 0
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-" " syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" " Don't autofold code
-let g:pymode_folding = 0
-" " Procurar ropeproject
-let g:pymode_rope_lookup_project = 1
+"let g:pymode_rope = 1
+"let g:pymode_virtualenv = 1
+"let g:pymode_rope_completion = 1
+"let g:pymode_rope_autoimport = 1
+"let g:pymode_rope_autoimport_import_after_complete = 1
+"let g:pymode_doc = 1
+"let g:pymode_doc_key = 'K'
+"" Fuck this, use Neomake
+"let g:pymode_lint = 0
+"let g:pymode_lint_write = 0
+"" Enable breakpoints plugin
+"let g:pymode_breakpoint = 1
+"let g:pymode_breakpoint_bind = '<leader>b'
+"" " syntax highlighting
+"let g:pymode_syntax = 1
+"let g:pymode_syntax_all = 1
+"let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+"let g:pymode_syntax_space_errors = g:pymode_syntax_all
+"" " Don't autofold code
+"let g:pymode_folding = 0
+"" " Procurar ropeproject
+"let g:pymode_rope_lookup_project = 1
 
 noremap <C-J> <C-W><C-J>
 noremap <C-K> <C-W><C-K>
@@ -177,7 +177,7 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-let NERDTreeIgnore = ['\.pyc$', '__pycache__$']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|pyc))$'
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
@@ -192,7 +192,7 @@ let g:gruvbox_contrast_dark="soft"
 set ignorecase
 set infercase
 
-autocmd! BufWritePost * Neomake
+autocmd! BufWritePost,BufEnter * Neomake
 
 noremap <leader>l :lopen<cr>
 
@@ -262,6 +262,7 @@ let delimitMate_expand_space = 1
 noremap <Leader>jb :Dispatch! ./node_modules/webpack/bin/webpack.js -d<CR>
 noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
+let g:neomake_python_pylama_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'flake8']
 
 let g:user_emmet_leader_key= '<C-Z>'
@@ -269,3 +270,6 @@ tnoremap <Esc> <C-\><C-n>
 
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bn<cr>
+
+let g:jedi#completions_enabled = 0
+let python_highlight_all = 1
