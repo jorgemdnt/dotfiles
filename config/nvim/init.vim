@@ -46,6 +46,7 @@ Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm i
 Plug 'Valloric/YouCompleteMe' " pip install jedi && cd ~/.config/nvim/bundle/YouCompleteMe && ./install.py --clang-completer
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 filetype plugin indent on
@@ -247,7 +248,7 @@ vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
 let g:easytags_async = 1
-let g:easytags_auto_update = 0
+let g:easytags_auto_update = 1
 let g:easytags_auto_highlight = 0
 noremap <Leader>et :UpdateTags -R .<CR>
 
@@ -269,3 +270,5 @@ tnoremap <Esc> <C-\><C-n>
 
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bn<cr>
+
+nmap <F7> :TagbarToggle<CR>
