@@ -12,7 +12,7 @@ Plug 'VundleVim/Vundle.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
 Plug 'Chiel92/vim-autoformat'
-Plug 'tmhedberg/SimpylFold'
+Plug 'Konfekt/FastFold'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -264,6 +264,7 @@ noremap <Leader>jb :Dispatch! ./node_modules/webpack/bin/webpack.js -d<CR>
 noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
 let g:neomake_python_pylama_maker = {'args': ['--ignore=E501']}
+let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'flake8']
 
 let g:user_emmet_leader_key= '<C-Z>'
