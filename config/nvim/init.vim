@@ -48,6 +48,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'davidhalter/jedi-vim'
 Plug 'hdima/python-syntax'
+Plug 'fatih/vim-go'
 
 call plug#end()
 filetype plugin indent on
@@ -118,29 +119,6 @@ map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
 
-"let g:pymode_rope = 1
-"let g:pymode_virtualenv = 1
-"let g:pymode_rope_completion = 1
-"let g:pymode_rope_autoimport = 1
-"let g:pymode_rope_autoimport_import_after_complete = 1
-"let g:pymode_doc = 1
-"let g:pymode_doc_key = 'K'
-"" Fuck this, use Neomake
-"let g:pymode_lint = 0
-"let g:pymode_lint_write = 0
-"" Enable breakpoints plugin
-"let g:pymode_breakpoint = 1
-"let g:pymode_breakpoint_bind = '<leader>b'
-"" " syntax highlighting
-"let g:pymode_syntax = 1
-"let g:pymode_syntax_all = 1
-"let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-"let g:pymode_syntax_space_errors = g:pymode_syntax_all
-"" " Don't autofold code
-"let g:pymode_folding = 0
-"" " Procurar ropeproject
-"let g:pymode_rope_lookup_project = 1
-
 noremap <C-J> <C-W><C-J>
 noremap <C-K> <C-W><C-K>
 noremap <C-L> <C-W><C-L>
@@ -148,6 +126,7 @@ noremap <C-H> <C-W><C-H>
 
 if !has('nvim')
     set ttymouse=xterm2
+    set encoding=utf-8
 endif
 
 " Enable folding with the spacebar
@@ -166,10 +145,6 @@ au BufNewFile,BufRead *.js,*.html,*.css
         \ set tabstop=2 |
         \ set softtabstop=2 |
         \ set shiftwidth=2 |
-
-if !has('nvim')
-        set encoding=utf-8
-endif
 
 runtime macros/matchit.vim
 
@@ -193,7 +168,7 @@ let g:gruvbox_contrast_dark="soft"
 set ignorecase
 set infercase
 
-autocmd! BufWritePost,BufEnter * Neomake
+autocmd! BufWritePost,BufAdd * Neomake
 
 noremap <leader>l :lopen<cr>
 
@@ -277,3 +252,20 @@ nmap <F7> :TagbarToggle<CR>
 
 let g:jedi#completions_enabled = 0
 let python_highlight_all = 1
+
+" Desabilitar autowrapping
+set nowrap
+set formatoptions-=t
+
+" Desabilitar autocomplete on type quando multiplecursor ativo devido a
+" lentidão
+function! Multiple_cursors_before()
+    let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+    let g:ycm_filetype_whitelist = {}
+    call youcompleteme#DisableCursorMovedAutocommands()
+endfunction
+
+function! Multiple_cursors_after()
+    let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+    call youcompleteme#EnableCursorMovedAutocommands()
+endfunction
