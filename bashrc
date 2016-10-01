@@ -46,3 +46,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # added by travis gem
 [ -f /home/jorge/.travis/travis.sh ] && source /home/jorge/.travis/travis.sh
+
+
+export GOROOT=/usr/local/go
+export GOPATH=~/.go
+PATH=$PATH:$GOROOT/bin:$GOPATH/bin
