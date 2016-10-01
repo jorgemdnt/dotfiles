@@ -12,5 +12,3 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./install_neovim.sh]
-  - [./install_tmux.sh]
