@@ -269,3 +269,8 @@ function! Multiple_cursors_after()
     let g:ycm_filetype_whitelist = s:old_ycm_whitelist
     call youcompleteme#EnableCursorMovedAutocommands()
 endfunction
+
+set updatetime=250
+set autoread
+au FocusLost * :wa
+set autowriteall
