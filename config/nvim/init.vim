@@ -49,6 +49,8 @@ Plug 'majutsushi/tagbar'
 Plug 'davidhalter/jedi-vim'
 Plug 'hdima/python-syntax'
 Plug 'fatih/vim-go'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 filetype plugin indent on
@@ -269,3 +271,7 @@ function! Multiple_cursors_after()
     let g:ycm_filetype_whitelist = s:old_ycm_whitelist
     call youcompleteme#EnableCursorMovedAutocommands()
 endfunction
+
+let g:UltiSnipsExpandTrigger="<C-a>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
