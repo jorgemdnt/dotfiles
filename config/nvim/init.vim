@@ -272,6 +272,12 @@ function! Multiple_cursors_after()
     call youcompleteme#EnableCursorMovedAutocommands()
 endfunction
 
+
+set updatetime=250
+set autoread
+au FocusLost * :wa
+set autowriteall
+
 let g:UltiSnipsExpandTrigger="<C-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
