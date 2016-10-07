@@ -9,6 +9,7 @@
     ~/.bashrc: bashrc
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
+    ~/.spacemacs: spacemacs
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
