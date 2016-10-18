@@ -8,7 +8,6 @@ highlight nonText ctermbg=NONE
 
 call plug#begin('~/.config/nvim/bundle')
 
-Plug 'VundleVim/Vundle.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
 Plug 'Chiel92/vim-autoformat'
@@ -28,15 +27,12 @@ Plug 'tpope/vim-repeat'
 Plug 'morhetz/gruvbox'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/CSApprox'
 Plug 'amirh/HTML-AutoCloseTag'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'gorodinskiy/vim-coloresque'
-Plug 'tpope/vim-haml'
+Plug 'ap/vim-css-color'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
-Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'pangloss/vim-javascript'
 Plug 'Raimondi/delimitMate'
 Plug 'mxw/vim-jsx'
@@ -51,12 +47,12 @@ Plug 'hdima/python-syntax'
 Plug 'fatih/vim-go'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'janko-m/vim-test'
 
 call plug#end()
 filetype plugin indent on
 
-set background=dark
-colorscheme gruvbox
+colorscheme github
 set cursorline
 set wildmenu
 set incsearch
@@ -69,9 +65,6 @@ set nocursorline
 set norelativenumber
 set foldmethod=indent
 set foldlevel=129
-
-set listchars=tab:▸\ ,eol:¬,space:·
-set list
 
 set tabstop=4
 set softtabstop=4
@@ -177,14 +170,8 @@ noremap <leader>l :lopen<cr>
 vmap < <gv
 vmap > >gv
 
-" IndentLine
-let g:indentLine_enabled = 1
-let g:indentLine_concealcursor = 0
-let g:indentLine_char = '┆'
-let g:indentLine_faster = 1
-
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
@@ -237,7 +224,7 @@ let g:jsx_ext_required = 0
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
-noremap <Leader>jb :Dispatch! ./node_modules/webpack/bin/webpack.js -d<CR>
+noremap <Leader>jb :Dispatch! webpack.js -d<CR>
 noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
 let g:neomake_python_pylama_maker = {'args': ['--ignore=E501']}
