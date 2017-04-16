@@ -48,6 +48,7 @@ Plug 'fatih/vim-go'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
+"Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
 
 call plug#end()
 filetype plugin indent on
@@ -267,5 +268,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 let g:airline_theme='bubblegum'
+
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
