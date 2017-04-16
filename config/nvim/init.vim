@@ -55,6 +55,7 @@ filetype plugin indent on
 colorscheme github
 set cursorline
 set wildmenu
+set wildignore+=*/node_modules/**
 set incsearch
 set hlsearch
 set laststatus=2
@@ -75,8 +76,6 @@ set fileformat=unix
 
 set exrc
 
-set fileformats=unix
-
 "" pls no swap
 set nobackup
 set noswapfile
@@ -91,8 +90,6 @@ vnoremap <F5> <ESC>:set background=light<CR>
 vnoremap <F6> <ESC>:set background=dark<CR>
 
 let mapleader = ","
-
-let g:airline_powerline_fonts = 1
 
 " Silver SEarcher
 nnoremap <leader>a :Ag<space>
@@ -136,7 +133,7 @@ au BufNewFile,BufRead *.py
         \ set autoindent |
         \ set fileformat=unix |
 
-au BufNewFile,BufRead *.js,*.html,*.css
+au BufNewFile,BufRead *.js,*.jsx,*.html,*.css
         \ set tabstop=2 |
         \ set softtabstop=2 |
         \ set shiftwidth=2 |
@@ -268,3 +265,7 @@ set autowriteall
 let g:UltiSnipsExpandTrigger="<C-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:airline_theme='bubblegum'
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
