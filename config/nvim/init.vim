@@ -15,7 +15,6 @@ Plug 'Konfekt/FastFold'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'rking/ag.vim'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
@@ -49,6 +48,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
 Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
+Plug 'edkolev/tmuxline.vim'
+Plug 'mileszs/ack.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -96,7 +97,7 @@ let mapleader = ","
 let g:airline_powerline_fonts = 1
 
 " Silver SEarcher
-nnoremap <leader>a :Ag<space>
+nnoremap <leader>a :Ack<space>
 
 " Atalhos para salvar, salvarsair, sair
 nnoremap <leader>w :w<CR>
@@ -138,9 +139,9 @@ au BufNewFile,BufRead *.py
         \ set fileformat=unix |
 
 au BufNewFile,BufRead *.js,*.html,*.css
-        \ set tabstop=2 |
-        \ set softtabstop=2 |
-        \ set shiftwidth=2 |
+        \ set tabstop=4 |
+        \ set softtabstop=4 |
+        \ set shiftwidth=4 |
 
 runtime macros/matchit.vim
 
@@ -270,4 +271,17 @@ let g:UltiSnipsExpandTrigger="<C-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-let g:airline_theme='bubblegum'
+" let g:airline_theme='bubblegum'
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+vnoremap <Leader>s y:%s/<c-r>"/
+
+" Removes trailing spaces
+function! TrimWhiteSpace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfunction
+autocmd FileWritePre    * :call TrimWhiteSpace()
+autocmd FileAppendPre   * :call TrimWhiteSpace()
+autocmd FilterWritePre  * :call TrimWhiteSpace()
+autocmd BufWritePre     * :call TrimWhiteSpace()
