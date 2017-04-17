@@ -1,21 +1,20 @@
 [user]
 	email = jorgemodes@gmail.com
-	name = jorgemdnt
+	name = Jorge Modesto
 [color]
 	ui = true
 [push]
 	default = current
 [alias]
 	a = add
-	aa = add . # ADICIONA TUTO CHESUS
 	b = branch
 	cm = commit
-	cam = commit -am
 	s = status
-	cid = commit --amend -v # edita ultima msg de commit
 	d = diff
-	p = push
+	sh = push
+    ll = pull
+    ash = stash
 	co = checkout
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = /usr/bin/vim
+	editor = nvim
