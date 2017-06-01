@@ -6,7 +6,7 @@ highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
 
-call plug#begin('~/.config/nvim/bundle')
+call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
@@ -34,7 +34,6 @@ Plug 'craigemery/vim-autotag'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-dispatch'
 Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
-Plug 'Valloric/YouCompleteMe' " pip install jedi && cd ~/.config/nvim/bundle/YouCompleteMe && ./install.py --clang-completer
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
@@ -47,6 +46,8 @@ Plug 'janko-m/vim-test'
 Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
 Plug 'edkolev/tmuxline.vim'
 Plug 'mileszs/ack.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 filetype plugin indent on
@@ -233,16 +234,16 @@ set formatoptions-=t
 
 " Desabilitar autocomplete on type quando multiplecursor ativo devido a
 " lentidão
-function! Multiple_cursors_before()
-    let s:old_ycm_whitelist = g:ycm_filetype_whitelist
-    let g:ycm_filetype_whitelist = {}
-    call youcompleteme#DisableCursorMovedAutocommands()
-endfunction
+"function! Multiple_cursors_before()
+    "let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+    "let g:ycm_filetype_whitelist = {}
+    "call youcompleteme#DisableCursorMovedAutocommands()
+"endfunction
 
-function! Multiple_cursors_after()
-    let g:ycm_filetype_whitelist = s:old_ycm_whitelist
-    call youcompleteme#EnableCursorMovedAutocommands()
-endfunction
+"function! Multiple_cursors_after()
+    "let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+    "call youcompleteme#EnableCursorMovedAutocommands()
+"endfunction
 
 
 set updatetime=250
@@ -259,3 +260,4 @@ let g:neomake_jsx_enabled_makers = ['eslint']
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
 let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'functools.*', 'itertools.*', 'mock.*']
+let g:deoplete#enable_at_startup = 1
