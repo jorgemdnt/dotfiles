@@ -149,12 +149,6 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|py
 "map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" Supertab autocompletar descendente
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-let g:gruvbox_contrast_light="soft"
-let g:gruvbox_contrast_dark="soft"
-
 " busca insensitive
 set ignorecase
 set infercase
@@ -206,8 +200,6 @@ noremap XX "+x<CR>
 " Mover bloco visual
 vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
-
-noremap <Leader>et :UpdateTags -R .<CR>
 
 let vim_markdown_preview_hotkey='<C-m>'
 let vim_markdown_preview_browser='Google Chrome'
