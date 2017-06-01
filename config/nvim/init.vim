@@ -30,8 +30,7 @@ Plug 'vim-scripts/CSApprox'
 Plug 'amirh/HTML-AutoCloseTag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+Plug 'craigemery/vim-autotag'
 Plug 'pangloss/vim-javascript'
 Plug 'Raimondi/delimitMate'
 Plug 'mxw/vim-jsx'
@@ -54,10 +53,10 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 filetype plugin indent on
 
-colorscheme github
+colorscheme Tomorrow-Night
 set cursorline
 set wildmenu
-set wildignore+=*/node_modules/**
+set wildignore+=*/node_modules/**,*/__pycache__/**,tags,*/.idea/**
 set incsearch
 set hlsearch
 set laststatus=2
@@ -149,8 +148,8 @@ noremap <Right> <NOP>
 
 let NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|pyc))$'
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " Supertab autocompletar descendente
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -210,9 +209,6 @@ noremap XX "+x<CR>
 vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
-let g:easytags_async = 1
-let g:easytags_auto_update = 1
-let g:easytags_auto_highlight = 0
 noremap <Leader>et :UpdateTags -R .<CR>
 
 let vim_markdown_preview_hotkey='<C-m>'
@@ -228,7 +224,7 @@ noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
 let g:neomake_python_pylama_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
-let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'flake8']
+let g:neomake_python_enabled_makers = ['flake8']
 
 let g:user_emmet_leader_key= '<C-Z>'
 tnoremap <Esc> <C-\><C-n>
@@ -268,20 +264,8 @@ let g:UltiSnipsExpandTrigger="<C-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-let g:airline_theme='bubblegum'
-
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
-
-" Removes trailing spaces
-function! TrimWhiteSpace()
-    let l:save = winsaveview()
-    %s/\s\+$//e
-    call winrestview(l:save)
-endfunction
-autocmd FileWritePre    * :call TrimWhiteSpace()
-autocmd FileAppendPre   * :call TrimWhiteSpace()
-autocmd FilterWritePre  * :call TrimWhiteSpace()
-autocmd BufWritePre     * :call TrimWhiteSpace()
+let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'functools.*', 'itertools.*', 'mock.*']
