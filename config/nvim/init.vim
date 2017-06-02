@@ -29,7 +29,8 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
-Plug 'craigemery/vim-autotag'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-dispatch'
 Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
@@ -53,7 +54,6 @@ call plug#end()
 filetype plugin indent on
 
 colorscheme Tomorrow-Night
-set cursorline
 set wildmenu
 set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
@@ -263,3 +263,7 @@ let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'fu
 let g:deoplete#enable_at_startup = 1
 
 let g:ctrlp_by_filename = 1
+
+set tags=./tags;
+let g:easytags_dynamic_files = 1
+let g:easytags_auto_highlight = 0
