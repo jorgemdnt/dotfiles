@@ -27,7 +27,6 @@ Plug 'morhetz/gruvbox'
 Plug 'neomake/neomake'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'vim-scripts/CSApprox'
-Plug 'amirh/HTML-AutoCloseTag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'craigemery/vim-autotag'
@@ -48,6 +47,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'mileszs/ack.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
+Plug 'carlitux/deoplete-ternjs'
 
 call plug#end()
 filetype plugin indent on
@@ -55,7 +55,7 @@ filetype plugin indent on
 colorscheme Tomorrow-Night
 set cursorline
 set wildmenu
-set wildignore+=*/node_modules/**,*/__pycache__/**,tags,*/.idea/**
+set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
 set hlsearch
 set laststatus=2
@@ -261,3 +261,5 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
 let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'functools.*', 'itertools.*', 'mock.*']
 let g:deoplete#enable_at_startup = 1
+
+let g:ctrlp_by_filename = 1
