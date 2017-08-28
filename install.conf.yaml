@@ -9,7 +9,6 @@
     ~/.bashrc: bashrc
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
-    ~/.spacemacs: spacemacs
     ~/.zshrc: zshrc
 
 - shell:
