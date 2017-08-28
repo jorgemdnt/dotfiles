@@ -12,25 +12,21 @@ Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'
-Plug 'Chun-Yang/vim-action-ag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
-Plug 'morhetz/gruvbox'
-Plug 'neomake/neomake'
+Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'vim-scripts/CSApprox'
+"Plug 'vim-scripts/CSApprox'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-dispatch'
 Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
@@ -45,10 +41,12 @@ Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
 Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
 Plug 'edkolev/tmuxline.vim'
-Plug 'mileszs/ack.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'carlitux/deoplete-ternjs'
+Plug 'tpope/vim-obsession'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -90,9 +88,6 @@ vnoremap <F5> <ESC>:set background=light<CR>
 vnoremap <F6> <ESC>:set background=dark<CR>
 
 let mapleader = ","
-
-" Silver SEarcher
-nnoremap <leader>a :Ack<space>
 
 " Atalhos para salvar, salvarsair, sair
 nnoremap <leader>w :w<CR>
@@ -146,7 +141,6 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 let NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|pyc))$'
 "map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -154,7 +148,9 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|py
 set ignorecase
 set infercase
 
-autocmd! BufWritePost,BufAdd * Neomake
+set listchars=tab:▸\ ,eol:¬,space:·
+set list
+
 
 noremap <leader>l :lopen<cr>
 
@@ -194,9 +190,9 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 " Copia pro clipboard no ubuntu
-noremap YY "+y<CR>
-noremap <leader>p "+gP<CR>
-noremap XX "+x<CR>
+"noremap YY "+y<CR>
+"noremap <leader>p "+gP<CR>
+"noremap XX "+x<CR>
 
 " Mover bloco visual
 vnoremap <C-J> :m '>+1<CR>gv=gv
@@ -213,9 +209,10 @@ let delimitMate_expand_space = 1
 noremap <Leader>jb :Dispatch! webpack.js -d<CR>
 noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
 
-let g:neomake_python_pylama_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
 
 let g:user_emmet_leader_key= '<C-Z>'
 tnoremap <Esc> <C-\><C-n>
@@ -232,20 +229,6 @@ let python_highlight_all = 1
 set nowrap
 set formatoptions-=t
 
-" Desabilitar autocomplete on type quando multiplecursor ativo devido a
-" lentidão
-"function! Multiple_cursors_before()
-    "let s:old_ycm_whitelist = g:ycm_filetype_whitelist
-    "let g:ycm_filetype_whitelist = {}
-    "call youcompleteme#DisableCursorMovedAutocommands()
-"endfunction
-
-"function! Multiple_cursors_after()
-    "let g:ycm_filetype_whitelist = s:old_ycm_whitelist
-    "call youcompleteme#EnableCursorMovedAutocommands()
-"endfunction
-
-
 set updatetime=250
 set autoread
 au FocusLost * :wa
@@ -255,15 +238,26 @@ let g:UltiSnipsExpandTrigger="<C-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
 let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'functools.*', 'itertools.*', 'mock.*']
 let g:deoplete#enable_at_startup = 1
 
-let g:ctrlp_by_filename = 1
 
 set tags=./tags;
-let g:easytags_dynamic_files = 1
-let g:easytags_auto_highlight = 0
+
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+set completeopt-=preview
+nnoremap ; :
+
+let g:NERDTreeWinSize=60
+
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>ft :Tags<CR>
+nnoremap <Leader>fa :Ag<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fc :Commands<CR>
+
+autocmd! BufWritePost,BufRead,BufEnter * Neomake

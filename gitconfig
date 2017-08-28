@@ -13,6 +13,7 @@
 	d = diff
 	sh = push
     ll = pull
+    llp = pull origin production
     ash = stash
 	co = checkout
 [core]

@@ -51,3 +51,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export GOROOT=/usr/local/go
 export GOPATH=~/.go
 PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
