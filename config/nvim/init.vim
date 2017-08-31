@@ -47,6 +47,7 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'tpope/vim-obsession'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/tpope-vim-abolish'
 
 call plug#end()
 filetype plugin indent on
@@ -90,8 +91,8 @@ vnoremap <F6> <ESC>:set background=dark<CR>
 let mapleader = ","
 
 " Atalhos para salvar, salvarsair, sair
-nnoremap <leader>w :w<CR>
-nnoremap <leader>x :wq<CR>
+nnoremap <leader>w :wa<CR>
+nnoremap <leader>x :wqa<CR>
 nnoremap <leader>q :q<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>
@@ -158,7 +159,7 @@ vmap < <gv
 vmap > >gv
 
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
