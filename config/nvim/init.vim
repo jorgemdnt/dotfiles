@@ -48,6 +48,7 @@ Plug 'tpope/vim-obsession'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'Galooshi/vim-import-js'
 
 call plug#end()
 filetype plugin indent on
@@ -224,6 +225,7 @@ nnoremap <leader>bp :bn<cr>
 nmap <F7> :TagbarToggle<CR>
 
 let g:jedi#completions_enabled = 0
+let g:jedi#show_call_signatures = 1
 let python_highlight_all = 1
 
 " Desabilitar autowrapping
@@ -236,8 +238,8 @@ au FocusLost * :wa
 set autowriteall
 
 let g:UltiSnipsExpandTrigger="<C-a>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<C-s>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
@@ -250,7 +252,6 @@ set tags=./tags;
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-set completeopt-=preview
 nnoremap ; :
 
 let g:NERDTreeWinSize=60
@@ -262,3 +263,5 @@ nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
 autocmd! BufWritePost,BufRead,BufEnter * Neomake
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
