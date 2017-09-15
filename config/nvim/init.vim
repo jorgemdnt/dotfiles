@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 filetype off
 syntax on
 set ruler
@@ -20,7 +23,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
-Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint'
+Plug 'w0rp/ale'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
@@ -87,7 +90,7 @@ inoremap <F6> <ESC>:set background=dark<CR>a
 vnoremap <F5> <ESC>:set background=light<CR>
 vnoremap <F6> <ESC>:set background=dark<CR>
 
-let mapleader = ","
+let g:mapleader = ','
 
 " Atalhos para salvar, salvarsair, sair
 nnoremap <leader>w :wa<CR>
@@ -113,7 +116,6 @@ noremap <C-H> <C-W><C-H>
 
 if !has('nvim')
     set ttymouse=xterm2
-    set encoding=utf-8
 endif
 
 " Enable folding with the spacebar
@@ -140,9 +142,7 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-let NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
-"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-"map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+let g:NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 
 " busca insensitive
 set ignorecase
@@ -162,7 +162,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
-" Abreviacoes que melhoram a qualidade de vida
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -177,8 +176,8 @@ cnoreabbrev Qall qall
 " Git
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
+noremap <Leader>gh :Gpush<CR>
+noremap <Leader>gl :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
@@ -189,27 +188,38 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-" Copia pro clipboard no ubuntu
-"noremap YY "+y<CR>
-"noremap <leader>p "+gP<CR>
-"noremap XX "+x<CR>
-
 " Mover bloco visual
 vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_browser='Google Chrome'
-
 let g:jsx_ext_required = 0
 
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 
-let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
-let g:neomake_python_enabled_makers = ['flake8']
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+let g:ale_sign_error = '💥'
+let g:ale_sign_warning = '👎'
+highlight clear ALEError
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+let g:ale_echo_msg_error_str = '💥'
+let g:ale_echo_msg_warning_str = '🤢'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'jsx': ['eslint'],
+\}
+
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+
+augroup SaveOnFocusLost
+    au FocusLost * :wa
+augroup END
 
 let g:user_emmet_leader_key= '<C-Z>'
 tnoremap <Esc> <C-\><C-n>
@@ -221,7 +231,7 @@ nmap <F7> :TagbarToggle<CR>
 
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 1
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 " Desabilitar autowrapping
 set nowrap
@@ -229,18 +239,16 @@ set formatoptions-=t
 
 set updatetime=250
 set autoread
-au FocusLost * :wa
 set autowriteall
 
-let g:UltiSnipsExpandTrigger="<C-a>"
-let g:UltiSnipsJumpForwardTrigger="<C-s>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+let g:UltiSnipsExpandTrigger='<C-a>'
+let g:UltiSnipsJumpForwardTrigger='<C-s>'
+let g:UltiSnipsJumpBackwardTrigger='<C-z>'
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
-let g:ropevim_autoimport_modules = ["os", "shutil", "django.*", "decimal.*", 'functools.*', 'itertools.*', 'mock.*']
+let g:ropevim_autoimport_modules = ['os', 'shutil', 'django.*', 'decimal.*', 'functools.*', 'itertools.*', 'mock.*']
 let g:deoplete#enable_at_startup = 1
-
 
 set tags=./tags;
 
@@ -257,12 +265,10 @@ nnoremap <Leader>fa :Ag<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
-autocmd! BufWritePost,BufRead,BufEnter * Neomake
-
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-let test#python#runner = 'unittest'
-let test#strategy = 'neovim'
+let g:test#python#runner = 'unittest'
+let g:test#strategy = 'neovim'
 
 nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
