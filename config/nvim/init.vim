@@ -16,25 +16,21 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-gitgutter'
-Plug 'benmills/vimux'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint'
 Plug 'neovimhaskell/haskell-vim'
-"Plug 'vim-scripts/CSApprox'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'xolox/vim-misc'
 Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-dispatch'
 Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'davidhalter/jedi-vim'
-Plug 'hdima/python-syntax'
 Plug 'fatih/vim-go'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -49,6 +45,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'Galooshi/vim-import-js'
+Plug '5long/pytest-vim-compiler'
+Plug 'sjl/gundo.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -208,9 +206,6 @@ let g:jsx_ext_required = 0
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
-noremap <Leader>jb :Dispatch! webpack.js -d<CR>
-noremap <Leader>jt :VimuxRunCommand("npm test")<CR>
-
 let g:neomake_python_flake8_maker = {'args': ['--ignore=E501']}
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_javascript_enabled_makers = ['eslint']
@@ -265,3 +260,11 @@ nnoremap <Leader>fc :Commands<CR>
 autocmd! BufWritePost,BufRead,BufEnter * Neomake
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+let test#python#runner = 'unittest'
+let test#strategy = 'neovim'
+
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>td :let test#python#runner = 'djangotest'<CR>
+nnoremap <Leader>tp :let test#python#runner = 'unittest'<CR>
