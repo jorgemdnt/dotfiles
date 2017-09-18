@@ -53,7 +53,7 @@ Plug 'sjl/gundo.vim'
 call plug#end()
 filetype plugin indent on
 
-colorscheme Tomorrow-Night
+colorscheme alduin
 set wildmenu
 set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
@@ -146,10 +146,6 @@ let g:NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 " busca insensitive
 set ignorecase
 set infercase
-
-set listchars=tab:▸\ ,eol:¬,space:·
-set list
-
 
 noremap <leader>l :lopen<cr>
 
