@@ -196,15 +196,16 @@ let g:jsx_ext_required = 0
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
-let g:ale_sign_error = '💥'
-let g:ale_sign_warning = '👎'
+"let g:ale_set_loclist = 1
+"let g:ale_set_quickfix = 0
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '!'
+let g:ale_sign_warning = '?'
 highlight clear ALEError
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-let g:ale_echo_msg_error_str = '💥'
-let g:ale_echo_msg_warning_str = '🤢'
+"highlight clear ALEErrorSign
+"highlight clear ALEWarningSign
+let g:ale_echo_msg_error_str = '!'
+let g:ale_echo_msg_warning_str = '?'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -266,10 +267,26 @@ nnoremap <Leader>fc :Commands<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-let g:test#python#runner = 'unittest'
+let g:test#python#runner = 'pytest'
 let g:test#strategy = 'neovim'
 
 nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>td :let test#python#runner = 'djangotest'<CR>
-nnoremap <Leader>tp :let test#python#runner = 'unittest'<CR>
+nnoremap <Leader>tp :let test#python#runner = 'pytest'<CR>
+
+let g:tagbar_type_javascript = {
+    \ 'kinds' : [
+        \ 'v:global variables:0:0',
+        \ 'c:classes',
+        \ 'o:object',
+        \ 'p:properties:0:0',
+        \ 'm:methods',
+        \ 'i:imports',
+        \ 'f:functions',
+        \ 'a:array',
+        \ 'g:generator',
+        \ 'e:export',
+        \ '?:unknown',
+    \ ],
+\ }
