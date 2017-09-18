@@ -16,6 +16,7 @@
 --exclude=dist
 --exclude=documentation
 --exclude=db
+--exclude=bootstrap-3.3.1
 
 
 --langmap=javascript:.js.es6.es.jsx
