@@ -134,6 +134,11 @@ au BufNewFile,BufRead *.js,*.jsx,*.html,*.css
         \ set softtabstop=4 |
         \ set shiftwidth=4 |
 
+au BufNewFile,BufRead *.rb
+        \ set tabstop=2 |
+        \ set softtabstop=2 |
+        \ set shiftwidth=2 |
+
 runtime macros/matchit.vim
 
 noremap <Up> <NOP>
