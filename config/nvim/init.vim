@@ -49,6 +49,8 @@ Plug 'tpope/tpope-vim-abolish'
 Plug 'Galooshi/vim-import-js'
 Plug '5long/pytest-vim-compiler'
 Plug 'sjl/gundo.vim'
+Plug 'guns/vim-clojure-static'
+Plug 'kien/rainbow_parentheses.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -283,3 +285,12 @@ let g:tagbar_type_javascript = {
         \ '?:unknown',
     \ ],
 \ }
+
+
+augroup filetype_clojure
+    autocmd!
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+augroup END
