@@ -55,7 +55,7 @@ Plug 'kien/rainbow_parentheses.vim'
 call plug#end()
 filetype plugin indent on
 
-colorscheme alduin
+colorscheme apprentice
 set wildmenu
 set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
@@ -199,7 +199,6 @@ let g:jsx_ext_required = 0
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-let g:ale_sign_column_always = 1
 highlight clear ALEError
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
@@ -286,7 +285,6 @@ let g:tagbar_type_javascript = {
     \ ],
 \ }
 
-
 augroup filetype_clojure
     autocmd!
     au VimEnter * RainbowParenthesesToggle
@@ -294,3 +292,5 @@ augroup filetype_clojure
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 augroup END
+
+let g:airline_theme='luna'
