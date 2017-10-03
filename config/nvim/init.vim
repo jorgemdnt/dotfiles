@@ -185,11 +185,6 @@ noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
-" Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
-
 " Mover bloco visual
 vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
@@ -219,7 +214,7 @@ let g:user_emmet_leader_key= '<C-Z>'
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bn<cr>
+nnoremap <leader>bp :bp<cr>
 
 nmap <F7> :TagbarToggle<CR>
 
