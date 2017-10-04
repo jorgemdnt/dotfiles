@@ -210,9 +210,9 @@ augroup SaveOnFocusLost
     au FocusLost * :wa
 augroup END
 
-let g:user_emmet_leader_key= '<C-Z>'
 tnoremap <Esc> <C-\><C-n>
 
+nnoremap <leader>bd :bdelete<cr>
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
 
@@ -231,8 +231,8 @@ set autoread
 set autowriteall
 
 let g:UltiSnipsExpandTrigger='<C-a>'
-let g:UltiSnipsJumpForwardTrigger='<C-s>'
-let g:UltiSnipsJumpBackwardTrigger='<C-z>'
+let g:UltiSnipsJumpForwardTrigger='<C-s> f'
+let g:UltiSnipsJumpBackwardTrigger='<C-s> b'
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
