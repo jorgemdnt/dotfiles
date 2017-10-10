@@ -110,11 +110,6 @@ map <F3> :NERDTreeFind<CR>
 "autoform
 noremap <F4> :Autoformat<CR>
 
-noremap <C-J> <C-W><C-J>
-noremap <C-K> <C-W><C-K>
-noremap <C-L> <C-W><C-L>
-noremap <C-H> <C-W><C-H>
-
 if !has('nvim')
     set ttymouse=xterm2
 endif
@@ -163,6 +158,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -213,8 +209,8 @@ augroup END
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap <leader>bd :bdelete<cr>
-nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bp<cr>
+nnoremap <C-L> :bn<cr>
+nnoremap <C-H> :bp<cr>
 
 nmap <F7> :TagbarToggle<CR>
 
