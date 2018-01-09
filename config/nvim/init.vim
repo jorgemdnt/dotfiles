@@ -28,7 +28,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'xolox/vim-misc'
 Plug 'Raimondi/delimitMate'
-Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && sudo npm install -g
+Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && npm install
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
@@ -63,7 +63,6 @@ set hlsearch
 set laststatus=2
 
 " Copy/Paste/Cut
-set clipboard=unnamed
 set nocursorline
 set norelativenumber
 set foldmethod=indent
@@ -100,9 +99,6 @@ nnoremap <leader>q :q<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>
 
-" Airline
-let g:airline_powerline_fonts = 1
-
 "NERDTREE
 map <F2> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
@@ -126,10 +122,15 @@ au BufNewFile,BufRead *.py
         \ set autoindent |
         \ set fileformat=unix |
 
-au BufNewFile,BufRead *.js,*.jsx,*.html,*.css
+au BufNewFile,BufRead *.html,*.css
         \ set tabstop=4 |
         \ set softtabstop=4 |
         \ set shiftwidth=4 |
+
+au BufNewFile,BufRead *.js,*.jsx
+        \ set tabstop=2 |
+        \ set softtabstop=2 |
+        \ set shiftwidth=2 |
 
 au BufNewFile,BufRead *.rb
         \ set tabstop=2 |
@@ -190,11 +191,12 @@ let g:jsx_ext_required = 0
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-highlight clear ALEError
+"highlight clear ALEError
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'jsx': ['eslint'],
+\   'ruby': ['rubocop'],
 \}
 
 augroup FiletypeGroup
@@ -242,8 +244,6 @@ match ExtraWhitespace /\s\+$/
 
 nnoremap ; :
 
-let g:NERDTreeWinSize=60
-
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>ft :Tags<CR>
 nnoremap <Leader>fa :Ag<CR>
@@ -284,8 +284,6 @@ augroup filetype_clojure
     au Syntax * RainbowParenthesesLoadBraces
 augroup END
 
-let g:airline_theme='luna'
-
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -304,3 +302,16 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+let g:airline_powerline_fonts = 0
+let g:tmuxline_powerline_separators = 0
+
+set clipboard=unnamedplus
+
+let g:ale_fixers = {
+\   'javascript': [
+\       'eslint',
+\   ],
+\}
+
+let g:go_fmt_command = "goimports"
