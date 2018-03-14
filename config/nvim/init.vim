@@ -51,6 +51,8 @@ Plug '5long/pytest-vim-compiler'
 Plug 'sjl/gundo.vim'
 Plug 'guns/vim-clojure-static'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'fenetikm/falcon'
 
 call plug#end()
 filetype plugin indent on
@@ -62,7 +64,6 @@ set incsearch
 set hlsearch
 set laststatus=2
 
-" Copy/Paste/Cut
 set nocursorline
 set norelativenumber
 set foldmethod=indent
@@ -77,7 +78,6 @@ set fileformat=unix
 
 set exrc
 
-"" pls no swap
 set nobackup
 set noswapfile
 
@@ -90,28 +90,22 @@ inoremap <F6> <ESC>:set background=dark<CR>a
 vnoremap <F5> <ESC>:set background=light<CR>
 vnoremap <F6> <ESC>:set background=dark<CR>
 
-let g:mapleader = ','
+let g:mapleader = ' '
 
-" Atalhos para salvar, salvarsair, sair
 nnoremap <leader>w :wa<CR>
 nnoremap <leader>x :wqa<CR>
 nnoremap <leader>q :q<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>
 
-"NERDTREE
 map <F2> :NERDTreeToggle<CR>
 map <F3> :NERDTreeFind<CR>
 
-"autoform
 noremap <F4> :Autoformat<CR>
 
 if !has('nvim')
     set ttymouse=xterm2
 endif
-
-" Enable folding with the spacebar
-nnoremap <space> za
 
 au BufNewFile,BufRead *.py
         \ set tabstop=4 |
@@ -139,14 +133,8 @@ au BufNewFile,BufRead *.rb
 
 runtime macros/matchit.vim
 
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-
 let g:NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 
-" busca insensitive
 set ignorecase
 set infercase
 
@@ -172,7 +160,6 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-" Git
 noremap <Leader>ga :Gwrite<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gh :Gpush<CR>
@@ -182,7 +169,6 @@ noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
-" Mover bloco visual
 vnoremap <C-J> :m '>+1<CR>gv=gv
 vnoremap <C-K> :m '<-2<CR>gv=gv
 
@@ -191,7 +177,6 @@ let g:jsx_ext_required = 0
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-"highlight clear ALEError
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -220,7 +205,6 @@ let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 1
 let g:python_highlight_all = 1
 
-" Desabilitar autowrapping
 set nowrap
 set formatoptions-=t
 
@@ -243,6 +227,7 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 nnoremap ; :
+vnoremap ; :
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>ft :Tags<CR>
@@ -315,3 +300,19 @@ let g:ale_fixers = {
 \}
 
 let g:go_fmt_command = "goimports"
+
+autocmd FileType markdown call MarkdownConfig()
+
+function MarkdownConfig()
+    set wrap
+    set linebreak
+endfunction
+
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+
+nnoremap <bs> <c-^>
+
+:imap jk <esc>
