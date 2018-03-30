@@ -1,2 +1,4 @@
 vim/bundle/*
 config/nvim/bundle/*
+config/nvim/undodir/*
+.netrwhist

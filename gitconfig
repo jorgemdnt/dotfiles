@@ -1,6 +1,7 @@
 [user]
 	email = jorgemodes@gmail.com
 	name = Jorge Modesto
+	signingkey = E1776D16921D358A
 [color]
 	ui = true
 [push]
@@ -19,3 +20,7 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = nvim
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
