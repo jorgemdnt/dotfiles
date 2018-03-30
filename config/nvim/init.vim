@@ -1,9 +1,5 @@
-set encoding=utf-8
-scriptencoding utf-8
-
 filetype off
 syntax on
-set ruler
 set number
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
@@ -12,7 +8,6 @@ highlight nonText ctermbg=NONE
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
-Plug 'scrooloose/nerdtree'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Konfekt/FastFold'
 Plug 'tpope/vim-fugitive'
@@ -26,12 +21,10 @@ Plug 'w0rp/ale'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
-Plug 'xolox/vim-misc'
 Plug 'Raimondi/delimitMate'
 Plug 'ternjs/tern_for_vim' " cd ~/.config/nvim/bundle/tern_for_vim && npm install
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'majutsushi/tagbar'
 Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go'
 Plug 'SirVer/ultisnips'
@@ -52,7 +45,9 @@ Plug 'sjl/gundo.vim'
 Plug 'guns/vim-clojure-static'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'elixir-editors/vim-elixir'
-Plug 'fenetikm/falcon'
+Plug 'ryanoasis/vim-devicons'
+Plug 'alx741/vim-hindent'
+Plug 'tpope/vim-vinegar'
 
 call plug#end()
 filetype plugin indent on
@@ -62,7 +57,6 @@ set wildmenu
 set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
 set hlsearch
-set laststatus=2
 
 set nocursorline
 set norelativenumber
@@ -98,9 +92,6 @@ nnoremap <leader>q :q<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>
 
-map <F2> :NERDTreeToggle<CR>
-map <F3> :NERDTreeFind<CR>
-
 noremap <F4> :Autoformat<CR>
 
 if !has('nvim')
@@ -112,28 +103,18 @@ au BufNewFile,BufRead *.py
         \ set softtabstop=4 |
         \ set shiftwidth=4 |
         \ set textwidth=79 |
-        \ set expandtab |
-        \ set autoindent |
-        \ set fileformat=unix |
 
 au BufNewFile,BufRead *.html,*.css
         \ set tabstop=4 |
         \ set softtabstop=4 |
         \ set shiftwidth=4 |
 
-au BufNewFile,BufRead *.js,*.jsx
-        \ set tabstop=2 |
-        \ set softtabstop=2 |
-        \ set shiftwidth=2 |
-
-au BufNewFile,BufRead *.rb
+au BufNewFile,BufRead *.js,*.jsx,*.rb,*.hs,*.md
         \ set tabstop=2 |
         \ set softtabstop=2 |
         \ set shiftwidth=2 |
 
 runtime macros/matchit.vim
-
-let g:NERDTreeIgnore = ['\.pyc$', '__pycache__$', 'node_modules']
 
 set ignorecase
 set infercase
@@ -183,14 +164,15 @@ let g:ale_linters = {
 \   'jsx': ['eslint'],
 \   'ruby': ['rubocop'],
 \}
+let g:ale_fixers = {
+\   'javascript': [
+\       'eslint',
+\   ],
+\}
 
 augroup FiletypeGroup
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END
-
-augroup SaveOnFocusLost
-    au FocusLost * :wa
 augroup END
 
 tnoremap <Esc> <C-\><C-n>
@@ -213,8 +195,8 @@ set autoread
 set autowriteall
 
 let g:UltiSnipsExpandTrigger='<C-a>'
-let g:UltiSnipsJumpForwardTrigger='<C-s> f'
-let g:UltiSnipsJumpBackwardTrigger='<C-s> b'
+let g:UltiSnipsJumpForwardTrigger='<C-j>'
+let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>s y:%s/<c-r>"/
@@ -231,7 +213,8 @@ vnoremap ; :
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>ft :Tags<CR>
-nnoremap <Leader>fa :Ag<CR>
+nnoremap <Leader>fa :Ag<space>
+nnoremap <Leader>fz :Ag<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
@@ -242,8 +225,6 @@ let g:test#strategy = 'neovim'
 
 nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
-nnoremap <Leader>td :let test#python#runner = 'djangotest'<CR>
-nnoremap <Leader>tp :let test#python#runner = 'pytest'<CR>
 
 let g:tagbar_type_javascript = {
     \ 'kinds' : [
@@ -282,22 +263,16 @@ let g:rbpt_colorpairs = [
     \ ['white',       'SeaGreen3'],
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['Darkblue',    'firebrick3'],
+    \ ['red',         'firebrick3'],
     \ ['darkgreen',   'RoyalBlue3'],
     \ ['darkcyan',    'SeaGreen3'],
     \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
     \ ]
 
 let g:airline_powerline_fonts = 0
 let g:tmuxline_powerline_separators = 0
 
 set clipboard=unnamedplus
-
-let g:ale_fixers = {
-\   'javascript': [
-\       'eslint',
-\   ],
-\}
 
 let g:go_fmt_command = "goimports"
 
@@ -315,4 +290,17 @@ augroup END
 
 nnoremap <bs> <c-^>
 
-:imap jk <esc>
+imap jk <esc>
+
+set undofile
+set undodir=~/.config/nvim/undodir
+
+set hid
+
+nnoremap <Leader>u :GundoToggle<CR>
+
+nnoremap <Leader>n :Vexplore<CR>
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
