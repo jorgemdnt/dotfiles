@@ -1,26 +1,26 @@
 [user]
-	email = jorgemodes@gmail.com
-	name = Jorge Modesto
-	signingkey = E1776D16921D358A
+    email = jorgemodes@gmail.com
+    name = Jorge Modesto
+    signingkey = E1776D16921D358A
 [color]
-	ui = true
+    ui = true
 [push]
-	default = current
+    default = current
 [alias]
-	a = add
-	b = branch
-	cm = commit
-	s = status
-	d = diff
-	sh = push
+    a = add
+    b = branch
+    cm = commit
+    s = status
+    d = diff
+    sh = push
     ll = pull
     llp = pull origin production
     ash = stash
-	co = checkout
+    co = checkout
 [core]
-	excludesfile = ~/.gitignore_global
-	editor = nvim
+    excludesfile = ~/.gitignore_global
+    editor = nvim
 [commit]
-	gpgsign = true
+    gpgsign = true
 [gpg]
-	program = gpg2
+    program = gpg2
