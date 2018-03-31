@@ -3,10 +3,8 @@
 - link:
     ~/.tmux.conf: tmux.conf
     ~/.gitconfig: gitconfig
-    ~/.bash_it: bash_it/
-    ~/.bashrc: bashrc
     ~/.inputrc: inputrc
-    ~/.config/nvim: config/nvim/
+    ~/.vim: vim/
     ~/.zshrc: zshrc
     ~/.ctags: ctags
 

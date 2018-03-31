@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jorgemdnt/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -83,20 +83,48 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
+#alias vim="nvim"
+alias vimrc="vim ~/.config/nvim/init.vim"
+alias zshrc="vim ~/.zshrc"
+alias note="vim ~/notes/"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias r="rd-docker"
 
 export GOPATH=$HOME/work
-
-source "/usr/bin/virtualenvwrapper_lazy.sh"
-export WORKON_HOME=$HOME/.virtualenvs
+export GOROOT=/usr/local/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export REDISTOGO_URL='redis://0.0.0.0:32779'
 
 # export PATH="/home/jorgemdnt/anaconda2/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -d "$HOME/platform-tools" ] ; then
+    export PATH="$HOME/platform-tools:$PATH"
+fi
+
+[ -z "$TMUX"  ] && { tmux attach || tmux new-session;}
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.local/bin:$HOME/.rvm/bin"
+export GPG_TTY=$(tty)
+
+toggleesc() {
+    if xmodmap -pke | egrep -i "escape" | egrep -i "keycode.*9.*"; then
+        echo "Changing from original to mapped"
+        xmodmap -e "clear lock"
+        xmodmap -e "keycode 66 = Escape"
+        xmodmap -e "keycode 9 = Caps_Lock"
+        xmodmap -e "add Lock = Caps_Lock"
+    else
+        echo "Changing back from mapped to original"
+        xmodmap -e "clear lock"
+        xmodmap -e "keycode 9 = Escape"
+        xmodmap -e "keycode 66 = Caps_Lock"
+        xmodmap -e "add Lock = Caps_Lock"
+    fi
+}

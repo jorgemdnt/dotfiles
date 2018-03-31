@@ -4,8 +4,13 @@ set number
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'Chiel92/vim-autoformat'
@@ -32,7 +37,15 @@ Plug 'honza/vim-snippets'
 Plug 'janko-m/vim-test'
 Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
 Plug 'edkolev/tmuxline.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'zchee/deoplete-jedi'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'tpope/vim-obsession'
@@ -48,6 +61,7 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'ryanoasis/vim-devicons'
 Plug 'alx741/vim-hindent'
 Plug 'tpope/vim-vinegar'
+Plug 'junegunn/vim-emoji'
 
 call plug#end()
 filetype plugin indent on
@@ -223,8 +237,8 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:test#python#runner = 'pytest'
 let g:test#strategy = 'neovim'
 
-nnoremap <Leader>tf :TestFile<CR>
-nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>to :bo ter ++rows=6 ++close<CR>
+nnoremap <Leader>te :bo ter ++rows=6<space>
 
 let g:tagbar_type_javascript = {
     \ 'kinds' : [
@@ -276,12 +290,9 @@ set clipboard=unnamedplus
 
 let g:go_fmt_command = "goimports"
 
-autocmd FileType markdown call MarkdownConfig()
-
-function MarkdownConfig()
-    set wrap
-    set linebreak
-endfunction
+au FileType markdown
+        \ set wrap |
+        \ set linebreak |
 
 augroup PrevimSettings
     autocmd!
