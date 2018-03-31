@@ -5,9 +5,9 @@ highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -39,11 +39,11 @@ Plug 'python-rope/ropevim' " cd ..bundle/ropevim/ && python setup.py install
 Plug 'edkolev/tmuxline.vim'
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'zchee/deoplete-jedi'
@@ -81,7 +81,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set smarttab
 set autoindent
+set smartindent
 set fileformat=unix
 
 set exrc
@@ -111,22 +113,6 @@ noremap <F4> :Autoformat<CR>
 if !has('nvim')
     set ttymouse=xterm2
 endif
-
-au BufNewFile,BufRead *.py
-        \ set tabstop=4 |
-        \ set softtabstop=4 |
-        \ set shiftwidth=4 |
-        \ set textwidth=79 |
-
-au BufNewFile,BufRead *.html,*.css
-        \ set tabstop=4 |
-        \ set softtabstop=4 |
-        \ set shiftwidth=4 |
-
-au BufNewFile,BufRead *.js,*.jsx,*.rb,*.hs,*.md
-        \ set tabstop=2 |
-        \ set softtabstop=2 |
-        \ set shiftwidth=2 |
 
 runtime macros/matchit.vim
 
@@ -174,19 +160,34 @@ let g:delimitMate_expand_space = 1
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'jsx': ['eslint'],
-\   'ruby': ['rubocop'],
-\}
+            \   'javascript': ['eslint'],
+            \   'jsx': ['eslint'],
+            \   'ruby': ['rubocop'],
+            \}
 let g:ale_fixers = {
-\   'javascript': [
-\       'eslint',
-\   ],
-\}
+            \   'javascript': [
+            \       'eslint',
+            \   ],
+            \}
 
 augroup FiletypeGroup
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+    au BufNewFile,BufRead *.py
+                \ set tabstop=4 |
+                \ set softtabstop=4 |
+                \ set shiftwidth=4 |
+                \ set textwidth=79 |
+
+    au BufNewFile,BufRead *.html,*.css
+                \ set tabstop=4 |
+                \ set softtabstop=4 |
+                \ set shiftwidth=4 |
+
+    au BufNewFile,BufRead *.js,*.jsx,*.rb,*.hs,*.md
+                \ set tabstop=2 |
+                \ set softtabstop=2 |
+                \ set shiftwidth=2 |
 augroup END
 
 tnoremap <Esc> <C-\><C-n>
@@ -241,47 +242,49 @@ nnoremap <Leader>to :bo ter ++rows=6 ++close<CR>
 nnoremap <Leader>te :bo ter ++rows=6<space>
 
 let g:tagbar_type_javascript = {
-    \ 'kinds' : [
-        \ 'v:global variables:0:0',
-        \ 'c:classes',
-        \ 'o:object',
-        \ 'p:properties:0:0',
-        \ 'm:methods',
-        \ 'i:imports',
-        \ 'f:functions',
-        \ 'a:array',
-        \ 'g:generator',
-        \ 'e:export',
-        \ '?:unknown',
-    \ ],
-\ }
+            \ 'kinds' : [
+            \ 'v:global variables:0:0',
+            \ 'c:classes',
+            \ 'o:object',
+            \ 'p:properties:0:0',
+            \ 'm:methods',
+            \ 'i:imports',
+            \ 'f:functions',
+            \ 'a:array',
+            \ 'g:generator',
+            \ 'e:export',
+            \ '?:unknown',
+            \ ],
+            \ }
 
-augroup filetype_clojure
-    autocmd!
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-augroup END
+if !empty(glob('~/.vim/plugged/rainbow_parentheses.vim/'))
+    augroup RainbowConfigs
+        autocmd!
+        au VimEnter * RainbowParenthesesToggle
+        au Syntax * RainbowParenthesesLoadRound
+        au Syntax * RainbowParenthesesLoadSquare
+        au Syntax * RainbowParenthesesLoadBraces
+    augroup END
+endif
 
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['white',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['red',         'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ]
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['white',       'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['red',         'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ]
 
 let g:airline_powerline_fonts = 0
 let g:tmuxline_powerline_separators = 0
@@ -291,8 +294,8 @@ set clipboard=unnamedplus
 let g:go_fmt_command = "goimports"
 
 au FileType markdown
-        \ set wrap |
-        \ set linebreak |
+            \ set wrap |
+            \ set linebreak |
 
 augroup PrevimSettings
     autocmd!
@@ -310,7 +313,7 @@ set hid
 
 nnoremap <Leader>u :GundoToggle<CR>
 
-nnoremap <Leader>n :Vexplore<CR>
+nnoremap <F2> :Vexplore<CR>
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
