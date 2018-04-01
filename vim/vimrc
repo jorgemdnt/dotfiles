@@ -62,11 +62,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'alx741/vim-hindent'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/vim-emoji'
+Plug 'padde/jump.vim'
 
 call plug#end()
 filetype plugin indent on
 
 colorscheme apprentice
+
 set wildmenu
 set wildignore+=*/node_modules/**,*/__pycache__/**,*/.idea/**
 set incsearch
@@ -126,7 +128,6 @@ vmap > >gv
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
@@ -173,30 +174,29 @@ let g:ale_fixers = {
 augroup FiletypeGroup
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+    au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     au BufNewFile,BufRead *.py
                 \ set tabstop=4 |
                 \ set softtabstop=4 |
                 \ set shiftwidth=4 |
                 \ set textwidth=79 |
 
-    au BufNewFile,BufRead *.html,*.css
+    au BufNewFile,BufRead *.{html,css}
                 \ set tabstop=4 |
                 \ set softtabstop=4 |
                 \ set shiftwidth=4 |
 
-    au BufNewFile,BufRead *.js,*.jsx,*.rb,*.hs,*.md
+    au BufNewFile,BufRead *.{js,jsx,rb,hs,md}
                 \ set tabstop=2 |
                 \ set softtabstop=2 |
                 \ set shiftwidth=2 |
-augroup END
 
-tnoremap <Esc> <C-\><C-n>
+    au BufNewFile,BufRead *.rb set colorcolumn=100
+augroup END
 
 nnoremap <leader>bd :bdelete<cr>
 nnoremap <C-L> :bn<cr>
 nnoremap <C-H> :bp<cr>
-
-nmap <F7> :TagbarToggle<CR>
 
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 1
@@ -241,22 +241,6 @@ let g:test#strategy = 'neovim'
 nnoremap <Leader>to :bo ter ++rows=6 ++close<CR>
 nnoremap <Leader>te :bo ter ++rows=6<space>
 
-let g:tagbar_type_javascript = {
-            \ 'kinds' : [
-            \ 'v:global variables:0:0',
-            \ 'c:classes',
-            \ 'o:object',
-            \ 'p:properties:0:0',
-            \ 'm:methods',
-            \ 'i:imports',
-            \ 'f:functions',
-            \ 'a:array',
-            \ 'g:generator',
-            \ 'e:export',
-            \ '?:unknown',
-            \ ],
-            \ }
-
 if !empty(glob('~/.vim/plugged/rainbow_parentheses.vim/'))
     augroup RainbowConfigs
         autocmd!
@@ -297,11 +281,6 @@ au FileType markdown
             \ set wrap |
             \ set linebreak |
 
-augroup PrevimSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-augroup END
-
 nnoremap <bs> <c-^>
 
 imap jk <esc>
@@ -318,3 +297,13 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
+
+nnoremap <Leader>j :J<space>
+
+nnoremap <Leader>ev :e $MYVIMRC<CR>
+nnoremap <Leader>eg :e $MYGVIMRC<CR>
+
+augroup vimrc
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+augroup END

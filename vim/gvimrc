@@ -5,9 +5,9 @@ set guioptions-=L
 
 set guifont=Hack\ Nerd\ Font\ Regular\ 12
 
-colorscheme base16-ateliercave
-
 set lines=999 columns=999
+
+colorscheme base16-ateliercave
 
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
