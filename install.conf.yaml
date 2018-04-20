@@ -5,6 +5,7 @@
     ~/.gitconfig: gitconfig
     ~/.inputrc: inputrc
     ~/.vim: vim/
+    ~/.config/nvim: config/nvim/
     ~/.zshrc: zshrc
     ~/.ctags: ctags
 
