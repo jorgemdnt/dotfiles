@@ -83,7 +83,9 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+alias vim="nvim"
 alias vimrc="vim ~/.vim/vimrc"
+alias nvimrc="vim ~/.config/nvim/init.vim"
 alias gvimrc="vim ~/.vim/gvimrc"
 alias zshrc="vim ~/.zshrc"
 alias note="vim ~/notes/"
