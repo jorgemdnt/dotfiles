@@ -22,7 +22,7 @@ curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compos
 env zsh && chsh -s $(grep /zsh$ /etc/shells | tail -1)
 
 # OH-MY-ZSH install
-curl -L http://install.ohmyz.sh
+curl -L http://install.ohmyz.sh | sh
 git clone git@github.com:zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions/
 
