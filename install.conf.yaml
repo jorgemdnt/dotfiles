@@ -2,6 +2,7 @@
 
 - link:
     ~/.tmux.conf: tmux.conf
+    ~/.tmuxline.snapshot: tmuxline.snapshot
     ~/.gitconfig: gitconfig
     ~/.inputrc: inputrc
     ~/.vim: vim/
