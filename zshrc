@@ -131,3 +131,6 @@ toggleesc() {
         xmodmap -e "add Lock = Caps_Lock"
     fi
 }
+
+export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
+export PATH=$PATH:~/.npm/bin
