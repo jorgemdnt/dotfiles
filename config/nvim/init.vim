@@ -9,11 +9,18 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
+set autowrite
+set updatetime=500
 set number
 set clipboard+=unnamedplus
 set noswapfile
@@ -30,7 +37,7 @@ set autoindent
 set smartindent
 
 set termguicolors
-colorscheme base16-atelierplateau
+colorscheme base16-atelierheath
 set background=dark
 
 function! ToggleBackground()
@@ -100,3 +107,11 @@ nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_powerline_fonts = 1
+let g:tmuxline_powerline_separators = 0
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
