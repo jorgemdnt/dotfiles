@@ -16,6 +16,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tpope/vim-repeat'
 
 call plug#end()
 
@@ -109,9 +111,13 @@ nnoremap <Leader>fc :Commands<CR>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:deoplete#enable_at_startup = 1
