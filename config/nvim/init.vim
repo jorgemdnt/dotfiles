@@ -18,6 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-repeat'
+Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
@@ -29,18 +30,20 @@ set noswapfile
 set ignorecase
 set infercase
 
-set tabstop=4
+set tabstop=8
 set softtabstop=4
 set shiftwidth=4
 set fileformat=unix
 set expandtab
 set smarttab
 set autoindent
-set smartindent
 
 set termguicolors
 colorscheme base16-atelierheath
 set background=dark
+
+set undofile
+set undodir=~/.config/nvim/undodir
 
 function! ToggleBackground()
     if &background == 'dark'
@@ -80,7 +83,7 @@ augroup OpenQuickfixAfterGrep
     autocmd!
     autocmd QuickFixCmdPost [^l]* copen
     autocmd QuickFixCmdPost l*    lopen
-augroup END 
+augroup END
 
 augroup FiletypeSettings
     autocmd!
@@ -88,17 +91,17 @@ augroup FiletypeSettings
     au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     au BufNewFile,BufRead *.py set textwidth=79
 
+    au BufNewFile,BufRead *.go set noexpandtab
+
     au BufNewFile,BufRead *.{html,css,py}
-                \ set tabstop=4 |
                 \ set softtabstop=4 |
                 \ set shiftwidth=4 |
 
-    au BufNewFile,BufRead *.{js,jsx,rb,hs,md}
-                \ set tabstop=2 |
+    au BufNewFile,BufRead *.{js,jsx,rb,hs,md,yml}
                 \ set softtabstop=2 |
                 \ set shiftwidth=2 |
 
-    au BufNewFile,BufRead *.rb set colorcolumn=100
+    au BufNewFile,BufRead *.rb setlocal colorcolumn=100
 augroup END
 
 nnoremap <Leader>ff :Files<CR>
