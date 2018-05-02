@@ -9,16 +9,19 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tpope/vim-repeat'
 Plug 'elixir-editors/vim-elixir'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-ragtag'
+Plug 'alcesleo/vim-uppercase-sql'
 
 call plug#end()
 
@@ -37,9 +40,10 @@ set fileformat=unix
 set expandtab
 set smarttab
 set autoindent
+set hidden
 
 set termguicolors
-colorscheme base16-atelierheath
+colorscheme base16-atelierforest
 set background=dark
 
 set undofile
@@ -63,8 +67,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>bl :buffers<CR>
 nnoremap <leader>bb :buffer *
 nnoremap <leader>bd :bdelete<CR>
-nnoremap [b :bprevious<cr>
-nnoremap ]b :bnext<cr>
+nnoremap <C-H> :bprevious<cr>
+nnoremap <C-L> :bnext<cr>
 nnoremap <bs> <c-^>
 
 vmap < <gv
@@ -73,6 +77,13 @@ vmap > >gv
 nnoremap <leader><space> :nohlsearch<CR>
 
 noremap <F5> :call ToggleBackground()<CR>
+
+nnoremap <Leader>ev :e $MYVIMRC<CR>
+
+augroup AutoSourceVimrc
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+augroup END
 
 set nospell spelllang=en_us,pt_br
 autocmd BufNewFile,BufRead *.md set spell
@@ -89,6 +100,7 @@ augroup FiletypeSettings
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
     au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
     au BufNewFile,BufRead *.py set textwidth=79
 
     au BufNewFile,BufRead *.go set noexpandtab
@@ -113,14 +125,10 @@ nnoremap <Leader>fc :Commands<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_powerline_fonts = 1
-let g:tmuxline_powerline_separators = 0
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-
 let g:deoplete#enable_at_startup = 1
+
+nnoremap <F2> :Vexplore<CR>
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
