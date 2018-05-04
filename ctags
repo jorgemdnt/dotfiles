@@ -82,3 +82,5 @@
 --exclude=bower_components
 --exclude=test
 --exclude=tests
+
+--regex-ruby=/^[ \t]*class[ \t]\{1,\}\([A-Za-z0-9_$:]\{1,\}\)/\1/c/b
