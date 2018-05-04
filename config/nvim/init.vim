@@ -41,6 +41,7 @@ set expandtab
 set smarttab
 set autoindent
 set hidden
+set nowrap
 
 set termguicolors
 colorscheme base16-atelierforest
@@ -64,17 +65,18 @@ nnoremap <leader>w :wa<CR>
 nnoremap <leader>x :wqa<CR>
 nnoremap <leader>q :q<CR>
 
-nnoremap <leader>bl :buffers<CR>
-nnoremap <leader>bb :buffer *
+nnoremap <leader><space> :Buffers<CR>
 nnoremap <leader>bd :bdelete<CR>
-nnoremap <C-H> :bprevious<cr>
-nnoremap <C-L> :bnext<cr>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <Tab> :tabnext<cr>
+nnoremap <S-Tab> :tabprevious<cr>
 nnoremap <bs> <c-^>
 
 vmap < <gv
 vmap > >gv
 
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader>n :nohlsearch<CR>
 
 noremap <F5> :call ToggleBackground()<CR>
 
