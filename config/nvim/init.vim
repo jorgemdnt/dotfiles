@@ -32,6 +32,7 @@ set clipboard+=unnamedplus
 set noswapfile
 set ignorecase
 set infercase
+set gdefault
 
 set tabstop=8
 set softtabstop=4
@@ -67,6 +68,8 @@ nnoremap <leader>q :q<CR>
 
 nnoremap <leader><space> :Buffers<CR>
 nnoremap <leader>bd :bdelete<CR>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <Tab> :tabnext<cr>
@@ -91,6 +94,11 @@ set nospell spelllang=en_us,pt_br
 autocmd BufNewFile,BufRead *.md set spell
 
 let @e = 'ygv"=+p' " Calculate visual selection
+
+nnoremap c* *Ncgn
+nnoremap c# #NcgN
+
+set grepprg=ag\ --vimgrep
 
 augroup OpenQuickfixAfterGrep
     autocmd!
@@ -125,6 +133,9 @@ nnoremap <Leader>fz :Ag<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
+command! -nargs=+ -complete=shellcmd RunCommandOnTerminal belowright 10split term://<args>
+nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web rspec %<CR>
+
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:deoplete#enable_at_startup = 1
@@ -134,3 +145,16 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
+
+if executable('grip')
+    noremap <silent> <leader>om :call OpenMarkdownPreview()<cr>
+
+    function! OpenMarkdownPreview() abort
+      if exists('s:markdown_job_id') && s:markdown_job_id > 0
+        call jobstop(s:markdown_job_id)
+        unlet s:markdown_job_id
+      endif
+      let s:markdown_job_id = jobstart(
+        \ 'grip -b ' . shellescape(expand('%:p')) . " 0 2>&1 | awk '/Running/ { printf $4 }'")
+    endfunction
+endif
