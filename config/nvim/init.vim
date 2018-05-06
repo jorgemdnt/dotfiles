@@ -24,6 +24,8 @@ Plug 'tpope/vim-ragtag'
 Plug 'alcesleo/vim-uppercase-sql'
 Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
