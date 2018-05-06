@@ -22,6 +22,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-ragtag'
 Plug 'alcesleo/vim-uppercase-sql'
+Plug 'junegunn/goyo.vim'
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
 
@@ -43,9 +45,11 @@ set smarttab
 set autoindent
 set hidden
 set nowrap
+" Enable project specific .nvimrc/.exrc
+set exrc
 
 set termguicolors
-colorscheme base16-atelierforest
+colorscheme base16-railscasts
 set background=dark
 
 set undofile
@@ -75,6 +79,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <Tab> :tabnext<cr>
 nnoremap <S-Tab> :tabprevious<cr>
 nnoremap <bs> <c-^>
+inoremap jk <Esc>
 
 vmap < <gv
 vmap > >gv
@@ -109,7 +114,9 @@ augroup END
 augroup FiletypeSettings
     autocmd!
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-    au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+    au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*}
+                \ set filetype=markdown |
+                \ set wrap |
 
     au BufNewFile,BufRead *.py set textwidth=79
 
@@ -158,3 +165,25 @@ if executable('grip')
         \ 'grip -b ' . shellescape(expand('%:p')) . " 0 2>&1 | awk '/Running/ { printf $4 }'")
     endfunction
 endif
+
+nnoremap <F3> :Goyo<CR>
+
+function! s:goyo_enter()
+  if exists('$TMUX')
+    silent !tmux set status off
+    set list
+  endif
+endfunction
+
+function! s:goyo_leave()
+  if exists('$TMUX')
+    silent !tmux set status on
+  endif
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+set showbreak=↪\
+set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·
+set list
