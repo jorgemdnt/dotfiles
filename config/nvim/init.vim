@@ -99,14 +99,15 @@ augroup AutoSourceVimrc
 augroup END
 
 set nospell spelllang=en_us,pt_br
-autocmd BufNewFile,BufRead *.md set spell
+autocmd BufNewFile,BufRead *.md setlocal spell
 
 let @e = 'ygv"=+p' " Calculate visual selection
 
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-set grepprg=ag\ --vimgrep
+set grepprg=ag\ --vimgrep\ $*
+set grepformat=%f:%l:%c:%m
 
 augroup OpenQuickfixAfterGrep
     autocmd!
@@ -119,7 +120,6 @@ augroup FiletypeSettings
     au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
     au BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*}
                 \ set filetype=markdown |
-                \ set wrap |
 
     au BufNewFile,BufRead *.py set textwidth=79
 
@@ -138,8 +138,8 @@ augroup END
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>ft :Tags<CR>
-nnoremap <Leader>fa :Ag<space>
-nnoremap <Leader>fz :Ag<CR>
+nnoremap <Leader>fa :grep<space>
+nnoremap <Leader>fz :Ag<space>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Commands<CR>
 
@@ -165,7 +165,8 @@ if executable('grip')
         unlet s:markdown_job_id
       endif
       let s:markdown_job_id = jobstart(
-        \ 'grip -b ' . shellescape(expand('%:p')) . " 0 2>&1 | awk '/Running/ { printf $4 }'")
+        \ 'grip -b ' . shellescape(expand('%:p')) . " 0 2>&1 | awk '/Running/ { printf $4 }'"
+        \)
     endfunction
 endif
 
@@ -174,7 +175,6 @@ nnoremap <F3> :Goyo<CR>
 function! s:goyo_enter()
   if exists('$TMUX')
     silent !tmux set status off
-    set list
   endif
 endfunction
 
@@ -187,6 +187,52 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
+nnoremap <Leader>cs :%s/\<<C-r><C-w>\>/
+vnoremap <Leader>cs y:%s/<c-r>"/
+nnoremap <Leader>cg :grep <C-r><C-w><CR>
+vnoremap <Leader>cg y:grep /<c-r>"/<CR>
+
 set showbreak=↪\
 set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·
 set list
+
+let g:UltiSnipsExpandTrigger='<C-a>'
+let g:UltiSnipsJumpForwardTrigger='<C-j>'
+let g:UltiSnipsJumpBackwardTrigger='<C-k>'
+
+let g:autosessions = 0
+
+function! ToggleAutoSessions()
+    let g:autosessions = !g:autosessions
+endfunction
+
+function! MakeSession()
+  if g:sessionfile != "" && g:autosessions
+    echo "Saving."
+    if (filewritable(g:sessiondir) != 2)
+      exe 'silent !mkdir -p ' g:sessiondir
+      redraw!
+    endif
+    exe "mksession! " . g:sessionfile
+  endif
+endfunction
+
+function! LoadSession()
+  if argc() == 0 && g:autosessions
+    let g:sessiondir = $HOME . "/.config/nvim/sessions" . getcwd()
+    let g:sessionfile = g:sessiondir . "/session.vim"
+    if (filereadable(g:sessionfile))
+      exe 'source ' g:sessionfile
+    else
+      echo "No session loaded."
+    endif
+  else
+    let g:sessionfile = ""
+    let g:sessiondir = ""
+  endif
+endfunction
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call MakeSession()
+
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell']
