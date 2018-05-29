@@ -1,5 +1,7 @@
 bundle/
 undodir/
 plugged/
+config/nvim/sessions/
+config/nvim/spell/
 plug.vim
 .netrwhist
