@@ -8,7 +8,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/base16-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
@@ -26,6 +26,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'tpope/vim-markdown'
 
 call plug#end()
 
@@ -46,12 +47,15 @@ set expandtab
 set smarttab
 set autoindent
 set hidden
-set nowrap
 " Enable project specific .nvimrc/.exrc
 set exrc
 
+" Better gf command
+set path+=**
+set suffixesadd=.js,.rb
+
 set termguicolors
-colorscheme base16-railscasts
+colorscheme base16-onedark
 set background=dark
 
 set undofile
@@ -67,8 +71,7 @@ endfunction
 
 let g:mapleader = ' '
 
-nnoremap ; :
-nnoremap <leader>w :wa<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <leader>x :wqa<CR>
 nnoremap <leader>q :q<CR>
 
@@ -78,8 +81,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
-nnoremap <Tab> :tabnext<cr>
-nnoremap <S-Tab> :tabprevious<cr>
 nnoremap <bs> <c-^>
 inoremap jk <Esc>
 
