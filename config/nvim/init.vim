@@ -8,25 +8,28 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'airblade/vim-gitgutter'
+Plug 'alcesleo/vim-uppercase-sql'
 Plug 'chriskempson/base16-vim'
+Plug 'elixir-editors/vim-elixir'
+Plug 'honza/vim-snippets'
+Plug 'inside/vim-grep-operator'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'w0rp/ale'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'elixir-editors/vim-elixir'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-ragtag'
-Plug 'alcesleo/vim-uppercase-sql'
 Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-ruby/vim-ruby'
+Plug 'w0rp/ale'
 
 call plug#end()
 
