@@ -17,7 +17,6 @@ Plug 'inside/vim-grep-operator'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
@@ -172,23 +171,6 @@ if executable('grip')
         \)
     endfunction
 endif
-
-nnoremap <F3> :Goyo<CR>
-
-function! s:goyo_enter()
-  if exists('$TMUX')
-    silent !tmux set status off
-  endif
-endfunction
-
-function! s:goyo_leave()
-  if exists('$TMUX')
-    silent !tmux set status on
-  endif
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap <Leader>cs :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>cs y:%s/<c-r>"/
