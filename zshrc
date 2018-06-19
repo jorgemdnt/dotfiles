@@ -108,8 +108,6 @@ if [ -d "$HOME/platform-tools" ] ; then
     export PATH="$HOME/platform-tools:$PATH"
 fi
 
-[ -z "$TMUX"  ] && { tmux attach || tmux new-session;}
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.local/bin:$HOME/.rvm/bin"
 export GPG_TTY=$(tty)
