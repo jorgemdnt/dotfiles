@@ -51,6 +51,7 @@ set autoindent
 set hidden
 " Enable project specific .nvimrc/.exrc
 set exrc
+set mouse=a
 
 " Better gf command
 set path+=**
@@ -73,9 +74,9 @@ endfunction
 
 let g:mapleader = ' '
 
-nnoremap <leader>w :w<CR>
-nnoremap <leader>x :wqa<CR>
-nnoremap <leader>q :q<CR>
+nnoremap <leader>w :echoerr "Use ':w'!!!"<CR>
+nnoremap <leader>x :echoerr "Use ':x'!!!"<CR>
+nnoremap <leader>q :echoerr "Use ':q'!!!"<CR>
 
 nnoremap <leader><space> :Buffers<CR>
 nnoremap <leader>bd :bdelete<CR>
@@ -127,11 +128,7 @@ augroup FiletypeSettings
 
     au BufNewFile,BufRead *.go set noexpandtab
 
-    au BufNewFile,BufRead *.{html,css,py}
-                \ set softtabstop=4 |
-                \ set shiftwidth=4 |
-
-    au BufNewFile,BufRead *.{js,jsx,rb,hs,md,yml}
+    au BufNewFile,BufRead *.{js,jsx,rb,hs,md,yml,html,scss,css}
                 \ set softtabstop=2 |
                 \ set shiftwidth=2 |
 
@@ -174,8 +171,6 @@ endif
 
 nnoremap <Leader>cs :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>cs y:%s/<c-r>"/
-nnoremap <Leader>cg :grep <C-r><C-w><CR>
-vnoremap <Leader>cg y:grep /<c-r>"/<CR>
 
 set showbreak=↪\
 set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·
@@ -185,39 +180,16 @@ let g:UltiSnipsExpandTrigger='<C-a>'
 let g:UltiSnipsJumpForwardTrigger='<C-j>'
 let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
-let g:autosessions = 0
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell', 'java']
 
-function! ToggleAutoSessions()
-    let g:autosessions = !g:autosessions
-endfunction
+let g:gutentags_ctags_executable = 'uctags'
+let g:fzf_tags_command = 'uctags -R'
 
-function! MakeSession()
-  if g:sessionfile != "" && g:autosessions
-    echo "Saving."
-    if (filewritable(g:sessiondir) != 2)
-      exe 'silent !mkdir -p ' g:sessiondir
-      redraw!
-    endif
-    exe "mksession! " . g:sessionfile
-  endif
-endfunction
+nmap gr <Plug>GrepOperatorOnCurrentDirectory
+vmap gr <Plug>GrepOperatorOnCurrentDirectory
+nmap gR <Plug>GrepOperatorWithFilenamePrompt
+vmap gR <Plug>GrepOperatorWithFilenamePrompt
 
-function! LoadSession()
-  if argc() == 0 && g:autosessions
-    let g:sessiondir = $HOME . "/.config/nvim/sessions" . getcwd()
-    let g:sessionfile = g:sessiondir . "/session.vim"
-    if (filereadable(g:sessionfile))
-      exe 'source ' g:sessionfile
-    else
-      echo "No session loaded."
-    endif
-  else
-    let g:sessionfile = ""
-    let g:sessiondir = ""
-  endif
-endfunction
+tnoremap <Esc> <C-\><C-n>
 
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call MakeSession()
-
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell']
+au FocusLost * silent! wa
