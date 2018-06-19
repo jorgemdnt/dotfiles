@@ -116,3 +116,8 @@ export GPG_TTY=$(tty)
 
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 export PATH=$PATH:~/.npm/bin
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+export CHROME_BIN=$(which chromium)
