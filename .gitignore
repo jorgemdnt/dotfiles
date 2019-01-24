@@ -4,4 +4,6 @@ plugged/
 config/nvim/sessions/
 config/nvim/spell/
 plug.vim
+plug.vim.old
 .netrwhist
+.netrwbook

@@ -111,3 +111,22 @@ export GPG_TTY=$(tty)
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 export CHROME_BIN=$(which chromium)
+
+# Allow Ctrl-z to toggle between suspend and resume
+function Resume {
+    fg
+    zle push-input
+    BUFFER=""
+    zle accept-line
+}
+zle -N Resume
+bindkey "^Z" Resume
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$PATH:$HOME/KindleGen"
+
+# added by travis gem
+[ -f /home/jorgemodesto/.travis/travis.sh ] && source /home/jorgemodesto/.travis/travis.sh
