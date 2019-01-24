@@ -92,15 +92,11 @@ alias note="vim ~/notes/"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias r="rd-docker"
 
-export GOPATH=$HOME/work
-export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOROOT=/usr/lib/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # export PATH="/home/jorgemdnt/anaconda2/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -113,9 +109,5 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.rvm/bin"
 export GPG_TTY=$(tty)
 
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
-export PATH=$PATH:~/.npm/bin
 
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
 export CHROME_BIN=$(which chromium)
