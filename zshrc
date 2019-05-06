@@ -87,8 +87,10 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias gvimrc="vim ~/.vim/gvimrc"
+alias gs="g s"
 alias zshrc="vim ~/.zshrc"
 alias note="vim ~/notes/"
+alias todo="vim ~/notes/todo.md"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias r="rd-docker"
 

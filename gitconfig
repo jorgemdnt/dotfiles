@@ -5,18 +5,21 @@
 [color]
     ui = true
 [push]
-	default = current
+    default = current
 [alias]
     a = add
     b = branch
     cm = commit
     s = status
     d = diff
+    ds = diff --staged
     sh = push
     ll = pull
-    llp = pull origin production
+    llm = pull origin master
+    llc = !sh -c 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
     ash = stash
     co = checkout
+    fco = !sh -c 'git fetch origin $1:$1 && git checkout $1' -
 [core]
     excludesfile = ~/.gitignore_global
     editor = nvim
