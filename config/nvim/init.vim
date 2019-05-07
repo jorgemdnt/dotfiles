@@ -38,7 +38,6 @@ Plug 'w0rp/ale'
 Plug 'vim-scripts/CycleColor'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-
 call plug#end()
 
 set autowrite
@@ -67,7 +66,7 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-colorscheme base16-material
+colorscheme base16-classic-dark
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -155,6 +154,10 @@ nnoremap <Leader>fa :grep!<space>
 nnoremap <Leader>fz :Ag<space>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Colors<CR>
+
+command! CopyFileName :let @+ = expand("%:t")
+command! CopyFilePath :let @+ = expand("%:p")
+command! CopyRelativeFilePath :let @+ = expand("%")
 
 command! -nargs=+ -complete=shellcmd RunCommandOnTerminal belowright split term://<args>
 autocmd FileType ruby nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web rspec %<CR>
