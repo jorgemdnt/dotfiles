@@ -16,8 +16,9 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
 Plug 'honza/vim-snippets'
+Plug 'nikvdp/ejs-syntax'
 Plug 'inside/vim-grep-operator'
-Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fireplace'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kien/rainbow_parentheses.vim'
@@ -30,11 +31,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
 Plug 'w0rp/ale'
+Plug 'vim-scripts/CycleColor'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 
 call plug#end()
 
@@ -64,8 +67,7 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-colorscheme base16-atelier-sulphurpool-light
-" set background=dark
+colorscheme base16-material
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -138,7 +140,7 @@ augroup FiletypeSettings
 		\ setlocal softtabstop=8 |
 		\ setlocal shiftwidth=8
 
-        au BufNewFile,BufRead,BufEnter *.{js,jsx,rb,erb,hs,md,yml,html,scss,css}
+        au BufNewFile,BufRead,BufEnter *.{js,json,jsx,rb,erb,hs,md,yml,html,scss,css}
 		\ setlocal expandtab |
 		\ setlocal softtabstop=2 |
 		\ setlocal shiftwidth=2 |
@@ -152,12 +154,12 @@ nnoremap <Leader>ft :Tags<CR>
 nnoremap <Leader>fa :grep!<space>
 nnoremap <Leader>fz :Ag<space>
 nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fc :Commands<CR>
+nnoremap <Leader>fc :Colors<CR>
 
 command! -nargs=+ -complete=shellcmd RunCommandOnTerminal belowright split term://<args>
 autocmd FileType ruby nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web rspec %<CR>
 autocmd FileType javascript nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web npm run jest:test %<CR>
-autocmd FileType clojure nnoremap <Leader>rt :RunCommandOnTerminal docker-compose exec web lein test %<CR>
+autocmd FileType clojure nnoremap <Leader>rt :RunCommandOnTerminal docker-compose exec repl-server lein test %<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -210,3 +212,10 @@ au VimEnter *.clj RainbowParenthesesToggle
 au Syntax *.clj RainbowParenthesesLoadRound
 au Syntax *.clj RainbowParenthesesLoadSquare
 au Syntax *.clj RainbowParenthesesLoadBraces
+
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gb :Gblame<CR>
+
+let g:ale_pattern_options = {
+\   '.*config/routes.rb$': {'ale_enabled': 0},
+\}

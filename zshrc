@@ -85,6 +85,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias vim="nvim"
+alias open="xdg-open"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias gvimrc="vim ~/.vim/gvimrc"
 alias gs="g s"
