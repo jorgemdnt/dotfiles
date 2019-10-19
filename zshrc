@@ -131,3 +131,12 @@ export PATH="$PATH:$HOME/KindleGen"
 
 # added by travis gem
 [ -f /home/jorgemodesto/.travis/travis.sh ] && source /home/jorgemodesto/.travis/travis.sh
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+eval "$(rbenv init -)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jorgemodesto/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
