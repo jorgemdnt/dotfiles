@@ -10,33 +10,37 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'alcesleo/vim-uppercase-sql'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'chriskempson/base16-vim'
+Plug 'dense-analysis/ale'
 Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
 Plug 'honza/vim-snippets'
-Plug 'nikvdp/ejs-syntax'
 Plug 'inside/vim-grep-operator'
-Plug 'tpope/vim-fireplace'
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mxw/vim-jsx'
+Plug 'nikvdp/ejs-syntax'
 Plug 'pangloss/vim-javascript'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
-Plug 'w0rp/ale'
 Plug 'vim-scripts/CycleColor'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 
 call plug#end()
 
@@ -66,18 +70,10 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-colorscheme base16-classic-dark
+colorscheme base16-horizon-dark
 
 set undofile
 set undodir=~/.config/nvim/undodir
-
-function! ToggleBackground()
-	if &background == 'dark'
-		set background=light
-	else
-		set background=dark
-	endif
-endfunction
 
 let g:mapleader = ' '
 
@@ -99,8 +95,6 @@ vmap > >gv
 
 nnoremap <leader>n :nohlsearch<CR>
 
-noremap <F5> :call ToggleBackground()<CR>
-
 nnoremap <Leader>ev :e $MYVIMRC<CR>
 
 augroup AutoSourceVimrc
@@ -110,8 +104,6 @@ augroup END
 
 set nospell spelllang=en_us,pt_br
 autocmd BufNewFile,BufRead *.md setlocal spell
-
-let @e = 'ygv"=+p' " Calculate visual selection
 
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
@@ -139,7 +131,7 @@ augroup FiletypeSettings
 		\ setlocal softtabstop=8 |
 		\ setlocal shiftwidth=8
 
-        au BufNewFile,BufRead,BufEnter *.{js,json,jsx,rb,erb,hs,md,yml,html,scss,css}
+        au BufNewFile,BufRead,BufEnter *.{js,ts,tsx,json,jsx,rb,erb,hs,md,yml,html,scss,css,ejs}
 		\ setlocal expandtab |
 		\ setlocal softtabstop=2 |
 		\ setlocal shiftwidth=2 |
@@ -159,10 +151,15 @@ command! CopyFileName :let @+ = expand("%:t")
 command! CopyFilePath :let @+ = expand("%:p")
 command! CopyRelativeFilePath :let @+ = expand("%")
 
-command! -nargs=+ -complete=shellcmd RunCommandOnTerminal belowright split term://<args>
-autocmd FileType ruby nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web rspec %<CR>
-autocmd FileType javascript nnoremap <Leader>rt :RunCommandOnTerminal rd-docker exec web npm run jest:test %<CR>
-autocmd FileType clojure nnoremap <Leader>rt :RunCommandOnTerminal docker-compose exec repl-server lein test %<CR>
+command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
+autocmd FileType ruby nnoremap <Leader>rt :TermCommand rd-docker exec web rspec %<CR>
+autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
+autocmd FileType javascript nnoremap <Leader>rt :TermCommand rd-docker exec web npm run jest:test %<CR>
+autocmd FileType clojure nnoremap <Leader>rt :TermCommand docker-compose exec web lein test %<CR>
+
+command! -range RemoveParamArgs s/\s\w\+\([,)]\)/\1
+command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
+command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -222,3 +219,45 @@ nnoremap <Leader>gb :Gblame<CR>
 let g:ale_pattern_options = {
 \   '.*config/routes.rb$': {'ale_enabled': 0},
 \}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\}
+
+let g:LanguageClient_serverCommands = {
+\   'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+\ }
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+
+" dark red
+hi tsxTagName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+let g:lightline = {
+	\ 'colorscheme': 'one',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
+	\ },
+	\ 'component_function': {
+	\   'gitbranch': 'fugitive#head',
+	\   'filepath': 'FilenameForLightline'
+	\ },
+	\ }
+
+function! FilenameForLightline()
+    return expand('%')
+endfunction
+
+highlight ALEWarningSign ctermbg=red
+let g:ale_set_highlights = 1
+let g:ale_set_signs = 1

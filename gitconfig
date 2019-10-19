@@ -15,6 +15,7 @@
     ds = diff --staged
     sh = push
     ll = pull
+    llo = pull origin
     llm = pull origin master
     llc = !sh -c 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
     ash = stash

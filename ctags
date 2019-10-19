@@ -1,6 +1,6 @@
 --python-kinds=-i
 
---langmap=javascript:.js.es6.es.jsx
+--langmap=javascript:.js.es6.es.jsx.ts.tsx
 --javascript-kinds=-c-f-m-p-v
 
 --regex-javascript=/^[ \t]*var[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*\[/\1/A,Array,Arrays/b
