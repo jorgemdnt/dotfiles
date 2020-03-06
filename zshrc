@@ -94,10 +94,12 @@ alias note="vim ~/notes/"
 alias todo="vim ~/notes/todo.md"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias r="rd-docker"
+alias rr="rd-docker"
+alias t="tmux"
 
-export GOPATH=$HOME/go
-export GOROOT=/usr/lib/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+# export GOPATH=$HOME/go
+# export GOROOT=/usr/lib/go
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # export PATH="/home/jorgemdnt/anaconda2/bin:$PATH"
 
@@ -140,3 +142,8 @@ if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+bindkey -v
+export KEYTIMEOUT=1
+
+export REDISTOGO_URL=redis://redis:6379

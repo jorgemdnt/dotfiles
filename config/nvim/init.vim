@@ -17,6 +17,7 @@ Plug 'dense-analysis/ale'
 Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
@@ -25,10 +26,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nikvdp/ejs-syntax'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'pangloss/vim-javascript'
-Plug 'peitalin/vim-jsx-typescript'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -70,7 +71,7 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-colorscheme base16-horizon-dark
+colorscheme base16-material-palenight
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -88,7 +89,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <bs> <c-^>
-inoremap jk <Esc>
+inoremap jk <ESC>
+" inoremap <ESC> <nop>
 
 vmap < <gv
 vmap > >gv
@@ -155,7 +157,7 @@ command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
 autocmd FileType ruby nnoremap <Leader>rt :TermCommand rd-docker exec web rspec %<CR>
 autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
 autocmd FileType javascript nnoremap <Leader>rt :TermCommand rd-docker exec web npm run jest:test %<CR>
-autocmd FileType clojure nnoremap <Leader>rt :TermCommand docker-compose exec web lein test %<CR>
+autocmd FileType go nnoremap <Leader>rt :GoTest<CR>
 
 command! -range RemoveParamArgs s/\s\w\+\([,)]\)/\1
 command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
@@ -165,7 +167,14 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:deoplete#enable_at_startup = 1
 
-nnoremap <F2> :Explore<CR>
+nnoremap <F2> :Vexplore<CR>
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 0
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+let g:netrw_ctags = 'uctags'
+let g:netrw_sort_by = 'name'
 
 if executable('grip')
 	noremap <silent> <leader>om :call OpenMarkdownPreview()<cr>
@@ -192,7 +201,7 @@ let g:UltiSnipsExpandTrigger='<C-a>'
 let g:UltiSnipsJumpForwardTrigger='<C-j>'
 let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell', 'java']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell', 'java', 'sql']
 
 let g:gutentags_ctags_executable = 'uctags'
 let g:fzf_tags_command = 'uctags -R'
@@ -208,39 +217,20 @@ au FocusLost * silent! wa
 
 au FileChangedShell,BufEnter * GitGutter
 
-au VimEnter *.clj RainbowParenthesesToggle
-au Syntax *.clj RainbowParenthesesLoadRound
-au Syntax *.clj RainbowParenthesesLoadSquare
-au Syntax *.clj RainbowParenthesesLoadBraces
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
 
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gb :Gblame<CR>
 
-let g:ale_pattern_options = {
-\   '.*config/routes.rb$': {'ale_enabled': 0},
-\}
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'ruby': ['rubocop'],
-\}
-
 let g:LanguageClient_serverCommands = {
+\   'javascript.jsx': ['javascript-typescript-stdio'],
+\   'javascript': ['javascript-typescript-stdio'],
 \   'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
 \ }
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-
-" dark red
-hi tsxTagName guifg=#E06C75
-
-" orange
-hi tsxCloseString guifg=#F99575
-hi tsxCloseTag guifg=#F99575
-hi tsxAttributeBraces guifg=#F99575
-hi tsxEqual guifg=#F99575
-" yellow
-hi tsxAttrib guifg=#F8BD7F cterm=italic
 
 let g:lightline = {
 	\ 'colorscheme': 'one',
@@ -261,3 +251,14 @@ endfunction
 highlight ALEWarningSign ctermbg=red
 let g:ale_set_highlights = 1
 let g:ale_set_signs = 1
+let g:ale_pattern_options = {
+\   '.*config/routes.rb$': {'ale_enabled': 0},
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\   'scss': ['prettier'],
+\   'html': ['prettier'],
+\   'typescript': ['prettier'],
+\}
