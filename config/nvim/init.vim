@@ -10,8 +10,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'alcesleo/vim-uppercase-sql'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'Chiel92/vim-autoformat'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'elixir-editors/vim-elixir'
@@ -23,16 +21,17 @@ Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'kien/rainbow_parentheses.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nikvdp/ejs-syntax'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'pangloss/vim-javascript'
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
@@ -53,6 +52,14 @@ set noswapfile
 set ignorecase
 set infercase
 set gdefault
+set magic
+
+syntax on
+filetype on
+filetype plugin on
+filetype plugin indent on
+syntax enable
+
 
 set tabstop=8
 set softtabstop=4
@@ -71,7 +78,9 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-colorscheme base16-material-palenight
+
+set complete+=]
+colorscheme base16-xcode-dusk
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -154,7 +163,7 @@ command! CopyFilePath :let @+ = expand("%:p")
 command! CopyRelativeFilePath :let @+ = expand("%")
 
 command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
-autocmd FileType ruby nnoremap <Leader>rt :TermCommand rd-docker exec web rspec %<CR>
+autocmd FileType ruby nnoremap <Leader>rt :TermCommand rd-docker exec web bundle exec rspec %<CR>
 autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
 autocmd FileType javascript nnoremap <Leader>rt :TermCommand rd-docker exec web npm run jest:test %<CR>
 autocmd FileType go nnoremap <Leader>rt :GoTest<CR>
@@ -166,14 +175,12 @@ command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('sources', {
+\ '_': ['ale'],
+\})
 
 nnoremap <F2> :Vexplore<CR>
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 0
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-let g:netrw_ctags = 'uctags'
+let g:netrw_ctags = 'ctags'
 let g:netrw_sort_by = 'name'
 
 if executable('grip')
@@ -194,7 +201,7 @@ nnoremap <Leader>ss q:i%s/<c-r>"/
 vnoremap <Leader>ss yq:i%s/<c-r>"/
 
 set showbreak=↪\
-set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·
+set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·,space:·
 set nolist
 
 let g:UltiSnipsExpandTrigger='<C-a>'
@@ -203,8 +210,8 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell', 'java', 'sql']
 
-let g:gutentags_ctags_executable = 'uctags'
-let g:fzf_tags_command = 'uctags -R'
+let g:gutentags_ctags_executable = 'ctags'
+let g:fzf_tags_command = 'ctags -R'
 
 nmap gr <Plug>GrepOperatorOnCurrentDirectory
 vmap gr <Plug>GrepOperatorOnCurrentDirectory
@@ -217,23 +224,11 @@ au FocusLost * silent! wa
 
 au FileChangedShell,BufEnter * GitGutter
 
-" au VimEnter * RainbowParenthesesToggle
-" au Syntax * RainbowParenthesesLoadRound
-" au Syntax * RainbowParenthesesLoadSquare
-" au Syntax * RainbowParenthesesLoadBraces
-
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gb :Gblame<CR>
 
-let g:LanguageClient_serverCommands = {
-\   'javascript.jsx': ['javascript-typescript-stdio'],
-\   'javascript': ['javascript-typescript-stdio'],
-\   'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-\ }
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-
 let g:lightline = {
-	\ 'colorscheme': 'one',
+	\ 'colorscheme': 'jellybeans',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
@@ -248,7 +243,8 @@ function! FilenameForLightline()
     return expand('%')
 endfunction
 
-highlight ALEWarningSign ctermbg=red
+highlight clear ALEWarningSign
+highlight clear ALEErrorSign
 let g:ale_set_highlights = 1
 let g:ale_set_signs = 1
 let g:ale_pattern_options = {
@@ -262,3 +258,27 @@ let g:ale_fixers = {
 \   'html': ['prettier'],
 \   'typescript': ['prettier'],
 \}
+let g:ale_linters = {
+\   'ruby': ['rubocop', 'reek'],
+\}
+
+let g:ale_echo_msg_error_str = '🚨'
+let g:ale_echo_msg_warning_str = '⚠️ '
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+let g:ale_sign_error = '🚨'
+let g:ale_sign_warning = '⚠️ '
+
+
+let g:prettier#exec_cmd_async = 1
+let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.19.0/bin/prettier"
+
+augroup AutoFormatAndFixImportsGo
+	autocmd!
+	au BufWritePre *.go GoFmt
+	au BufWritePre *.go GoImports
+augroup END
+
+lua require'colorizer'.setup()
+
+let g:grep_operator_set_search_register = 1

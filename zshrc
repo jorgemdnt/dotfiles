@@ -54,7 +54,8 @@ setopt HIST_IGNORE_ALL_DUPS
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions)
-autoload -U compinit && compinit
+[[ -s /home/jorge.modesto/.autojump/etc/profile.d/autojump.sh ]] && source /home/jorge.modesto/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,8 +112,6 @@ fi
 
 export GPG_TTY=$(tty)
 
-export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
-
 export CHROME_BIN=$(which chromium)
 
 # Allow Ctrl-z to toggle between suspend and resume
@@ -136,14 +135,15 @@ export PATH="$PATH:$HOME/KindleGen"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 eval "$(rbenv init -)"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jorgemodesto/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jorgemodesto/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 bindkey -v
 export KEYTIMEOUT=1
 
 export REDISTOGO_URL=redis://redis:6379
+
+
+export PRODUCTION='production-230322'
+export STAGING='staging-234557'
+export STAGING2='staging2-174287'
+alias projects='echo -e "production:\t${PRODUCTION}\nstaging:\t${STAGING}\nstaging2:\t${STAGING}"'
