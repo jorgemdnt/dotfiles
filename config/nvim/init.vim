@@ -19,7 +19,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'honza/vim-snippets'
 Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
@@ -27,9 +27,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nikvdp/ejs-syntax'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'pangloss/vim-javascript'
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
+Plug 'slim-template/vim-slim'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -78,9 +78,10 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
+lua require'colorizer'.setup()
 
 set complete+=]
-colorscheme base16-xcode-dusk
+colorscheme base16-default-dark
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -108,10 +109,10 @@ nnoremap <leader>n :nohlsearch<CR>
 
 nnoremap <Leader>ev :e $MYVIMRC<CR>
 
-augroup AutoSourceVimrc
-	autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
-	autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
-augroup END
+" augroup AutoSourceVimrc
+" 	autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+" 	autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+" augroup END
 
 set nospell spelllang=en_us,pt_br
 autocmd BufNewFile,BufRead *.md setlocal spell
@@ -119,7 +120,7 @@ autocmd BufNewFile,BufRead *.md setlocal spell
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-set grepprg=ag\ --vimgrep\ $*
+set grepprg=rg\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 
 augroup OpenQuickfixAfterGrep
@@ -153,26 +154,35 @@ augroup END
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>ft :Tags<CR>
-nnoremap <Leader>fa :grep!<space>
-nnoremap <Leader>fz :Ag<space>
+nnoremap <Leader>fa :Rg<space>
+nnoremap <Leader>fz :Rg<space>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fc :Colors<CR>
 
 command! CopyFileName :let @+ = expand("%:t")
 command! CopyFilePath :let @+ = expand("%:p")
 command! CopyRelativeFilePath :let @+ = expand("%")
+command! MakeCurrentDir :!mkdir -p %:h
+function! RmAndRemoveBuffer()
+    execute "!rm %"
+    execute "bd!"
+endfunction
+command! Rm :call RmAndRemoveBuffer()
 
 command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
-autocmd FileType ruby nnoremap <Leader>rt :TermCommand rd-docker exec web bundle exec rspec %<CR>
+autocmd FileType ruby command! Prettier !rbprettier --print-width 100 -w %
+autocmd FileType ruby nnoremap <Leader>rt :TermCommand bundle exec spring rspec %<CR>
 autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
-autocmd FileType javascript nnoremap <Leader>rt :TermCommand rd-docker exec web npm run jest:test %<CR>
+autocmd FileType typescriptreact,typescript command! Prettier !yarn run prettier --write %
+autocmd FileType typescriptreact,typescript nnoremap <Leader>rp :Prettier<CR>
+autocmd FileType typescriptreact,typescript nnoremap <Leader>rt :TermCommand yarn run test %<CR>
 autocmd FileType go nnoremap <Leader>rt :GoTest<CR>
 
 command! -range RemoveParamArgs s/\s\w\+\([,)]\)/\1
 command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
 command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('sources', {
@@ -197,6 +207,7 @@ if executable('grip')
 	endfunction
 endif
 
+nnoremap <Leader>: :Commands<CR>
 nnoremap <Leader>ss q:i%s/<c-r>"/
 vnoremap <Leader>ss yq:i%s/<c-r>"/
 
@@ -228,7 +239,7 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gb :Gblame<CR>
 
 let g:lightline = {
-	\ 'colorscheme': 'jellybeans',
+	\ 'colorscheme': 'PaperColor',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
@@ -259,7 +270,7 @@ let g:ale_fixers = {
 \   'typescript': ['prettier'],
 \}
 let g:ale_linters = {
-\   'ruby': ['rubocop', 'reek'],
+\   'ruby': ['solargraph', 'rubocop'],
 \}
 
 let g:ale_echo_msg_error_str = '🚨'
@@ -279,6 +290,22 @@ augroup AutoFormatAndFixImportsGo
 	au BufWritePre *.go GoImports
 augroup END
 
-lua require'colorizer'.setup()
-
 let g:grep_operator_set_search_register = 1
+
+" Unicode options
+if has("multi_byte")
+    " set the display encoding
+    " (default is "", or "utf-8" in the GUI)
+    if &termencoding == ""
+        " we're probably not using the GUI
+        " note: :set won't allow &-replacement
+        let &termencoding = &encoding
+    endif
+    " set the internal encoding
+    set encoding=utf-8
+
+    " &fileencoding (controls how characters in the internal encoding will
+    " be written to the file) will be set according to &fileencodings
+    " (default: "ucs-bom", "ucs-bom,utf-8,default,latin1" when 'encoding'
+    "  is set to a Unicode value)
+endif " has("multi_byte")

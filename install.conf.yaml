@@ -7,7 +7,7 @@
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
     ~/.zshrc: zshrc
-    ~/.ctags: ctags
+    ~/.ctags.d/default.ctags: ctags
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

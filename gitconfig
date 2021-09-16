@@ -1,7 +1,7 @@
 [user]
-    email = jorge.modesto.neto@gmail.com
+    email = 7728049+jorgemdnt@users.noreply.github.com
     name = Jorge Modesto
-    signingkey = 885765E60155560A
+    signingkey = A4BDCC6CC375E0D0
 [color]
     ui = true
 [push]
@@ -29,4 +29,6 @@
 [gpg]
     program = gpg
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+    insteadOf = https://github.com/
+[pull]
+    rebase = false

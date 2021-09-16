@@ -102,8 +102,6 @@ alias t="tmux"
 # export GOROOT=/usr/lib/go
 # export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-# export PATH="/home/jorgemdnt/anaconda2/bin:$PATH"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -d "$HOME/platform-tools" ] ; then
@@ -130,8 +128,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:$HOME/KindleGen"
 
-# added by travis gem
-[ -f /home/jorgemodesto/.travis/travis.sh ] && source /home/jorgemodesto/.travis/travis.sh
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 eval "$(rbenv init -)"
@@ -147,3 +143,13 @@ export PRODUCTION='production-230322'
 export STAGING='staging-234557'
 export STAGING2='staging2-174287'
 alias projects='echo -e "production:\t${PRODUCTION}\nstaging:\t${STAGING}\nstaging2:\t${STAGING}"'
+
+# BEGIN CW-CLI MANAGED BLOCK
+if [ -f /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ] ; then source /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ; fi # cw-cli
+# END CW-CLI MANAGED BLOCK
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/j.modesto.neto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/j.modesto.neto/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc'; fi
