@@ -25,12 +25,10 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nikvdp/ejs-syntax'
-Plug 'norcalli/nvim-colorizer.lua'
 Plug 'pangloss/vim-javascript'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'slim-template/vim-slim'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -53,6 +51,8 @@ set ignorecase
 set infercase
 set gdefault
 set magic
+set splitbelow
+set splitright
 
 syntax on
 filetype on
@@ -78,10 +78,9 @@ set path+=**
 set suffixesadd=.js,.rb
 
 set termguicolors
-lua require'colorizer'.setup()
 
 set complete+=]
-colorscheme base16-default-dark
+colorscheme base16-darktooth
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -184,10 +183,10 @@ command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('sources', {
-\ '_': ['ale'],
-\})
+" let g:deoplete#enable_at_startup = 1
+" call deoplete#custom#option('sources', {
+" \ '_': ['ale'],
+" \})
 
 nnoremap <F2> :Vexplore<CR>
 let g:netrw_ctags = 'ctags'
@@ -235,7 +234,7 @@ au FocusLost * silent! wa
 
 au FileChangedShell,BufEnter * GitGutter
 
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gb :Gblame<CR>
 
 let g:lightline = {
@@ -256,6 +255,7 @@ endfunction
 
 highlight clear ALEWarningSign
 highlight clear ALEErrorSign
+let g:ale_enabled = 0
 let g:ale_set_highlights = 1
 let g:ale_set_signs = 1
 let g:ale_pattern_options = {
