@@ -108,11 +108,6 @@ nnoremap <leader>n :nohlsearch<CR>
 
 nnoremap <Leader>ev :e $MYVIMRC<CR>
 
-" augroup AutoSourceVimrc
-" 	autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
-" 	autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
-" augroup END
-
 set nospell spelllang=en_us,pt_br
 autocmd BufNewFile,BufRead *.md setlocal spell
 
