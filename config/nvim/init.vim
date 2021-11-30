@@ -11,7 +11,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'alcesleo/vim-uppercase-sql'
 Plug 'chriskempson/base16-vim'
-Plug 'dense-analysis/ale'
 Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
@@ -26,7 +25,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nikvdp/ejs-syntax'
 Plug 'pangloss/vim-javascript'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-abolish'
@@ -34,11 +32,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CycleColor'
+Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 
@@ -80,7 +80,7 @@ set suffixesadd=.js,.rb
 set termguicolors
 
 set complete+=]
-colorscheme base16-darktooth
+colorscheme base16-embers
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -98,7 +98,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <bs> <c-^>
-inoremap jk <ESC>
 " inoremap <ESC> <nop>
 
 vmap < <gv
@@ -147,6 +146,7 @@ augroup FiletypeSettings
 augroup END
 
 nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fg :GFiles?<CR>
 nnoremap <Leader>ft :Tags<CR>
 nnoremap <Leader>fa :Rg<space>
 nnoremap <Leader>fz :Rg<space>
@@ -164,6 +164,7 @@ endfunction
 command! Rm :call RmAndRemoveBuffer()
 
 command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
+autocmd Filetype ruby set makeprg=rubocop-daemon\ exec\ --\ --format\ emacs
 autocmd FileType ruby command! Prettier !rbprettier --print-width 100 -w %
 autocmd FileType ruby nnoremap <Leader>rt :TermCommand bundle exec spring rspec %<CR>
 autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
@@ -177,11 +178,6 @@ command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
 command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
-
-" let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#option('sources', {
-" \ '_': ['ale'],
-" \})
 
 nnoremap <F2> :Vexplore<CR>
 let g:netrw_ctags = 'ctags'
@@ -227,54 +223,29 @@ tnoremap <Esc> <C-\><C-n>
 
 au FocusLost * silent! wa
 
-au FileChangedShell,BufEnter * GitGutter
+let g:gitgutter_map_keys = 0
+" au FileChangedShell,BufEnter * GitGutter
 
+au FileWritePost ruby make %
 nnoremap <Leader>gs :Git<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gb :Git blame<CR>
+nnoremap <Leader>ga :Git add .<CR>
+nnoremap <Leader>gc :Git commit<CR>
 
 let g:lightline = {
-	\ 'colorscheme': 'PaperColor',
+	\ 'colorscheme': 'wombat',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
+	\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 	\ },
 	\ 'component_function': {
-	\   'gitbranch': 'fugitive#head',
-	\   'filepath': 'FilenameForLightline'
+	\   'gitbranch': 'FugitiveHead'
 	\ },
 	\ }
 
 function! FilenameForLightline()
     return expand('%')
 endfunction
-
-highlight clear ALEWarningSign
-highlight clear ALEErrorSign
-let g:ale_enabled = 0
-let g:ale_set_highlights = 1
-let g:ale_set_signs = 1
-let g:ale_pattern_options = {
-\   '.*config/routes.rb$': {'ale_enabled': 0},
-\}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'ruby': ['rubocop'],
-\   'scss': ['prettier'],
-\   'html': ['prettier'],
-\   'typescript': ['prettier'],
-\}
-let g:ale_linters = {
-\   'ruby': ['solargraph', 'rubocop'],
-\}
-
-let g:ale_echo_msg_error_str = '🚨'
-let g:ale_echo_msg_warning_str = '⚠️ '
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-let g:ale_sign_error = '🚨'
-let g:ale_sign_warning = '⚠️ '
-
 
 let g:prettier#exec_cmd_async = 1
 let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.19.0/bin/prettier"
