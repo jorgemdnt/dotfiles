@@ -21,6 +21,7 @@
     ash = stash
     co = checkout
     fco = !sh -c 'git fetch origin $1:$1 && git checkout $1' -
+    tpf = !sh -c 'git tag -f $1 && git push -f origin $1' -
 [core]
     excludesfile = ~/.gitignore_global
     editor = nvim
