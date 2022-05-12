@@ -14,21 +14,16 @@ Plug 'chriskempson/base16-vim'
 Plug 'elixir-editors/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'honza/vim-snippets'
 Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
-Plug 'pangloss/vim-javascript'
-Plug 'SirVer/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
@@ -37,7 +32,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
@@ -49,7 +43,6 @@ call plug#end()
 lua require'nvim-tree'.setup()
 
 set autowrite
-set updatetime=100
 set number
 set clipboard+=unnamedplus
 set noswapfile
@@ -212,11 +205,7 @@ vnoremap <Leader>ss yq:i%s/<c-r>"/
 
 set showbreak=↪\
 set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·,space:·
-set list
-
-let g:UltiSnipsExpandTrigger='<C-a>'
-let g:UltiSnipsJumpForwardTrigger='<C-j>'
-let g:UltiSnipsJumpBackwardTrigger='<C-k>'
+set nolist
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'haskell', 'java', 'sql']
 
