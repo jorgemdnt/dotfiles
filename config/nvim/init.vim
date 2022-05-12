@@ -20,27 +20,33 @@ Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'leafgarland/typescript-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/CycleColor'
-Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
+
+lua require'nvim-tree'.setup()
 
 set autowrite
 set updatetime=100
@@ -113,7 +119,7 @@ autocmd BufNewFile,BufRead *.md setlocal spell
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-set grepprg=rg\ --vimgrep\ $*
+set grepprg=rg\ --hidden\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 
 augroup OpenQuickfixAfterGrep
@@ -156,7 +162,11 @@ nnoremap <Leader>fc :Colors<CR>
 command! CopyFileName :let @+ = expand("%:t")
 command! CopyFilePath :let @+ = expand("%:p")
 command! CopyRelativeFilePath :let @+ = expand("%")
-command! MakeCurrentDir :!mkdir -p %:h
+function! WriteInNewDir()
+    execute "!mkdir -p %:h"
+    execute "w"
+endfunction
+command! WriteInNewDir :call WriteInNewDir()
 function! RmAndRemoveBuffer()
     execute "!rm %"
     execute "bd!"
@@ -164,9 +174,9 @@ endfunction
 command! Rm :call RmAndRemoveBuffer()
 
 command! -nargs=+ -complete=shellcmd TermCommand belowright split term://<args>
-autocmd Filetype ruby set makeprg=rubocop-daemon\ exec\ --\ --format\ emacs
+autocmd Filetype ruby set makeprg=rubocop\ --format\ emacs
 autocmd FileType ruby command! Prettier !rbprettier --print-width 100 -w %
-autocmd FileType ruby nnoremap <Leader>rt :TermCommand bundle exec spring rspec %<CR>
+autocmd FileType ruby nnoremap <Leader>rt :TermCommand bundle exec rspec %<CR>
 autocmd FileType ruby nnoremap <Leader>rf :TermCommand ruby %<CR>
 autocmd FileType typescriptreact,typescript command! Prettier !yarn run prettier --write %
 autocmd FileType typescriptreact,typescript nnoremap <Leader>rp :Prettier<CR>
@@ -177,9 +187,8 @@ command! -range RemoveParamArgs s/\s\w\+\([,)]\)/\1
 command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
 command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
-let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
-
-nnoremap <F2> :Vexplore<CR>
+nnoremap <Leader>t :NvimTreeFindFileToggle<CR>
+let g:netrw_keepdir = 0
 let g:netrw_ctags = 'ctags'
 let g:netrw_sort_by = 'name'
 
@@ -203,7 +212,7 @@ vnoremap <Leader>ss yq:i%s/<c-r>"/
 
 set showbreak=↪\
 set listchars=tab:»\ ,eol:↲,extends:›,precedes:‹,nbsp:•,trail:·,space:·
-set nolist
+set list
 
 let g:UltiSnipsExpandTrigger='<C-a>'
 let g:UltiSnipsJumpForwardTrigger='<C-j>'
@@ -233,22 +242,20 @@ nnoremap <Leader>ga :Git add .<CR>
 nnoremap <Leader>gc :Git commit<CR>
 
 let g:lightline = {
-	\ 'colorscheme': 'wombat',
+	\ 'colorscheme': 'PaperColor',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+	\             [ 'gitbranch', 'readonly', 'filepath', 'modified' ] ]
 	\ },
 	\ 'component_function': {
-	\   'gitbranch': 'FugitiveHead'
+	\   'gitbranch': 'FugitiveHead',
+	\   'filepath': 'FilenameForLightline'
 	\ },
 	\ }
 
 function! FilenameForLightline()
     return expand('%')
 endfunction
-
-let g:prettier#exec_cmd_async = 1
-let g:prettier#exec_cmd_path = "~/.nvm/versions/node/v10.19.0/bin/prettier"
 
 augroup AutoFormatAndFixImportsGo
 	autocmd!
@@ -275,3 +282,5 @@ if has("multi_byte")
     " (default: "ucs-bom", "ucs-bom,utf-8,default,latin1" when 'encoding'
     "  is set to a Unicode value)
 endif " has("multi_byte")
+
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-solargraph']
