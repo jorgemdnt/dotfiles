@@ -11,8 +11,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'alcesleo/vim-uppercase-sql'
 Plug 'chriskempson/base16-vim'
-Plug 'elixir-editors/vim-elixir'
-Plug 'fatih/vim-go'
 Plug 'guns/vim-clojure-static'
 Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
@@ -21,9 +19,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
@@ -40,7 +38,24 @@ Plug 'vim-scripts/CycleColor'
 
 call plug#end()
 
-lua require'nvim-tree'.setup()
+lua <<EOF
+require'nvim-tree'.setup {
+  view = {
+    width = 50,
+  },
+}
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "go", "elixir", "lua", "scss", "css", "javascript", "json", "ruby", "typescript", "vim", "dockerfile" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = true,
+  highlight = { enable = true },
+  indent = { enable = true },
+  incremental_selection = { enable = true }
+}
+EOF
 
 set autowrite
 set number
@@ -79,7 +94,7 @@ set suffixesadd=.js,.rb
 set termguicolors
 
 set complete+=]
-colorscheme base16-embers
+colorscheme base16-atelier-cave
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -181,23 +196,6 @@ command! -range KeysToSymbols s/\(\w\+\)\:,\?/:\1,
 command! -range ParamsToInstanceAttrs s/\(\w\+\):,/@\1 = \1\r
 
 nnoremap <Leader>t :NvimTreeFindFileToggle<CR>
-let g:netrw_keepdir = 0
-let g:netrw_ctags = 'ctags'
-let g:netrw_sort_by = 'name'
-
-if executable('grip')
-	noremap <silent> <leader>om :call OpenMarkdownPreview()<cr>
-
-	function! OpenMarkdownPreview() abort
-		if exists('s:markdown_job_id') && s:markdown_job_id > 0
-			call jobstop(s:markdown_job_id)
-			unlet s:markdown_job_id
-		endif
-		let s:markdown_job_id = jobstart(
-		\ 'grip -b ' . shellescape(expand('%:p')) . " 0 2>&1 | awk '/Running/ { printf $4 }'"
-		\)
-	endfunction
-endif
 
 nnoremap <Leader>: :Commands<CR>
 nnoremap <Leader>ss q:i%s/<c-r>"/
@@ -247,12 +245,6 @@ function! FilenameForLightline()
     return expand('%')
 endfunction
 
-augroup AutoFormatAndFixImportsGo
-	autocmd!
-	au BufWritePre *.go GoFmt
-	au BufWritePre *.go GoImports
-augroup END
-
 let g:grep_operator_set_search_register = 1
 
 " Unicode options
@@ -273,9 +265,9 @@ if has("multi_byte")
     "  is set to a Unicode value)
 endif " has("multi_byte")
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-solargraph']
+" ############## BEGIN CoC.nvim settings
 
-" ############## CoC.nvim settings
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-solargraph', 'coc-go']
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -341,4 +333,4 @@ command! -nargs=0 Format :call CocActionAsync('format')
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-" ############## CoC.nvim settings
+" ############## END CoC.nvim settings
