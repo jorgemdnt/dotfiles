@@ -9,9 +9,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'airblade/vim-gitgutter'
-Plug 'alcesleo/vim-uppercase-sql'
 Plug 'chriskempson/base16-vim'
-Plug 'guns/vim-clojure-static'
 Plug 'inside/vim-grep-operator'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -21,13 +19,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
@@ -50,10 +45,16 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = { "go", "elixir", "lua", "scss", "css", "javascript", "json", "ruby", "typescript", "vim", "dockerfile" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = true,
-  highlight = { enable = true },
-  indent = { enable = true },
-  incremental_selection = { enable = true }
+  sync_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "ruby" }
+  },
+  indent = {
+    enable = true,
+    disable = { "ruby" },
+  },
+  incremental_selection = { enable = false }
 }
 EOF
 
@@ -69,9 +70,9 @@ set splitbelow
 set splitright
 
 syntax on
-filetype on
-filetype plugin on
-filetype plugin indent on
+" filetype on
+" filetype plugin on
+" filetype plugin indent on
 syntax enable
 
 
@@ -222,7 +223,6 @@ au FocusLost * silent! wa
 let g:gitgutter_map_keys = 0
 " au FileChangedShell,BufEnter * GitGutter
 
-au FileWritePost ruby make %
 nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gb :Git blame<CR>
 nnoremap <Leader>ga :Git add .<CR>

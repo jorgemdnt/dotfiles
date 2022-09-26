@@ -1,3 +1,4 @@
 {
-  "solargraph.useBundler": false
+  "solargraph.useBundler": false,
+  "solargraph.diagnostics": true
 }
