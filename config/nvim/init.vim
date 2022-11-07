@@ -17,6 +17,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
