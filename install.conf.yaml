@@ -8,6 +8,7 @@
     ~/.config/nvim: config/nvim/
     ~/.zshrc: zshrc
     ~/.ctags.d/default.ctags: ctags
+    ~/.alacritty.yml: alacritty.yml
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
