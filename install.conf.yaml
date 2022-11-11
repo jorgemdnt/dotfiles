@@ -1,3 +1,7 @@
+- defaults:
+    link:
+      relink: true
+
 - clean: ['~']
 
 - link:
@@ -9,6 +13,7 @@
     ~/.zshrc: zshrc
     ~/.ctags.d/default.ctags: ctags
     ~/.alacritty.yml: alacritty.yml
+    ~/.zprofile: zprofile
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
