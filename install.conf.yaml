@@ -14,6 +14,7 @@
     ~/.ctags.d/default.ctags: ctags
     ~/.alacritty.yml: alacritty.yml
     ~/.zprofile: zprofile
+    ~/.gitignore_global: gitignore_global
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
