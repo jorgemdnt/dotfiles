@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="norm"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -88,14 +88,9 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias open="xdg-open"
 alias vimrc="vim ~/.config/nvim/init.vim"
-alias gvimrc="vim ~/.vim/gvimrc"
 alias gs="g s"
 alias zshrc="vim ~/.zshrc"
-alias note="vim ~/notes/"
-alias todo="vim ~/notes/todo.md"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias r="rd-docker"
-alias rr="rd-docker"
 alias t="tmux"
 
 # export GOPATH=$HOME/go
@@ -128,21 +123,12 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:$HOME/KindleGen"
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-eval "$(rbenv init -)"
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 bindkey -v
 export KEYTIMEOUT=1
 
 export REDISTOGO_URL=redis://redis:6379
-
-
-export PRODUCTION='production-230322'
-export STAGING='staging-234557'
-export STAGING2='staging2-174287'
-alias projects='echo -e "production:\t${PRODUCTION}\nstaging:\t${STAGING}\nstaging2:\t${STAGING}"'
 
 # BEGIN CW-CLI MANAGED BLOCK
 if [ -f /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ] ; then source /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ; fi # cw-cli
@@ -153,3 +139,11 @@ if [ -f '/Users/j.modesto.neto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc'; fi
+
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        source "$BASE16_SHELL/profile_helper.sh"
+
+export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+alias tilt=/opt/homebrew/bin/tilt

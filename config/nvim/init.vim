@@ -96,7 +96,7 @@ set suffixesadd=.js,.rb
 set termguicolors
 
 set complete+=]
-colorscheme base16-atelier-cave
+colorscheme base16-atelier-plateau
 
 set undofile
 set undodir=~/.config/nvim/undodir
