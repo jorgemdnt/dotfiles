@@ -1,7 +1,7 @@
 [user]
     email = 7728049+jorgemdnt@users.noreply.github.com
     name = Jorge Modesto
-    signingkey = A4BDCC6CC375E0D0
+    ; signingkey = A4BDCC6CC375E0D0
 [color]
     ui = true
 [push]
@@ -25,10 +25,10 @@
 [core]
     excludesfile = ~/.gitignore_global
     editor = nvim
-[commit]
-    gpgsign = true
-[gpg]
-    program = gpg
+; [commit]
+;     gpgsign = true
+; [gpg]
+;     program = gpg
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
 [pull]
