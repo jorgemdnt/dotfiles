@@ -54,7 +54,6 @@ setopt HIST_IGNORE_ALL_DUPS
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions)
-[[ -s /home/jorge.modesto/.autojump/etc/profile.d/autojump.sh ]] && source /home/jorge.modesto/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
@@ -93,10 +92,6 @@ alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias t="tmux"
 
-# export GOPATH=$HOME/go
-# export GOROOT=/usr/lib/go
-# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -d "$HOME/platform-tools" ] ; then
@@ -107,28 +102,14 @@ export GPG_TTY=$(tty)
 
 export CHROME_BIN=$(which chromium)
 
-# Allow Ctrl-z to toggle between suspend and resume
-function Resume {
-    fg
-    zle push-input
-    BUFFER=""
-    zle accept-line
-}
-zle -N Resume
-bindkey "^Z" Resume
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH="$PATH:$HOME/KindleGen"
 
 export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 bindkey -v
 export KEYTIMEOUT=1
-
-export REDISTOGO_URL=redis://redis:6379
 
 # BEGIN CW-CLI MANAGED BLOCK
 if [ -f /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ] ; then source /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ; fi # cw-cli
