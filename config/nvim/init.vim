@@ -21,6 +21,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nikvdp/ejs-syntax'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'ray-x/guihua.lua'
+Plug 'ray-x/sad.nvim'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -57,6 +59,13 @@ require'nvim-treesitter.configs'.setup {
   },
   incremental_selection = { enable = false }
 }
+
+require'sad'.setup({
+  diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+  ls_file = 'fd', -- also git ls_file
+  exact = false, -- exact match
+  vsplit = true, -- split sad window the screen vertically, when set to number
+})
 EOF
 
 set autowrite
@@ -96,7 +105,7 @@ set suffixesadd=.js,.rb
 set termguicolors
 
 set complete+=]
-colorscheme base16-atelier-plateau
+colorscheme base16-classic-dark
 
 set undofile
 set undodir=~/.config/nvim/undodir
