@@ -105,7 +105,7 @@ set suffixesadd=.js,.rb
 set termguicolors
 
 set complete+=]
-colorscheme base16-classic-dark
+colorscheme base16-circus
 
 set undofile
 set undodir=~/.config/nvim/undodir
@@ -277,7 +277,7 @@ endif " has("multi_byte")
 
 " ############## BEGIN CoC.nvim settings
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-solargraph', 'coc-go']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-solargraph', 'coc-go', 'coc-clangd']
 
 " Some servers have issues with backup files, see #649.
 set nobackup

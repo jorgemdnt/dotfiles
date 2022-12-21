@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias vim="nvim"
-alias open="xdg-open"
+# alias open="xdg-open"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias gs="g s"
 alias zshrc="vim ~/.zshrc"
@@ -112,14 +112,14 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # BEGIN CW-CLI MANAGED BLOCK
-if [ -f /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ] ; then source /Users/j.modesto.neto/projects/cw-cli/path.zsh.inc ; fi # cw-cli
+if [ -f ~/projects/cw-cli/path.zsh.inc ] ; then source ~/projects/cw-cli/path.zsh.inc ; fi # cw-cli
 # END CW-CLI MANAGED BLOCK
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/j.modesto.neto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/j.modesto.neto/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then . '~/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/j.modesto.neto/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/completion.zsh.inc'; fi
 
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
