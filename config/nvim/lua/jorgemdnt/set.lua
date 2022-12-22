@@ -28,3 +28,5 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.gdefault = true
+
+vim.o.laststatus=3
