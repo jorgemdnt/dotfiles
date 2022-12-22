@@ -857,3 +857,6 @@ font:
 
   # Print all received window events.
   #print_events: false
+
+import:
+  - ~/.config/alacritty/themes/rose-pine.yml

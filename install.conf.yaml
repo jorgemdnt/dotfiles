@@ -10,9 +10,9 @@
     ~/.gitconfig: gitconfig
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
+    ~/.config/alacritty: config/alacritty/
     ~/.zshrc: zshrc
     ~/.ctags.d/default.ctags: ctags
-    ~/.alacritty.yml: alacritty.yml
     ~/.zprofile: zprofile
     ~/.gitignore_global: gitignore_global
     ~/.rgignore: rgignore
