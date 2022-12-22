@@ -142,7 +142,7 @@ _G.packer_plugins = {
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/jorgemodestoneto/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/kyazdani42/nvim-tree.lua"
+    url = "https://github.com/nvim-tree/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
@@ -153,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jorgemodestoneto/.local/share/nvim/site/pack/packer/start/nvim-treesitter-endwise",
     url = "https://github.com/RRethy/nvim-treesitter-endwise"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/jorgemodestoneto/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,

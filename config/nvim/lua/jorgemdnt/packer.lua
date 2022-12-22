@@ -24,10 +24,16 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     use('tpope/vim-commentary')
     use('airblade/vim-gitgutter')
-    use('kyazdani42/nvim-tree.lua')
     use('tpope/vim-surround')
     use('windwp/nvim-autopairs')
     use('RRethy/nvim-treesitter-endwise')
+    use({
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    })
 
     use({
         'VonHeikemen/lsp-zero.nvim',
