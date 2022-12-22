@@ -57,4 +57,5 @@ return require('packer').startup(function(use)
         }
     })
     use('beauwilliams/statusline.lua')
+    use("petertriho/nvim-scrollbar")
 end)
