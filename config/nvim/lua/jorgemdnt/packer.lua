@@ -25,8 +25,9 @@ return require('packer').startup(function(use)
     use('tpope/vim-commentary')
     use('airblade/vim-gitgutter')
     use('kyazdani42/nvim-tree.lua')
-    use('m4xshen/autoclose.nvim')
     use('tpope/vim-surround')
+    use('windwp/nvim-autopairs')
+    use('RRethy/nvim-treesitter-endwise')
 
     use({
         'VonHeikemen/lsp-zero.nvim',
