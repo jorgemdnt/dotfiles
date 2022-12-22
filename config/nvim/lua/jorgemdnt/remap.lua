@@ -32,3 +32,6 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 vim.api.nvim_create_user_command('TermCommand', 'belowright split term://<args>', { nargs = 1, complete = 'shellcmd' })
 
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
+
+
+vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)
