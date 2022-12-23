@@ -7,3 +7,4 @@ plug.vim
 plug.vim.old
 .netrwhist
 .netrwbook
+packer_compiled.lua
