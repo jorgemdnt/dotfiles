@@ -129,3 +129,6 @@ if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/co
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 alias tilt=/opt/homebrew/bin/tilt
 export EDITOR=nvim
+
+export NODE_ENV=development
+export BABEL_ENV=$NODE_ENV
