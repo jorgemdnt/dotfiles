@@ -6,7 +6,7 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'solargraph',
-  'sumneko_lua',
+  'lua-language-server',
 })
 
 local cmp = require('cmp')
@@ -22,7 +22,7 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings
 })
 
-lsp.configure('sumneko_lua', {
+lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {

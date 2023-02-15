@@ -1,4 +1,4 @@
-vim.opt.nu = true
+vim.opt.number = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -19,7 +19,7 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 4
+vim.opt.scrolloff = 1
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
@@ -30,3 +30,23 @@ vim.opt.colorcolumn = "80"
 vim.opt.gdefault = true
 
 vim.o.laststatus=3
+
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.ignorecase = true
+vim.opt.infercase = true
+
+vim.opt.grepprg = "rg --hidden --vimgrep $*"
+vim.opt.grepformat = "%f:%l:%c:%m"
+
+local openQuickFixGroup = vim.api.nvim_create_augroup("OpenQuickfixAfterGrep", { clear = true })
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    pattern = "[^l]*",
+    command = "copen",
+    group = openQuickFixGroup,
+})
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    pattern = "l*",
+    command = "lopen",
+    group = openQuickFixGroup,
+})
