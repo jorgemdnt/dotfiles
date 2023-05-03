@@ -6,7 +6,6 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'solargraph',
-  'lua-language-server',
 })
 
 local cmp = require('cmp')
@@ -20,16 +19,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings
-})
-
-lsp.configure('lua-language-server', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = {'vim'},
-            },
-        },
-    },
 })
 
 lsp.on_attach(function(client, bufnr)
