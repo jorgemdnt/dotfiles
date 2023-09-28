@@ -1,3 +1,3 @@
 require("jorgemdnt.remap")
-require("jorgemdnt.packer")
+require("jorgemdnt.lazy")
 require("jorgemdnt.set")
