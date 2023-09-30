@@ -859,4 +859,4 @@ font:
   #print_events: false
 
 import:
-  - ~/.config/alacritty/themes/rose-pine.yml
+  - ~/.config/alacritty/themes/catppuccin/catppuccin-mocha.yml

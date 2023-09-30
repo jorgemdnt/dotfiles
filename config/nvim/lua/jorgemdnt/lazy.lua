@@ -19,13 +19,6 @@ require("lazy").setup({
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    },
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'mbbill/undotree',
     'tpope/vim-fugitive',
@@ -40,7 +33,7 @@ require("lazy").setup({
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
     },
-    'beauwilliams/statusline.lua',
+    -- 'beauwilliams/statusline.lua',
     {
         'VonHeikemen/lsp-zero.nvim',
         dependencies = {
@@ -61,5 +54,14 @@ require("lazy").setup({
             'L3MON4D3/LuaSnip',
             'rafamadriz/friendly-snippets',
         }
-    }
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            vim.cmd.colorscheme("catppuccin")
+        end
+    },
+    { 'freddiehaddad/feline.nvim' }
 })
