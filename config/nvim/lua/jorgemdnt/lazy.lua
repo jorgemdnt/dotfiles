@@ -33,7 +33,6 @@ require("lazy").setup({
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
     },
-    -- 'beauwilliams/statusline.lua',
     {
         'VonHeikemen/lsp-zero.nvim',
         dependencies = {

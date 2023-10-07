@@ -135,3 +135,14 @@ export EDITOR=nvim
 
 export NODE_ENV=development
 export BABEL_ENV=$NODE_ENV
+
+# bun completions
+[ -s "/Users/jorgemodesto/.bun/_bun" ] && source "/Users/jorgemodesto/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
