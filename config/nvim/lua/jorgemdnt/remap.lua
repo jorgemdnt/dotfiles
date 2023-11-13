@@ -30,6 +30,14 @@ vim.api.nvim_create_user_command(
     { nargs = 1, complete = 'shellcmd', range = true }
 )
 
+vim.api.nvim_create_user_command(
+    'Zsh',
+    'belowright split term://zsh',
+    { nargs = 0 }
+)
+vim.keymap.set("n", "<leader>z", ":Zsh<cr>")
+vim.keymap.set("v", "<leader>z", "y:Zsh<cr>")
+
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)

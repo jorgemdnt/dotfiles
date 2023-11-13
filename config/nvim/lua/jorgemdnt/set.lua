@@ -50,3 +50,10 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     command = "lopen",
     group = openQuickFixGroup,
 })
+
+local termOpenGroup = vim.api.nvim_create_augroup("TermOpenGroup", { clear = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    command = "startinsert",
+    group = termOpenGroup,
+})
