@@ -115,14 +115,10 @@ export KEYTIMEOUT=1
 if [ -f ~/projects/cw-cli/path.zsh.inc ] ; then source ~/projects/cw-cli/path.zsh.inc ; fi # cw-cli
 # END CW-CLI MANAGED BLOCK
 
-# # The next line updates PATH for the Google Cloud SDK.
-# if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then . '~/google-cloud-sdk/path.zsh.inc'; fi
-
-# # The next line enables shell command completion for gcloud.
-# if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/completion.zsh.inc'; fi
-
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+if [[ $(command -v brew) != "" ]]; then
+    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+fi
 
 # BASE16_SHELL="$HOME/.config/base16-shell/"
 # [ -n "$PS1" ] && \
@@ -135,13 +131,16 @@ export EDITOR=nvim
 export NODE_ENV=development
 export BABEL_ENV=$NODE_ENV
 
-# bun completions
-[ -s "/Users/jorgemodesto/.bun/_bun" ] && source "/Users/jorgemodesto/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc'; fi
 
-if command -v ngrok &>/dev/null; then
-  eval "$(ngrok completion)"
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/JORGE.MODESTO/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/JORGE.MODESTO/tools/google-cloud-sdk/completion.zsh.inc'; fi
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+if [ -f "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
 fi
