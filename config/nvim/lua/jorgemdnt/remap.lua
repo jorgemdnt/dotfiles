@@ -27,7 +27,7 @@ vim.keymap.set("v", "<leader>s", '"hy:%s/<C-r>h//gc<left><left><left>')
 vim.api.nvim_create_user_command(
     'TermCommand',
     'belowright split term://<args>',
-    { nargs = 1, complete = 'shellcmd' }
+    { nargs = 1, complete = 'shellcmd', range = true }
 )
 
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
