@@ -56,6 +56,6 @@ vim.api.nvim_create_user_command(
 
 vim.api.nvim_create_user_command(
     'CopyRelativeFilePath',
-    'let @+ = expand("%")',
+    'let @+ = expand("%:.")',
     {}
 )

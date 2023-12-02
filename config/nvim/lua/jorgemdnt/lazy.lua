@@ -20,15 +20,6 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    -- {
-    --     "ibhagwan/fzf-lua",
-    --     -- optional for icon support
-    --     dependencies = { "nvim-tree/nvim-web-devicons" },
-    --     config = function()
-    --         -- calling `setup` is optional for customization
-    --         require("fzf-lua").setup({})
-    --     end
-    -- },
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'mbbill/undotree',
     'tpope/vim-fugitive',
