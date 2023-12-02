@@ -45,6 +45,7 @@ require("lazy").setup({
             -- Autocompletion
             'hrsh7th/nvim-cmp',
             'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-path',
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-nvim-lsp',
@@ -63,5 +64,11 @@ require("lazy").setup({
             vim.cmd.colorscheme("catppuccin")
         end
     },
-    { 'freddiehaddad/feline.nvim' }
+    { 'freddiehaddad/feline.nvim' },
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
 })
