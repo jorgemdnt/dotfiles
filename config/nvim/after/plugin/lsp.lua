@@ -1,7 +1,5 @@
 local lsp = require("lsp-zero")
 
-lsp.preset("recommended")
-
 require('mason').setup({})
 require('mason-lspconfig').setup({
     -- Replace the language servers listed here 
@@ -11,7 +9,6 @@ require('mason-lspconfig').setup({
         lsp.default_setup,
     },
 })
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -26,22 +23,25 @@ cmp.setup({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ['<C-Space>'] = cmp.mapping.complete(),
     })
 })
 
 lsp.on_attach(function(client, bufnr)
-    local opts = {buffer = bufnr, remap = false}
-
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>va", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vr", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    -- K: Displays hover information about the symbol under the cursor in a floating window
+    -- gd: Jumps to the definition of the symbol under the cursor
+    -- gD: Jumps to the declaration of the symbol under the cursor
+    -- gi: Lists all the implementations for the symbol under the cursor in the quickfix window
+    -- go: Jumps to the definition of the type of the symbol under the cursor
+    -- gr: Lists all the references to the symbol under the cursor in the quickfix window
+    -- gs: Displays signature information about the symbol under the cursor in a floating window
+    -- <F2>: Renames all references to the symbol under the cursor
+    -- <F3>: Format code in current buffer
+    -- <F4>: Selects a code action available at the current cursor position
+    -- gl: Show diagnostics in a floating window
+    -- [d: Move to the previous diagnostic in the current buffer
+    -- ]d: Move to the next diagnostic
+    lsp.default_keymaps({buffer = bufnr})
 end)
 
 lsp.setup()
