@@ -73,7 +73,11 @@ require("lazy").setup({
     },
     {
         "rest-nvim/rest.nvim",
-        dependencies = { { "nvim-lua/plenary.nvim" } }
+        dependencies = { "nvim-lua/plenary.nvim" }
     },
-    { "folke/neodev.nvim", opts = {} }
+    { "folke/neodev.nvim", opts = {} },
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      dependencies = "nvim-treesitter/nvim-treesitter",
+    }
 })
