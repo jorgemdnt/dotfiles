@@ -21,11 +21,16 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-vim.keymap.set("v", "<leader>s", '"hy:%s/<C-r>h//gc<left><left><left>')
+vim.keymap.set("n", "<leader>S", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/cI<Left><Left><Left>")
+vim.keymap.set("n", "<leader>s", ":,$s/\\<<C-r><C-w>\\>/<C-r><C-w>/cI<Left><Left><Left>")
+vim.keymap.set("v", "S", ":s/")
+vim.keymap.set("v", "s", '"hy:%s/<C-r>h//Ic<left><left><left>')
+
+vim.keymap.set("v", "<", '<gv')
+vim.keymap.set("v", ">", '>gv')
 
 vim.api.nvim_create_user_command(
-    'TermCommand',
+    'Term',
     'belowright split term://<args>',
     { nargs = 1, complete = 'shellcmd', range = true }
 )
