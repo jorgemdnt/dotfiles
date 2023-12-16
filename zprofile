@@ -1,7 +1,7 @@
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/bin
 # Set PATH, MANPATH, etc., for Homebrew.
-if [[ $(command -v brew) != "" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -f '/opt/homebrew/bin/brew' ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
