@@ -64,3 +64,14 @@ vim.api.nvim_create_user_command(
     'let @+ = expand("%:.")',
     {}
 )
+
+vim.api.nvim_create_user_command(
+    'FindAndReplace',
+    function (opts)
+        local find = opts.fargs[1]
+        local replace = opts.fargs[2]
+        vim.cmd('grep! ' .. find)
+        vim.cmd('cdo s/' .. find .. '/' .. replace .. '/c | update')
+    end,
+    { nargs = '*' }
+)
