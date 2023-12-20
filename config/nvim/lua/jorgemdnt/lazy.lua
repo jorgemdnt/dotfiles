@@ -25,7 +25,7 @@ require("lazy").setup({
     'tpope/vim-fugitive',
     'tpope/vim-commentary',
     { 'airblade/vim-gitgutter', branch = 'main' },
-    'tpope/vim-surround',
+    'kylechui/nvim-surround',
     'windwp/nvim-autopairs',
     'RRethy/nvim-treesitter-endwise',
     {
