@@ -64,7 +64,7 @@ require("lazy").setup({
             vim.cmd.colorscheme("catppuccin")
         end
     },
-    { 'freddiehaddad/feline.nvim' },
+    { 'nvim-lualine/lualine.nvim' },
     {
         'stevearc/oil.nvim',
         opts = {},
