@@ -26,7 +26,19 @@ telescope.setup({
                 ['<c-q>'] = actions.send_selected_to_qflist,
             },
         },
-    }
+        prompt_prefix = '🔎 '
+    },
+    pickers = {
+        find_files = {
+            theme = "dropdown",
+        },
+        marks = {
+            theme = "dropdown",
+        },
+        buffers = {
+            theme = "dropdown",
+        }
+    },
 })
 
 telescope.load_extension('fzf')
