@@ -1,1 +1,1 @@
-vim.keymap.set("n", "<leader>rt", ":TermCommand bundle exec rspec %<CR>")
+vim.keymap.set("n", "<leader>rt", ":Term bundle exec rspec %<CR>")
