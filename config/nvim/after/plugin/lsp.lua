@@ -8,7 +8,10 @@ require('mason-lspconfig').setup({
     handlers = {lsp.default_setup},
 })
 
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local cmp = require('cmp')
+local cmp_format = require('lsp-zero').cmp_format()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_action = require('lsp-zero').cmp_action()
 
@@ -31,6 +34,7 @@ cmp.setup.cmdline(':', {
 })
 
 cmp.setup({
+    formatting = cmp_format,
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -39,17 +43,20 @@ cmp.setup({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        -- Navigate between snippet placeholder
+        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      -- { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
+    sources = {
+        {name = 'nvim_lsp'},
+        {name = 'luasnip'},
+        {name = 'buffer'},
+    },
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
 })
 
 lsp.on_attach(function(client, bufnr)
