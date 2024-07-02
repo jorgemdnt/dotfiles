@@ -78,14 +78,11 @@ require("lazy").setup({
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-    {
-        "rest-nvim/rest.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" }
-    },
     { "folke/neodev.nvim", opts = {} },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
       dependencies = "nvim-treesitter/nvim-treesitter",
     },
-    { 'chentoast/marks.nvim' }
+    { 'chentoast/marks.nvim' },
+    { 'github/copilot.vim' }
 })
