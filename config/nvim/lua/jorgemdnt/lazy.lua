@@ -63,14 +63,6 @@ require("lazy").setup({
             'rafamadriz/friendly-snippets',
         }
     },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-        config = function()
-            vim.cmd.colorscheme("catppuccin")
-        end
-    },
     { 'nvim-lualine/lualine.nvim' },
     {
         'stevearc/oil.nvim',
@@ -90,4 +82,15 @@ require("lazy").setup({
         require("supermaven-nvim").setup({})
       end,
     },
+    {
+        'olivercederborg/poimandres.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('poimandres').setup {}
+        end,
+        init = function()
+            vim.cmd("colorscheme poimandres")
+        end
+    }
 })
