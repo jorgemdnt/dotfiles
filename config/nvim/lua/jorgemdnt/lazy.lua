@@ -84,5 +84,4 @@ require("lazy").setup({
       dependencies = "nvim-treesitter/nvim-treesitter",
     },
     { 'chentoast/marks.nvim' },
-    { 'github/copilot.vim' }
 })
