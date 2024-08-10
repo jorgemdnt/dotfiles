@@ -53,7 +53,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions)
+plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions zsh-autosuggestions)
 autoload -U compinit && compinit -u
 
 source $ZSH/oh-my-zsh.sh
