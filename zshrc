@@ -148,3 +148,6 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 
 # export TERM=xterm-256color
+
+# Created by `pipx` on 2024-08-11 00:56:47
+export PATH="$PATH:/Users/jorgemodesto/.local/bin"

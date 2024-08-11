@@ -10,3 +10,6 @@ eval "$(rbenv init -)"
 source "$HOME/.cargo/env"
 
 export PATH=${PATH}:`go env GOPATH`/bin
+
+# Created by `pipx` on 2024-08-11 00:56:47
+export PATH="$PATH:/Users/jorgemodesto/.local/bin"
