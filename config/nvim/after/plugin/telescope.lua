@@ -5,6 +5,9 @@ vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader><space>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>m', builtin.marks, {})
 
+vim.keymap.set('n', '<leader>d', function()
+    builtin.git_status()
+end)
 vim.keymap.set('n', '<leader>g', function()
     builtin.grep_string({ search = vim.fn.input("Telescope grep: ") })
 end)
@@ -43,3 +46,21 @@ telescope.setup({
 
 telescope.load_extension('fzf')
 telescope.load_extension('media_files')
+
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+
+local git_status_picker = function()
+  local opts = {}
+
+  pickers.new(opts, {
+    prompt_title = 'Git Status',
+    finder = finders.new_oneshot_job({'git', 'status', '--short'}, opts),
+  }):find()
+end
+
+telescope.register_extension({
+  exports = {
+    git_status = git_status_picker,
+  },
+})
