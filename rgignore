@@ -6,5 +6,7 @@ coverage/
 vendor/
 public/
 log/
+.yarn/
 
 doc/
+supabase/.temp/
