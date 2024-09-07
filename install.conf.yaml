@@ -11,6 +11,7 @@
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
     ~/.config/alacritty: config/alacritty/
+    ~/.config/kitty: config/kitty/
     ~/.zshrc: zshrc
     ~/.ctags.d/default.ctags: ctags
     ~/.zprofile: zprofile
