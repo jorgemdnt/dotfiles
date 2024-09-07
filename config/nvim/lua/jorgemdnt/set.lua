@@ -37,6 +37,7 @@ vim.opt.ignorecase = true
 vim.opt.infercase = true
 
 vim.opt.grepprg = "rg --hidden --vimgrep $*"
+vim.g.fzf_default_command = 'rg --files --hidden --follow'
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 local openQuickFixGroup = vim.api.nvim_create_augroup("OpenQuickfixAfterGrep", { clear = true })
