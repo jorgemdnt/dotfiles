@@ -92,6 +92,9 @@ alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias t="tmux"
 
+if [[ $(command -v fzf) != "" ]]; then
+    source <(fzf --zsh)
+fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ -d "$HOME/platform-tools" ] ; then

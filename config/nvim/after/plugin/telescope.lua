@@ -34,6 +34,7 @@ telescope.setup({
     pickers = {
         find_files = {
             theme = "dropdown",
+            find_command = {'rg', '--hidden', '--files', '--no-ignore-vcs', '--follow'},
         },
         marks = {
             theme = "dropdown",

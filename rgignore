@@ -1,10 +1,10 @@
 .git/
 
-./vendor/assets/
-./node_modules/
-./tmp/
-./coverage/
-./vendor/
-./public/
+node_modules/
+tmp/
+coverage/
+vendor/
+public/
+log/
 
-./doc/
+doc/

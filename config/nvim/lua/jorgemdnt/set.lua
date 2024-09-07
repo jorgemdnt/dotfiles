@@ -57,3 +57,5 @@ vim.api.nvim_create_autocmd("TermOpen", {
     command = "startinsert",
     group = termOpenGroup,
 })
+
+vim.opt.rtp:append("/opt/homebrew/opt/fzf")
