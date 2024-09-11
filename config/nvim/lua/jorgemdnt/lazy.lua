@@ -78,9 +78,15 @@ require("lazy").setup({
     },
     { 'chentoast/marks.nvim' },
     {
-      "supermaven-inc/supermaven-nvim",
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
       config = function()
-        require("supermaven-nvim").setup({})
+        require("copilot").setup({
+            suggestion = {
+                auto_trigger = true
+            }
+        })
       end,
     },
     {
