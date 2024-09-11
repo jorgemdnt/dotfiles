@@ -74,6 +74,7 @@ require("lazy").setup({
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
       dependencies = "nvim-treesitter/nvim-treesitter",
+      after = "nvim-treesitter",
     },
     { 'chentoast/marks.nvim' },
     {
