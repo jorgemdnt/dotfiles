@@ -128,7 +128,7 @@ fi
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         source "$BASE16_SHELL/profile_helper.sh"
 
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export EDITOR=nvim
 
 export NODE_ENV=development

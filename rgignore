@@ -1,15 +1,15 @@
 .git/
 
-node_modules/
-tmp/
-coverage/
-vendor/
-public/
-log/
-.yarn/
+./node_modules/
+./tmp/
+./coverage/
+./vendor/
+./public/
+./log/
+./.yarn/
 
 doc/
 supabase/.temp/
 
-spec/cassettes/
-spec/fixtures/
+./cassettes/
+./fixtures/

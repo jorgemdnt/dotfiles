@@ -25,7 +25,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "130"
 
 vim.opt.gdefault = true
 
@@ -37,7 +37,7 @@ vim.opt.ignorecase = true
 vim.opt.infercase = true
 
 vim.opt.grepprg = "rg --hidden --vimgrep $*"
-vim.g.fzf_default_command = 'rg --files --hidden --follow'
+-- vim.g.fzf_default_command = 'rg --files --hidden'
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 local openQuickFixGroup = vim.api.nvim_create_augroup("OpenQuickfixAfterGrep", { clear = true })
