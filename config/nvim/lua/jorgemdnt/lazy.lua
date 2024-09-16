@@ -93,6 +93,19 @@ require("lazy").setup({
       end,
     },
     {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+          -- require("supermaven-nvim").setup({
+          --     enable = true,
+          --     keymaps = {
+          --         accept_suggestion = "<M-l>",
+          --         clear_suggestion = "<C-]>",
+          --         accept_word = "<C-j>",
+          --     },
+          -- })
+      end,
+    },
+    {
         'olivercederborg/poimandres.nvim',
         lazy = false,
         priority = 1000,
