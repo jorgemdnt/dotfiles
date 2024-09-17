@@ -4,7 +4,7 @@ require('mason').setup({
     PATH = "append"
 })
 require('mason-lspconfig').setup({
-    ensure_installed = {'tsserver', 'eslint', 'solargraph', 'terraformls', 'tflint', 'lua_ls'},
+    ensure_installed = {'ts_ls', 'eslint', 'solargraph', 'terraformls', 'tflint', 'lua_ls'},
     handlers = {lsp.default_setup},
 })
 

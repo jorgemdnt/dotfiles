@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup({
     -- A list of parser names, or "all"
-    ensure_installed = { "c", "lua", "rust", "ruby", "javascript", "typescript", "hcl" },
+    ensure_installed = { "c", "lua", "ruby", "javascript", "typescript", "hcl" },
     sync_install = false,
     ignore_install = {},
     modules = {},
@@ -10,6 +10,9 @@ require'nvim-treesitter.configs'.setup({
     auto_install = true,
 
     highlight = {
+        enable = true,
+    },
+    indent = {
         enable = true,
     },
     textobjects = {
