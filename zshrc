@@ -60,7 +60,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -92,11 +92,6 @@ alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias t="tmux"
 
-if [[ $(command -v fzf) != "" ]]; then
-    source <(fzf --zsh)
-fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 if [ -d "$HOME/platform-tools" ] ; then
     export PATH="$HOME/platform-tools:$PATH"
 fi
@@ -109,24 +104,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
-
 bindkey -v
 export KEYTIMEOUT=1
-
-# BEGIN CW-CLI MANAGED BLOCK
-if [ -f ~/projects/cw-cli/path.zsh.inc ] ; then source ~/projects/cw-cli/path.zsh.inc ; fi # cw-cli
-# END CW-CLI MANAGED BLOCK
 
 if [[ $(command -v brew) != "" ]]; then
     source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
     source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 fi
-
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#         source "$BASE16_SHELL/profile_helper.sh"
 
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export EDITOR=nvim
@@ -134,15 +118,8 @@ export EDITOR=nvim
 export NODE_ENV=development
 export BABEL_ENV=$NODE_ENV
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/JORGE.MODESTO/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/JORGE.MODESTO/tools/google-cloud-sdk/completion.zsh.inc'; fi
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -f "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
@@ -150,7 +127,21 @@ fi
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 
-# export TERM=xterm-256color
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/snap/bin:/opt/nvim-linux64/bin"
+export PATH="$PATH:/usr/local/go/bin"
+if [ -f "$HOME/.fzf.zsh" ]; then
+    source ~/.fzf.zsh
+fi
+if [[ $(command -v fzf) != "" ]]; then
+    source <(fzf --zsh)
+fi
+if [[ $(command -v rbenv) != "" ]]; then
+    eval "$(rbenv init -)"
+fi
 
-# Created by `pipx` on 2024-08-11 00:56:47
-export PATH="$PATH:/Users/jorgemodesto/.local/bin"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
