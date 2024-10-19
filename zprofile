@@ -7,7 +7,7 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-source "$HOME/.cargo/env"
+#source "$HOME/.cargo/env"
 
 export PATH=${PATH}:`go env GOPATH`/bin
 
