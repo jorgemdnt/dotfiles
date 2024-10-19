@@ -77,34 +77,34 @@ require("lazy").setup({
       after = "nvim-treesitter",
     },
     { 'chentoast/marks.nvim' },
-    {
-      "zbirenbaum/copilot.lua",
-      cmd = "Copilot",
-      event = "InsertEnter",
-      config = function()
-        require("copilot").setup({
-            suggestion = {
-                auto_trigger = true
-            },
-            filetypes = {
-                yaml = true
-            }
-        })
-      end,
-    },
-    {
-      "supermaven-inc/supermaven-nvim",
-      config = function()
-          -- require("supermaven-nvim").setup({
-          --     enable = true,
-          --     keymaps = {
-          --         accept_suggestion = "<M-l>",
-          --         clear_suggestion = "<C-]>",
-          --         accept_word = "<C-j>",
-          --     },
-          -- })
-      end,
-    },
+    -- {
+    --   "zbirenbaum/copilot.lua",
+    --   cmd = "Copilot",
+    --   event = "InsertEnter",
+    --   config = function()
+    --     require("copilot").setup({
+    --         suggestion = {
+    --             auto_trigger = true
+    --         },
+    --         filetypes = {
+    --             yaml = true
+    --         }
+    --     })
+    --   end,
+    -- },
+    -- {
+    --   "supermaven-inc/supermaven-nvim",
+    --   config = function()
+    --       require("supermaven-nvim").setup({
+    --           enable = true,
+    --           keymaps = {
+    --               accept_suggestion = "<M-l>",
+    --               clear_suggestion = "<C-]>",
+    --               accept_word = "<C-j>",
+    --           },
+    --       })
+    --   end,
+    -- },
     {
         'olivercederborg/poimandres.nvim',
         lazy = false,
