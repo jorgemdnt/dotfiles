@@ -53,8 +53,8 @@ setopt HIST_IGNORE_ALL_DUPS
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions zsh-autosuggestions)
 autoload -U compinit && compinit -u
+plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions zsh-autosuggestions fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,10 +130,6 @@ fi
 
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export EDITOR=nvim
-
-export NODE_ENV=development
-export BABEL_ENV=$NODE_ENV
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/home/JORGE.MODESTO/tools/google-cloud-sdk/path.zsh.inc'; fi
