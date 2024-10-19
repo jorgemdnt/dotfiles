@@ -29,8 +29,8 @@
 ;     gpgsign = true
 ; [gpg]
 ;     program = gpg
-[url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
+; [url "ssh://git@github.com/"]
+;     insteadOf = https://github.com/
 [pull]
     rebase = false
 [filter "lfs"]
@@ -38,3 +38,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
