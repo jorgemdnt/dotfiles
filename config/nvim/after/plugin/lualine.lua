@@ -1,5 +1,6 @@
 require('lualine').setup {
     options = {
+        theme = 'poimandres',
         component_separators = { left = '|', right = '|'},
         section_separators = { left = '', right = ''},
         -- ... the rest of your lualine config
