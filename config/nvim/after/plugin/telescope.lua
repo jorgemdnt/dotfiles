@@ -18,11 +18,18 @@ vim.keymap.set('n', 'gW', function()
     builtin.grep_string({ search = vim.fn.expand("<cWORD>") })
 end)
 vim.keymap.set('v', 'gw', '"hy:Telescope grep_string default_text=<C-r>h<CR>')
+vim.keymap.set('n', ';', function()
+    builtin.buffers()
+end)
 
 local telescope = require('telescope')
 
 telescope.setup({
     defaults = {
+        layout_config = {
+            width = 0.99,         -- Almost full width
+            height = 0.99,        -- Almost full height
+        },
         file_ignore_patterns = { "node_modules", ".git" },
         mappings = {
             i = {
@@ -33,15 +40,8 @@ telescope.setup({
     },
     pickers = {
         find_files = {
-            theme = "ivy",
-            find_command = {'fd', '--hidden'},
+            find_command = {'fd', '--hidden', '--follow', '--exclude', '.git', '--type', 'f'},
         },
-        marks = {
-            theme = "dropdown",
-        },
-        buffers = {
-            theme = "dropdown",
-        }
     },
 })
 
