@@ -29,10 +29,17 @@ require("lazy").setup({
     'windwp/nvim-autopairs',
     'RRethy/nvim-treesitter-endwise',
     {
-        'nvim-tree/nvim-tree.lua',
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
         dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
+        config = function()
+            vim.keymap.set("n", "\\", ":Neotree reveal right toggle<CR>")
+        end,
     },
     {
         "L3MON4D3/LuaSnip",
@@ -64,12 +71,6 @@ require("lazy").setup({
         }
     },
     { 'nvim-lualine/lualine.nvim' },
-    {
-        'stevearc/oil.nvim',
-        opts = {},
-        -- Optional dependencies
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
     { "folke/neodev.nvim", opts = {} },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -92,19 +93,19 @@ require("lazy").setup({
     --     })
     --   end,
     -- },
-    -- {
-    --   "supermaven-inc/supermaven-nvim",
-    --   config = function()
-    --       require("supermaven-nvim").setup({
-    --           enable = true,
-    --           keymaps = {
-    --               accept_suggestion = "<M-l>",
-    --               clear_suggestion = "<C-]>",
-    --               accept_word = "<C-j>",
-    --           },
-    --       })
-    --   end,
-    -- },
+    {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+          require("supermaven-nvim").setup({
+              enable = true,
+              keymaps = {
+                  accept_suggestion = "<M-l>",
+                  clear_suggestion = "<C-]>",
+                  accept_word = "<C-j>",
+              },
+          })
+      end,
+    },
     {
         'olivercederborg/poimandres.nvim',
         lazy = false,
