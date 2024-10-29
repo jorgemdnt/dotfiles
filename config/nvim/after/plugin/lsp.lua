@@ -11,7 +11,7 @@ require('mason-lspconfig').setup({
 require("luasnip.loaders.from_vscode").lazy_load()
 
 local cmp = require('cmp')
-local cmp_format = require('lsp-zero').cmp_format()
+local cmp_format = require('lsp-zero').cmp_format({})
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_action = require('lsp-zero').cmp_action()
 
@@ -59,7 +59,7 @@ cmp.setup({
     },
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
     -- K: Displays hover information about the symbol under the cursor in a floating window
     -- gd: Jumps to the definition of the symbol under the cursor
     -- gD: Jumps to the declaration of the symbol under the cursor
