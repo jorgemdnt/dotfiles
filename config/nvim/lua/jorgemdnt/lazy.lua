@@ -3,14 +3,14 @@
 -- Only required if you have packer configured as `opt`
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -73,9 +73,9 @@ require("lazy").setup({
     { 'nvim-lualine/lualine.nvim' },
     { "folke/neodev.nvim", opts = {} },
     {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      dependencies = "nvim-treesitter/nvim-treesitter",
-      after = "nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        after = "nvim-treesitter",
     },
     { 'chentoast/marks.nvim' },
     -- {
@@ -94,17 +94,17 @@ require("lazy").setup({
     --   end,
     -- },
     {
-      "supermaven-inc/supermaven-nvim",
-      config = function()
-          require("supermaven-nvim").setup({
-              enable = true,
-              keymaps = {
-                  accept_suggestion = "<M-l>",
-                  clear_suggestion = "<C-]>",
-                  accept_word = "<C-j>",
-              },
-          })
-      end,
+        "supermaven-inc/supermaven-nvim",
+        config = function()
+            require("supermaven-nvim").setup({
+                enable = true,
+                keymaps = {
+                    accept_suggestion = "<M-l>",
+                    clear_suggestion = "<C-]>",
+                    accept_word = "<C-j>",
+                },
+            })
+        end,
     },
     {
         'olivercederborg/poimandres.nvim',
@@ -116,5 +116,5 @@ require("lazy").setup({
         init = function()
             vim.cmd("colorscheme poimandres")
         end
-    }
+    },
 })
