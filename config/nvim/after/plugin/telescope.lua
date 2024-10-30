@@ -3,7 +3,9 @@ local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader><space>', builtin.buffers, {})
-vim.keymap.set('n', '<leader>m', builtin.marks, {})
+vim.keymap.set('n', '<leader>m', function()
+   builtin.marks({mark_type = "all"})
+end)
 
 vim.keymap.set('n', '<leader>d', function()
     builtin.git_status()

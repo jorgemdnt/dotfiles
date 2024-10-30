@@ -22,12 +22,25 @@ require("lazy").setup({
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'mbbill/undotree',
-    'tpope/vim-fugitive',
+    -- 'tpope/vim-fugitive',
     'tpope/vim-commentary',
-    { 'airblade/vim-gitgutter', branch = 'main' },
+    -- { 'airblade/vim-gitgutter', branch = 'main' },
     'kylechui/nvim-surround',
     'windwp/nvim-autopairs',
     'RRethy/nvim-treesitter-endwise',
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",         -- required
+            "sindrets/diffview.nvim",        -- optional - Diff integration
+
+            -- Only one of these is needed.
+            "nvim-telescope/telescope.nvim", -- optional
+            "ibhagwan/fzf-lua",              -- optional
+            "echasnovski/mini.pick",         -- optional
+        },
+        config = true
+    },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -71,13 +84,28 @@ require("lazy").setup({
         }
     },
     { 'nvim-lualine/lualine.nvim' },
-    { "folke/neodev.nvim", opts = {} },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
         after = "nvim-treesitter",
     },
-    { 'chentoast/marks.nvim' },
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
     -- {
     --   "zbirenbaum/copilot.lua",
     --   cmd = "Copilot",
