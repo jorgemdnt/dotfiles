@@ -145,4 +145,5 @@ require("lazy").setup({
             vim.cmd("colorscheme poimandres")
         end
     },
+    'lewis6991/gitsigns.nvim',
 })
