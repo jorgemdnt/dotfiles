@@ -67,3 +67,11 @@ telescope.register_extension({
     git_status = git_status_picker,
   },
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argv(0) == "" then
+      builtin.find_files()
+    end
+  end,
+})
