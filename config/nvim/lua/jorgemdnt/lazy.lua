@@ -49,7 +49,7 @@ require("lazy").setup({
             "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
         config = function()
-            vim.keymap.set("n", "\\", ":Neotree reveal right toggle<CR>")
+            vim.keymap.set("n", "<C-t>", ":Neotree reveal right toggle<CR>")
         end,
     },
     {
@@ -104,21 +104,6 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = {},
     },
-    -- {
-    --   "zbirenbaum/copilot.lua",
-    --   cmd = "Copilot",
-    --   event = "InsertEnter",
-    --   config = function()
-    --     require("copilot").setup({
-    --         suggestion = {
-    --             auto_trigger = true
-    --         },
-    --         filetypes = {
-    --             yaml = true
-    --         }
-    --     })
-    --   end,
-    -- },
     {
         "supermaven-inc/supermaven-nvim",
         config = function()
@@ -127,7 +112,7 @@ require("lazy").setup({
                 keymaps = {
                     accept_suggestion = "<M-l>",
                     clear_suggestion = "<C-]>",
-                    accept_word = "<C-j>",
+                    accept_word = "<C-l>",
                 },
             })
         end,
