@@ -40,10 +40,31 @@ vim.api.nvim_create_user_command(
     'belowright split term://zsh',
     { nargs = 0 }
 )
-vim.keymap.set("n", "<leader>z", ":Zsh<cr>")
-vim.keymap.set("v", "<leader>z", "y:Zsh<cr>")
 
-vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
+
+local terminal_buf = nil
+local terminal_open = false
+
+function ToggleTerminal()
+  if terminal_open then
+    vim.cmd("hide")
+    terminal_open = false
+  else
+    if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+      vim.cmd("Zsh")
+      terminal_buf = vim.api.nvim_get_current_buf()
+    else
+      vim.cmd("botright split")
+      vim.cmd("buffer " .. terminal_buf)
+    end
+    terminal_open = true
+    vim.cmd("startinsert")
+  end
+end
+
+vim.keymap.set("n", "<leader>z", ToggleTerminal, { noremap = true, silent = true })
+
+vim.keymap.set("t", "<esc>", ToggleTerminal)
 
 vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)
 
