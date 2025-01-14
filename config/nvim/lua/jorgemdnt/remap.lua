@@ -63,8 +63,10 @@ function ToggleTerminal()
 end
 
 vim.keymap.set("n", "<leader>z", ToggleTerminal, { noremap = true, silent = true })
+vim.keymap.set("n", "<D-z>", ToggleTerminal, { noremap = true, silent = true })
 
 vim.keymap.set("t", "<esc>", ToggleTerminal)
+vim.keymap.set("t", "<D-z>", ToggleTerminal)
 
 vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)
 

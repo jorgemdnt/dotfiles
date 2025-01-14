@@ -149,3 +149,6 @@ if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads
 
 # Added by Windsurf
 export PATH="/Users/jorgemodesto/.codeium/windsurf/bin:$PATH"
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#fff,bg=gray,bold"
+export PATH="$GHOSTTY_BIN_DIR:$PATH"

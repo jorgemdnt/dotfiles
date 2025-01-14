@@ -49,7 +49,7 @@ require("lazy").setup({
             "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
         config = function()
-            vim.keymap.set("n", "<leader>t", ":Neotree reveal right toggle<CR>")
+            vim.keymap.set("n", "<leader>t", ":Neotree reveal toggle<CR>")
         end,
     },
     {
@@ -110,23 +110,12 @@ require("lazy").setup({
             require("supermaven-nvim").setup({
                 enable = true,
                 keymaps = {
-                    accept_suggestion = "<M-l>",
+                    accept_suggestion = "<Tab>",
                     clear_suggestion = "<C-]>",
                     accept_word = "<C-l>",
                 },
             })
         end,
-    },
-    {
-        'olivercederborg/poimandres.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require('poimandres').setup {}
-        end,
-        init = function()
-            vim.cmd("colorscheme poimandres")
-        end
     },
     'lewis6991/gitsigns.nvim',
     {
@@ -162,6 +151,14 @@ require("lazy").setup({
                     lsp_doc_border = false, -- add a border to hover docs and signature help
                 },
             })
+        end
+    },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        init = function()
+            vim.cmd("colorscheme catppuccin-frappe")
         end
     }
 })

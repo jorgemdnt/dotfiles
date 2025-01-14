@@ -32,17 +32,31 @@ telescope.setup({
             width = 0.99,         -- Almost full width
             height = 0.99,        -- Almost full height
         },
-        file_ignore_patterns = { "node_modules", ".git" },
+        file_ignore_patterns = { "node_modules", ".git/" },
         mappings = {
             i = {
                 ['<c-q>'] = actions.send_selected_to_qflist,
             },
         },
-        prompt_prefix = '🔎 '
+        prompt_prefix = '🔎 ',
+        vimgrep_arguments = {
+            'rg',
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            '--hidden',
+            '--vimgrep',
+        },
     },
     pickers = {
         find_files = {
             find_command = {'fd', '--hidden', '--follow', '--exclude', '.git', '--type', 'f'},
+        },
+        grep_string = {
+            find_command = {'rg', '--hidden', '--vimgrep'},
         },
     },
 })
