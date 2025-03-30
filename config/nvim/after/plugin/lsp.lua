@@ -4,15 +4,15 @@ require('mason').setup({
     PATH = "append"
 })
 require('mason-lspconfig').setup({
-    ensure_installed = {'ts_ls', 'eslint', 'solargraph', 'terraformls', 'tflint', 'lua_ls'},
-    handlers = {lsp.default_setup},
+    ensure_installed = { 'ts_ls', 'eslint', 'solargraph', 'terraformls', 'tflint', 'lua_ls' },
+    handlers = { lsp.default_setup },
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
 local cmp = require('cmp')
 local cmp_format = require('lsp-zero').cmp_format({})
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_action = require('lsp-zero').cmp_action()
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -25,7 +25,15 @@ cmp.setup.cmdline({ '/', '?' }, {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.cmdline({
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ select = true }) -- Confirm command
+            else
+                fallback()
+            end
+        end, { "c" }), -- Works in command mode
+    }),
     sources = cmp.config.sources({
         { name = 'path' }
     }, {
@@ -49,9 +57,9 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
     sources = {
-        {name = 'nvim_lsp'},
-        {name = 'luasnip'},
-        {name = 'buffer'},
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'buffer' },
     },
     preselect = 'item',
     completion = {
@@ -59,7 +67,7 @@ cmp.setup({
     },
 })
 
-lsp.on_attach(function(_, bufnr)
+lsp.on_attach(function(client, bufnr)
     -- K: Displays hover information about the symbol under the cursor in a floating window
     -- gd: Jumps to the definition of the symbol under the cursor
     -- gD: Jumps to the declaration of the symbol under the cursor
@@ -73,7 +81,15 @@ lsp.on_attach(function(_, bufnr)
     -- gl: Show diagnostics in a floating window
     -- [d: Move to the previous diagnostic in the current buffer
     -- ]d: Move to the next diagnostic
-    lsp.default_keymaps({buffer = bufnr})
+    lsp.default_keymaps({ buffer = bufnr })
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_create_autocmd("BufWritePost", {
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
+        })
+    end
 end)
 
 lsp.setup()

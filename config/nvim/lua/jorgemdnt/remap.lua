@@ -131,11 +131,3 @@ vim.api.nvim_create_user_command(
     end,
     { nargs = '*' }
 )
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*.js,*.ts,*.jsx,*.tsx,*.lua,*.go",
-    group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
-    callback = function()
-        vim.lsp.buf.format()
-    end,
-})
