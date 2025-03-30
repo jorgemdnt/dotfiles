@@ -98,3 +98,37 @@ vim.api.nvim_create_user_command(
     end,
     { nargs = '*' }
 )
+
+-- vim.api.nvim_create_augroup("AutoFormat", {})
+
+-- vim.api.nvim_create_autocmd(
+--     "BufWritePost",
+--     {
+--         pattern = "*.js,*.ts,*.jsx,*.tsx",
+--         group = "AutoFormat",
+--         callback = function()
+--             vim.cmd("silent !eslint_d --fix %")
+--         end,
+--     }
+-- )
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = "*.js,*.ts,*.jsx,*.tsx",
+--     group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
+--     callback = function(args)
+--         vim.system({ "eslint_d", "--fix", args.match }, { detach = true })
+--     end,
+-- })
+vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "*.js,*.ts,*.jsx,*.tsx",
+    group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
+    callback = function(args)
+        vim.system({ "eslint_d", "--fix", args.match }, {
+            text = true
+        },
+            function()
+                vim.schedule(function ()
+                    vim.cmd("edit")
+                end)
+            end)
+    end,
+})
