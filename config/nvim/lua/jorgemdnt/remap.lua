@@ -44,26 +44,62 @@ vim.api.nvim_create_user_command(
 
 local terminal_buf = nil
 local terminal_open = false
+local terminal_fullscreen = false
+
+function OpenTerminal()
+    if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+        vim.cmd("Zsh")
+        terminal_buf = vim.api.nvim_get_current_buf()
+    else
+        vim.cmd("botright split")
+        vim.cmd("buffer " .. terminal_buf)
+    end
+    terminal_open = true
+    vim.cmd("startinsert")
+end
 
 function ToggleTerminal()
+    if terminal_fullscreen then
+        SplitTerminal()
+    end
     if terminal_open then
         vim.cmd("hide")
         terminal_open = false
     else
-        if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-            vim.cmd("Zsh")
-            terminal_buf = vim.api.nvim_get_current_buf()
-        else
-            vim.cmd("botright split")
-            vim.cmd("buffer " .. terminal_buf)
-        end
-        terminal_open = true
-        vim.cmd("startinsert")
+        OpenTerminal()
+    end
+end
+
+function SplitTerminal()
+    vim.cmd("split #")
+    vim.cmd("wincmd j")
+    terminal_fullscreen = false
+    vim.cmd("startinsert")
+end
+
+function MaximizeTerminal()
+    vim.cmd("only")
+    terminal_fullscreen = true
+    vim.cmd("startinsert")
+end
+
+function ToggleTerminalFullscreen()
+    if not terminal_open then
+        OpenTerminal()
+    end
+    if terminal_fullscreen then
+        SplitTerminal()
+    else
+        MaximizeTerminal()
     end
 end
 
 vim.keymap.set("n", "zz", ToggleTerminal, { noremap = true, silent = true })
 vim.keymap.set("t", "zz", ToggleTerminal)
+vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
+
+vim.keymap.set("n", "zf", ToggleTerminalFullscreen, { noremap = true, silent = true })
+vim.keymap.set("t", "zf", "<C-\\><C-n>:lua ToggleTerminalFullscreen()<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)
 
