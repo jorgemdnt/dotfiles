@@ -27,19 +27,6 @@ require("lazy").setup({
     'windwp/nvim-autopairs',
     'RRethy/nvim-treesitter-endwise',
     {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim",         -- required
-            "sindrets/diffview.nvim",        -- optional - Diff integration
-
-            -- Only one of these is needed.
-            "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
-            "echasnovski/mini.pick",         -- optional
-        },
-        config = true
-    },
-    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
@@ -100,25 +87,6 @@ require("lazy").setup({
         after = "nvim-treesitter",
     },
     {
-        "chentoast/marks.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
-        "supermaven-inc/supermaven-nvim",
-        config = function()
-            require("supermaven-nvim").setup({
-                enable = true,
-                keymaps = {
-                    accept_suggestion = "<Tab>",
-                    clear_suggestion = "<C-]>",
-                    accept_word = "<C-l>",
-                },
-            })
-        end,
-    },
-    'lewis6991/gitsigns.nvim',
-    {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
@@ -160,5 +128,7 @@ require("lazy").setup({
         init = function()
             vim.cmd("colorscheme catppuccin-frappe")
         end
-    }
+    },
+    'tpope/vim-fugitive',
+    { 'airblade/vim-gitgutter', branch = 'main' },
 })
