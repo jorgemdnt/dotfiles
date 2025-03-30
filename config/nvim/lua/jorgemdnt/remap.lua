@@ -46,27 +46,24 @@ local terminal_buf = nil
 local terminal_open = false
 
 function ToggleTerminal()
-  if terminal_open then
-    vim.cmd("hide")
-    terminal_open = false
-  else
-    if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
-      vim.cmd("Zsh")
-      terminal_buf = vim.api.nvim_get_current_buf()
+    if terminal_open then
+        vim.cmd("hide")
+        terminal_open = false
     else
-      vim.cmd("botright split")
-      vim.cmd("buffer " .. terminal_buf)
+        if terminal_buf == nil or not vim.api.nvim_buf_is_valid(terminal_buf) then
+            vim.cmd("Zsh")
+            terminal_buf = vim.api.nvim_get_current_buf()
+        else
+            vim.cmd("botright split")
+            vim.cmd("buffer " .. terminal_buf)
+        end
+        terminal_open = true
+        vim.cmd("startinsert")
     end
-    terminal_open = true
-    vim.cmd("startinsert")
-  end
 end
 
-vim.keymap.set("n", "<leader>z", ToggleTerminal, { noremap = true, silent = true })
-vim.keymap.set("n", "<D-z>", ToggleTerminal, { noremap = true, silent = true })
-
-vim.keymap.set("t", "<esc>", ToggleTerminal)
-vim.keymap.set("t", "<D-z>", ToggleTerminal)
+vim.keymap.set("n", "zz", ToggleTerminal, { noremap = true, silent = true })
+vim.keymap.set("t", "zz", ToggleTerminal)
 
 vim.keymap.set("n", "<leader>n", vim.cmd.nohlsearch)
 
@@ -90,7 +87,7 @@ vim.api.nvim_create_user_command(
 
 vim.api.nvim_create_user_command(
     'FindAndReplace',
-    function (opts)
+    function(opts)
         local find = opts.fargs[1]
         local replace = opts.fargs[2]
         vim.cmd('grep! ' .. find)
@@ -99,36 +96,10 @@ vim.api.nvim_create_user_command(
     { nargs = '*' }
 )
 
--- vim.api.nvim_create_augroup("AutoFormat", {})
-
--- vim.api.nvim_create_autocmd(
---     "BufWritePost",
---     {
---         pattern = "*.js,*.ts,*.jsx,*.tsx",
---         group = "AutoFormat",
---         callback = function()
---             vim.cmd("silent !eslint_d --fix %")
---         end,
---     }
--- )
--- vim.api.nvim_create_autocmd("BufWritePost", {
---     pattern = "*.js,*.ts,*.jsx,*.tsx",
---     group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
---     callback = function(args)
---         vim.system({ "eslint_d", "--fix", args.match }, { detach = true })
---     end,
--- })
 vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*.js,*.ts,*.jsx,*.tsx",
+    pattern = "*.js,*.ts,*.jsx,*.tsx,*.lua,*.go",
     group = vim.api.nvim_create_augroup("AutoFormat", { clear = true }),
-    callback = function(args)
-        vim.system({ "eslint_d", "--fix", args.match }, {
-            text = true
-        },
-            function()
-                vim.schedule(function ()
-                    vim.cmd("edit")
-                end)
-            end)
+    callback = function()
+        vim.lsp.buf.format()
     end,
 })
