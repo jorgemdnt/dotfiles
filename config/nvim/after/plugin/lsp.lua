@@ -82,7 +82,7 @@ lsp.on_attach(function(client, bufnr)
     -- [d: Move to the previous diagnostic in the current buffer
     -- ]d: Move to the next diagnostic
     lsp.default_keymaps({ buffer = bufnr })
-    if client.supports_method("textDocument/formatting") then
+    if client and client.supports_method("textDocument/formatting") then
         vim.api.nvim_create_autocmd("BufWritePost", {
             buffer = bufnr,
             callback = function()

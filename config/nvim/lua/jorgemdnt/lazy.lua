@@ -20,7 +20,7 @@ require("lazy").setup({
         dependencies = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-media-files.nvim' }
     },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
     'mbbill/undotree',
     'tpope/vim-commentary',
     'kylechui/nvim-surround',
@@ -33,7 +33,7 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+            "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
         },
         config = function()
             vim.keymap.set("n", "<leader>t", ":Neotree reveal toggle<CR>")
@@ -80,7 +80,7 @@ require("lazy").setup({
             },
         },
     },
-    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+    { "Bilal2453/luvit-meta",     lazy = true }, -- optional `vim.uv` typings
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
@@ -112,11 +112,11 @@ require("lazy").setup({
                 },
                 -- you can enable a preset for easier configuration
                 presets = {
-                    bottom_search = true, -- use a classic bottom cmdline for search
-                    command_palette = true, -- position the cmdline and popupmenu together
+                    bottom_search = true,         -- use a classic bottom cmdline for search
+                    command_palette = true,       -- position the cmdline and popupmenu together
                     long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = false, -- add a border to hover docs and signature help
+                    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = false,       -- add a border to hover docs and signature help
                 },
             })
         end
@@ -157,12 +157,12 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
             --- The below dependencies are optional,
-            "echasnovski/mini.pick", -- for file_selector provider mini.pick
+            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
             "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-            "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-            "ibhagwan/fzf-lua", -- for file_selector provider fzf
-            "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-            "zbirenbaum/copilot.lua", -- for providers='copilot'
+            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua",        -- for providers='copilot'
             {
                 -- support for image pasting
                 "HakonHarnes/img-clip.nvim",
