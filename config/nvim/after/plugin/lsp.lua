@@ -1,5 +1,6 @@
 local lsp = require("lsp-zero")
 
+-- ## Mason & Mason-LSPConfig Setup ## --
 require('mason').setup({
     PATH = "append"
 })
@@ -10,6 +11,7 @@ require('mason-lspconfig').setup({
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
+-- ## Completion Configuration (nvim-cmp) ## --
 local cmp = require('cmp')
 local cmp_format = require('lsp-zero').cmp_format({})
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -83,7 +85,7 @@ lsp.on_attach(function(client, bufnr)
     -- ]d: Move to the next diagnostic
     lsp.default_keymaps({ buffer = bufnr })
     if client and client.supports_method("textDocument/formatting") then
-        vim.api.nvim_create_autocmd("BufWritePost", {
+        vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()
                 vim.lsp.buf.format()

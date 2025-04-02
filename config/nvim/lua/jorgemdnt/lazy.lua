@@ -147,6 +147,31 @@ require("lazy").setup({
             --     max_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
             --     --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
             -- },
+            --
+            provider = "google",
+            cursor_applying_provider = 'groq',      -- In this example, use Groq for applying, but you can also use any provider you want.
+            behaviours = {
+                enable_cursor_planning_mode = true, -- enable cursor planning mode!
+            },
+            vendors = {
+                google = {
+                    __inherited_from = 'openai',
+                    endpoint = "https://generativelanguage.googleapis.com/v1beta/openai/",
+                    api_key_name = "GEMINI_API_KEY",
+                    model = "gemini-2.5-pro-exp-03-25", -- your desired model (or use gpt-4o, etc.)
+                    timeout = 30000,                    -- Timeout in milliseconds, increase this for reasoning models
+                    max_tokens = 8192,                  -- Increase this to include reasoning tokens (for reasoning models)
+                    -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+                },
+                --- ... existing vendors
+                groq = { -- define groq provider
+                    __inherited_from = 'openai',
+                    api_key_name = 'GROQ_API_KEY',
+                    endpoint = 'https://api.groq.com/openai/v1/',
+                    model = 'llama-3.3-70b-versatile',
+                    max_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
+                },
+            },
         },
         -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
         build = "make",
@@ -189,5 +214,17 @@ require("lazy").setup({
                 ft = { "markdown", "Avante" },
             },
         },
-    }
+    },
+    {
+        "supermaven-inc/supermaven-nvim",
+        config = function()
+            require("supermaven-nvim").setup({
+                keymaps = {
+                    accept_suggestion = "<C-l>",
+                    clear_suggestion = "<C-x>",
+                    accept_word = "<C-j>",
+                },
+            })
+        end,
+    },
 })
