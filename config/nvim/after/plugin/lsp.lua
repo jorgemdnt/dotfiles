@@ -28,7 +28,7 @@ cmp.setup.cmdline({ '/', '?' }, {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline({
-        ["<Tab>"] = cmp.mapping(function(fallback)
+        ["<C-y>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({ select = true }) -- Confirm command
             else
@@ -52,7 +52,7 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<Tab>'] = cmp.mapping.confirm({ select = true }),
         -- Navigate between snippet placeholder
         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
@@ -69,6 +69,8 @@ cmp.setup({
     },
 })
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 lsp.on_attach(function(client, bufnr)
     -- K: Displays hover information about the symbol under the cursor in a floating window
     -- gd: Jumps to the definition of the symbol under the cursor
@@ -84,11 +86,24 @@ lsp.on_attach(function(client, bufnr)
     -- [d: Move to the previous diagnostic in the current buffer
     -- ]d: Move to the next diagnostic
     lsp.default_keymaps({ buffer = bufnr })
-    if client and client.supports_method("textDocument/formatting") then
+    if client and client.supports_method("textDocument/formatting") and client.name ~= "ts_ls" then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
         vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
             buffer = bufnr,
             callback = function()
                 vim.lsp.buf.format()
+            end,
+        })
+    end
+
+    if (client.name == "eslint") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            group = augroup,
+            callback = function()
+                vim.cmd("EslintFixAll")
             end,
         })
     end
