@@ -126,112 +126,114 @@ require("lazy").setup({
         name = "catppuccin",
         priority = 1000,
         init = function()
-            vim.cmd("colorscheme catppuccin-frappe")
+            vim.cmd("colorscheme catppuccin-mocha")
         end
     },
     'tpope/vim-fugitive',
-    { 'airblade/vim-gitgutter', branch = 'main' },
-    -- {
-    --     "yetone/avante.nvim",
-    --     event = "VeryLazy",
-    --     version = false, -- Never set this value to "*"! Never!
-    --     opts = {
-    --         -- add any opts here
-    --         -- for example
-    --         provider = "groq",
-    --         openai = {
-    --             endpoint = "https://api.openai.com/v1",
-    --             api_key_name = "OPENAI_API_KEY",
-    --             model = "gpt-4o",  -- your desired model (or use gpt-4o, etc.)
-    --             timeout = 30000,   -- Timeout in milliseconds, increase this for reasoning models
-    --             temperature = 0,
-    --             max_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-    --             --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-    --         },
-    --         behaviour = {
-    --             auto_suggestions = false, -- Experimental stage
-    --             auto_set_highlight_group = true,
-    --             auto_set_keymaps = true,
-    --             auto_apply_diff_after_generation = false,
-    --             support_paste_from_clipboard = false,
-    --             minimize_diff = true,                        -- Whether to remove unchanged lines when applying a code block
-    --             enable_token_counting = true,                -- Whether to enable token counting. Default to true.
-    --             enable_cursor_planning_mode = true,          -- Whether to enable Cursor Planning Mode. Default to false.
-    --             enable_claude_text_editor_tool_mode = false, -- Whether to enable Claude Text Editor Tool Mode.
-    --         },
-    --         --
-    --         -- provider = "together",
-    --         vendors = {
-    --             together = {
-    --                 __inherited_from = 'openai',
-    --                 endpoint = "https://api.together.xyz/v1",
-    --                 api_key_name = "TOGETHER_API_KEY",
-    --                 model = "deepseek-ai/DeepSeek-V3", -- your desired model (or use gpt-4o, etc.)
-    --                 timeout = 30000,                   -- Timeout in milliseconds, increase this for reasoning models
-    --                 max_tokens = 20000,                -- Increase this to include reasoning tokens (for reasoning models)
-    --                 -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-    --             },
-    --             google = {
-    --                 __inherited_from = 'openai',
-    --                 endpoint = "https://generativelanguage.googleapis.com/v1beta/openai/",
-    --                 api_key_name = "GEMINI_API_KEY",
-    --                 model = "gemini-2.5-pro-exp-03-25", -- your desired model (or use gpt-4o, etc.)
-    --                 timeout = 30000,                    -- Timeout in milliseconds, increase this for reasoning models
-    --                 max_tokens = 8192,                  -- Increase this to include reasoning tokens (for reasoning models)
-    --                 -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
-    --             },
-    --             --- ... existing vendors
-    --             groq = { -- define groq provider
-    --                 __inherited_from = 'openai',
-    --                 api_key_name = 'GROQ_API_KEY',
-    --                 endpoint = 'https://api.groq.com/openai/v1/',
-    --                 model = 'qwen-2.5-coder-32b',
-    --                 max_tokens = 18192, -- remember to increase this value, otherwise it will stop generating halfway
-    --             },
-    --         },
-    --     },
-    --     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    --     build = "make",
-    --     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "stevearc/dressing.nvim",
-    --         "nvim-lua/plenary.nvim",
-    --         "MunifTanjim/nui.nvim",
-    --         --- The below dependencies are optional,
-    --         "echasnovski/mini.pick",         -- for file_selector provider mini.pick
-    --         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-    --         "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-    --         "ibhagwan/fzf-lua",              -- for file_selector provider fzf
-    --         "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-    --         "zbirenbaum/copilot.lua",        -- for providers='copilot'
-    --         {
-    --             -- support for image pasting
-    --             "HakonHarnes/img-clip.nvim",
-    --             event = "VeryLazy",
-    --             opts = {
-    --                 -- recommended settings
-    --                 default = {
-    --                     embed_image_as_base64 = false,
-    --                     prompt_for_file_name = false,
-    --                     drag_and_drop = {
-    --                         insert_mode = true,
-    --                     },
-    --                     -- required for Windows users
-    --                     use_absolute_path = true,
-    --                 },
-    --             },
-    --         },
-    --         {
-    --             -- Make sure to set this up properly if you have lazy=true
-    --             'MeanderingProgrammer/render-markdown.nvim',
-    --             opts = {
-    --                 file_types = { "markdown", "Avante" },
-    --             },
-    --             ft = { "markdown", "Avante" },
-    --         },
-    --     },
-    -- },
+    {
+        "lewis6991/gitsigns.nvim",
+        event = "VeryLazy",
+        opts = {
+            signs = {
+                add = { text = "▎" },
+                change = { text = "▎" },
+                delete = { text = "" },
+                topdelete = { text = "" },
+                changedelete = { text = "▎" },
+                untracked = { text = "▎" },
+            },
+            signs_staged = {
+                add = { text = "▎" },
+                change = { text = "▎" },
+                delete = { text = "" },
+                topdelete = { text = "" },
+                changedelete = { text = "▎" },
+            },
+            on_attach = function(buffer)
+                local gs = package.loaded.gitsigns
+
+                local function map(mode, l, r, desc)
+                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
+                end
+
+                -- stylua: ignore start
+                map("n", "]h", function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ "]c", bang = true })
+                    else
+                        gs.nav_hunk("next")
+                    end
+                end, "Next Hunk")
+                map("n", "[h", function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ "[c", bang = true })
+                    else
+                        gs.nav_hunk("prev")
+                    end
+                end, "Prev Hunk")
+                map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+                map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+                -- map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+                -- map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+                -- map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+                -- map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+                -- map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+                -- map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+                -- map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+                -- map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
+                -- map("n", "<leader>ghd", gs.diffthis, "Diff This")
+                -- map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+            end,
+        },
+    },
+    {
+        "folke/trouble.nvim",
+        cmd = { "Trouble" },
+        opts = {
+            modes = {
+                lsp = {
+                    win = { position = "right" },
+                },
+            },
+        },
+        keys = {
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",              desc = "Diagnostics (Trouble)" },
+            { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+            { "<leader>cs", "<cmd>Trouble symbols toggle<cr>",                  desc = "Symbols (Trouble)" },
+            { "<leader>cS", "<cmd>Trouble lsp toggle<cr>",                      desc = "LSP references/definitions/... (Trouble)" },
+            { "<leader>xL", "<cmd>Trouble loclist toggle<cr>",                  desc = "Location List (Trouble)" },
+            { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>",                   desc = "Quickfix List (Trouble)" },
+            {
+                "[q",
+                function()
+                    if require("trouble").is_open() then
+                        require("trouble").prev({ skip_groups = true, jump = true })
+                    else
+                        local ok, err = pcall(vim.cmd.cprev)
+                        if not ok then
+                            vim.notify(err, vim.log.levels.ERROR)
+                        end
+                    end
+                end,
+                desc = "Previous Trouble/Quickfix Item",
+            },
+            {
+                "]q",
+                function()
+                    if require("trouble").is_open() then
+                        require("trouble").next({ skip_groups = true, jump = true })
+                    else
+                        local ok, err = pcall(vim.cmd.cnext)
+                        if not ok then
+                            vim.notify(err, vim.log.levels.ERROR)
+                        end
+                    end
+                end,
+                desc = "Next Trouble/Quickfix Item",
+            },
+        },
+    },
     {
         "supermaven-inc/supermaven-nvim",
         config = function()
@@ -243,5 +245,32 @@ require("lazy").setup({
                 },
             })
         end,
+    },
+    {
+        'stevearc/conform.nvim',
+        opts = {},
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    javascript = { "eslint_d" },
+                    typescript = { "eslint_d" },
+                    javascriptreact = { "eslint_d" },
+                    typescriptreact = { "eslint_d" },
+                },
+                format_on_save = {
+                    -- These options will be passed to conform.format()
+                    timeout_ms = 500,
+                    lsp_format = "fallback",
+                },
+            })
+        end
+    },
+    -- Improves comment syntax, lets Neovim handle multiple
+    -- types of comments for a single language, and relaxes rules
+    -- for uncommenting.
+    {
+        "folke/ts-comments.nvim",
+        event = "VeryLazy",
+        opts = {},
     },
 })

@@ -86,27 +86,27 @@ lsp.on_attach(function(client, bufnr)
     -- [d: Move to the previous diagnostic in the current buffer
     -- ]d: Move to the next diagnostic
     lsp.default_keymaps({ buffer = bufnr })
-    if client and client.supports_method("textDocument/formatting") and client.name ~= "ts_ls" then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.format()
-            end,
-        })
-    end
+    -- if client and client.supports_method("textDocument/formatting") and client.name ~= "ts_ls" then
+    --     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --     vim.api.nvim_create_autocmd("BufWritePre", {
+    --         group = augroup,
+    --         buffer = bufnr,
+    --         callback = function()
+    --             vim.lsp.buf.format()
+    --         end,
+    --     })
+    -- end
 
-    if (client.name == "eslint") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            group = augroup,
-            callback = function()
-                vim.cmd("EslintFixAll")
-            end,
-        })
-    end
+    -- if (client.name == "eslint") then
+    --     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --     vim.api.nvim_create_autocmd("BufWritePre", {
+    --         buffer = bufnr,
+    --         group = augroup,
+    --         callback = function()
+    --             vim.cmd("EslintFixAll")
+    --         end,
+    --     })
+    -- end
 end)
 
 lsp.setup()
