@@ -25,19 +25,8 @@
 [core]
     excludesfile = ~/.gitignore_global
     editor = nvim
-; [commit]
-;     gpgsign = true
-; [gpg]
-;     program = gpg
-; [url "ssh://git@github.com/"]
-;     insteadOf = https://github.com/
 [pull]
     rebase = false
-; [filter "lfs"]
-; 	clean = git-lfs clean -- %f
-; 	smudge = git-lfs smudge -- %f
-; 	process = git-lfs filter-process
-; 	required = true
 
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
