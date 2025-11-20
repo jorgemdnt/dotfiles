@@ -273,4 +273,10 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = {},
     },
+    {
+        'saghen/blink.indent',
+        --- @module 'blink.indent'
+        --- @type blink.indent.Config
+        -- opts = {},
+    }
 })
