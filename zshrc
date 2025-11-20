@@ -11,7 +11,7 @@ export ZSH=$HOME/.oh-my-zsh
 # git clone https://github.com/reobin/typewritten.git $ZSH_CUSTOM/themes/typewritten
 # ln -s "$ZSH_CUSTOM/themes/typewritten/typewritten.zsh-theme" "$ZSH_CUSTOM/themes/typewritten.zsh-theme"
 # ln -s "$ZSH_CUSTOM/themes/typewritten/async.zsh" "$ZSH_CUSTOM/themes/async"
-ZSH_THEME="typewritten"
+# ZSH_THEME="typewritten"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -111,11 +111,6 @@ export NVM_DIR="$HOME/.nvm"
 bindkey -v
 export KEYTIMEOUT=1
 
-if [[ $(command -v brew) != "" ]]; then
-    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
-fi
-
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 export EDITOR=nvim
 
@@ -164,3 +159,7 @@ esac
 export PATH="$HOME/.local/bin:$PATH"
 
 export TERM=xterm-256color
+
+# Set typewritten ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt typewritten

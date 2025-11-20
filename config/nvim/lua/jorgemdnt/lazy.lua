@@ -252,10 +252,10 @@ require("lazy").setup({
         config = function()
             require("conform").setup({
                 formatters_by_ft = {
-                    javascript = { "eslint_d" },
-                    typescript = { "eslint_d" },
-                    javascriptreact = { "eslint_d" },
-                    typescriptreact = { "eslint_d" },
+                    javascript = { "biome-check", "eslint_d" },
+                    typescript = { "biome-check", "eslint_d" },
+                    javascriptreact = { "biome-check", "eslint_d" },
+                    typescriptreact = { "biome-check", "eslint_d" },
                 },
                 format_on_save = {
                     -- These options will be passed to conform.format()
