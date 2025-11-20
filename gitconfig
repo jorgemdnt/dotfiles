@@ -28,5 +28,8 @@
 [pull]
     rebase = false
 
+[core]
+    sshCommand = ssh -i ~/.ssh/id_ed25519
+
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
