@@ -16,10 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-media-files.nvim' }
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            picker = { enabled = true },
+        }
     },
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
     'mbbill/undotree',
     'tpope/vim-commentary',
