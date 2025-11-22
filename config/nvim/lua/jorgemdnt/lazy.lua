@@ -46,27 +46,45 @@ require("lazy").setup({
         -- install jsregexp (optional!).
         build = "make install_jsregexp"
     },
+    -- Native LSP Support
     {
-        'VonHeikemen/lsp-zero.nvim',
+        'neovim/nvim-lspconfig',
         dependencies = {
-            -- LSP Support
-            'neovim/nvim-lspconfig',
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-
-            -- Autocompletion
-            'hrsh7th/nvim-cmp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-path',
-            'saadparwaiz1/cmp_luasnip',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-nvim-lua',
-
-            -- Snippets
-            'L3MON4D3/LuaSnip',
-            'rafamadriz/friendly-snippets',
         }
+    },
+    {
+        'williamboman/mason.nvim',
+        build = ':MasonUpdate',
+    },
+    {
+        'williamboman/mason-lspconfig.nvim',
+    },
+    -- blink.cmp - Replacement for nvim-cmp
+    {
+        'saghen/blink.cmp',
+        version = '1.*',
+        dependencies = {
+            'rafamadriz/friendly-snippets', -- provides snippets for the snippet source
+            'L3MON4D3/LuaSnip',             -- LuaSnip support
+        },
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            -- 'default' preset: mappings similar to built-in completions (C-y to accept)
+            keymap = { preset = 'default' },
+            appearance = {
+                nerd_font_variant = 'mono'
+            },
+            completion = { documentation = { auto_show = false } },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+            snippets = { preset = 'luasnip' }, -- Use LuaSnip for snippet expansion
+            fuzzy = { implementation = "prefer_rust_with_warning" }
+        },
+        opts_extend = { "sources.default" }
     },
     { 'nvim-lualine/lualine.nvim' },
     {
@@ -103,11 +121,10 @@ require("lazy").setup({
         config = function()
             require("noice").setup({
                 lsp = {
-                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                    -- override markdown rendering so that blink.cmp and other plugins use **Treesitter**
                     override = {
                         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                         ["vim.lsp.util.stylize_markdown"] = true,
-                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
                     },
                 },
                 -- you can enable a preset for easier configuration
@@ -277,6 +294,7 @@ require("lazy").setup({
         'saghen/blink.indent',
         --- @module 'blink.indent'
         --- @type blink.indent.Config
-        -- opts = {},
+        opts = {
+        },
     }
 })
