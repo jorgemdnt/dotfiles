@@ -8,12 +8,13 @@
     ~/.tmux.conf: tmux.conf
     ~/.tmuxline.snapshot: tmuxline.snapshot
     ~/.gitconfig: gitconfig
+    ~/.ssh/config: ssh-config
+    ~/work/.gitconfig: work-gitconfig
     ~/.inputrc: inputrc
     ~/.config/nvim: config/nvim/
     ~/.config/alacritty: config/alacritty/
     ~/.config/kitty: config/kitty/
     ~/.zshrc: zshrc
-    ~/.ctags.d/default.ctags: ctags
     ~/.zprofile: zprofile
     ~/.gitignore_global: gitignore_global
     ~/.rgignore: rgignore

@@ -1,0 +1,17 @@
+# Personal GitHub account
+Host github.com
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+
+# Work GitHub account (Monalee)
+Host github.com-work
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/monalee_id_ed25519
+  IdentitiesOnly yes
