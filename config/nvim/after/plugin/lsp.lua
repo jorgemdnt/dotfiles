@@ -1,16 +1,12 @@
--- ## Mason & Mason-LSPConfig Setup ## --
+-- ## Mason Setup (Package Manager Only) ## --
 require('mason').setup({
     PATH = "append"
-})
-
-require('mason-lspconfig').setup({
-    ensure_installed = { 'ts_ls', 'eslint', 'biome', 'solargraph', 'terraformls', 'tflint', 'lua_ls' },
 })
 
 -- Load LuaSnip snippets
 require("luasnip.loaders.from_vscode").lazy_load()
 
--- ## Native Neovim LSP Configuration ## --
+-- ## Native Neovim 0.11+ LSP Configuration ## --
 -- Get blink.cmp capabilities for LSP servers
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
@@ -93,20 +89,79 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- Configure LSP servers using the new vim.lsp.config API
-local servers = {
-    'ts_ls',
-    'eslint',
-    'biome',
-    'solargraph',
-    'terraformls',
-    'tflint',
-    'lua_ls',
+-- Configure language servers using native vim.lsp.config
+local lsps = {
+    {
+        'ts_ls',
+        {
+            cmd = { 'typescript-language-server', '--stdio' },
+            filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+            root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', '.git' },
+            capabilities = capabilities,
+        }
+    },
+    {
+        'biome',
+        {
+            cmd = { 'biome', 'lsp-proxy' },
+            filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc' },
+            root_markers = { 'biome.json', 'biome.jsonc', '.git' },
+            capabilities = capabilities,
+        }
+    },
+    {
+        'solargraph',
+        {
+            cmd = { 'solargraph', 'stdio' },
+            filetypes = { 'ruby' },
+            root_markers = { 'Gemfile', '.git' },
+            capabilities = capabilities,
+        }
+    },
+    {
+        'terraformls',
+        {
+            cmd = { 'terraform-ls', 'serve' },
+            filetypes = { 'terraform', 'tf' },
+            root_markers = { '.terraform', '.git' },
+            capabilities = capabilities,
+        }
+    },
+    {
+        'tflint',
+        {
+            cmd = { 'tflint', '--langserver' },
+            filetypes = { 'terraform' },
+            root_markers = { '.tflint.hcl', '.git' },
+            capabilities = capabilities,
+        }
+    },
+    {
+        'lua_ls',
+        {
+            cmd = { 'lua-language-server' },
+            filetypes = { 'lua' },
+            root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', '.git' },
+            capabilities = capabilities,
+            settings = {
+                Lua = {
+                    runtime = { version = 'LuaJIT' },
+                    diagnostics = { globals = { 'vim' } },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                        checkThirdParty = false,
+                    },
+                    telemetry = { enable = false },
+                },
+            },
+        }
+    },
 }
 
-for _, server in ipairs(servers) do
-    vim.lsp.config[server] = {
-        capabilities = capabilities,
-    }
-    vim.lsp.enable(server)
+for _, lsp in pairs(lsps) do
+    local name, config = lsp[1], lsp[2]
+    vim.lsp.enable(name)
+    if config then
+        vim.lsp.config(name, config)
+    end
 end

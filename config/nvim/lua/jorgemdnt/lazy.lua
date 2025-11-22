@@ -53,9 +53,6 @@ require("lazy").setup({
         'williamboman/mason.nvim',
         build = ':MasonUpdate',
     },
-    {
-        'williamboman/mason-lspconfig.nvim',
-    },
     -- blink.cmp - Replacement for nvim-cmp
     {
         'saghen/blink.cmp',
