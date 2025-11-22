@@ -23,7 +23,7 @@ require("lazy").setup({
             picker = { enabled = true },
         }
     },
-    { 'nvim-treesitter/nvim-treesitter',          build = ':TSUpdate' },
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'mbbill/undotree',
     'tpope/vim-commentary',
     'kylechui/nvim-surround',
@@ -48,14 +48,6 @@ require("lazy").setup({
         version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
         build = "make install_jsregexp"
-    },
-    -- Native LSP Support
-    {
-        'neovim/nvim-lspconfig',
-        dependencies = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-        }
     },
     {
         'williamboman/mason.nvim',
@@ -101,7 +93,7 @@ require("lazy").setup({
             },
         },
     },
-    { "Bilal2453/luvit-meta",     lazy = true }, -- optional `vim.uv` typings
+    { "Bilal2453/luvit-meta", lazy = true },     -- optional `vim.uv` typings
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
