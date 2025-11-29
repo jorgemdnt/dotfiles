@@ -57,10 +57,11 @@ setopt HIST_IGNORE_ALL_DUPS
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-autoload -U compinit && compinit -u
 plugins=(git autojump zsh-syntax-highlighting history-substring-search zsh-completions zsh-autosuggestions fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
+
+autoload -U compinit && compinit -u
 
 # User configuration
 
@@ -90,7 +91,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 # Example aliases
 alias vim="nvim"
 # alias open="xdg-open"
-alias vimrc="vim ~/.config/nvim/init.vim"
+alias vimrc="vim ~/.config/nvim"
 alias gs="g s"
 alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
@@ -138,7 +139,7 @@ export EDITOR=nvim
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
-if [ -f "$HOME/.rbenv/bin" ]; then
+if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
@@ -148,10 +149,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/snap/bin:/opt/nvim-linux64/bin"
 export PATH="$PATH:/usr/local/go/bin"
-if [ -f "$HOME/.fzf.zsh" ]; then
-    source ~/.fzf.zsh
-fi
-if [[ $(command -v fzf) != "" ]]; then
+if command -v fzf &> /dev/null; then
     source <(fzf --zsh)
 fi
 # rbenv init is handled in zprofile
@@ -163,14 +161,14 @@ if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloa
 if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
 
 # bun completions
-[ -s "/Users/jorgemodesto/.bun/_bun" ] && source "/Users/jorgemodesto/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/jorgemodesto/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
