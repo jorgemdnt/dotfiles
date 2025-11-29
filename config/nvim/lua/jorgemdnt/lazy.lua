@@ -69,7 +69,14 @@ require("lazy").setup({
             appearance = {
                 nerd_font_variant = 'mono'
             },
-            completion = { documentation = { auto_show = false } },
+            completion = {
+                documentation = { auto_show = false },
+                menu = {
+                    draw = {
+                        columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+                    },
+                },
+            },
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },

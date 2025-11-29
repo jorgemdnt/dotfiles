@@ -156,6 +156,15 @@ local lsps = {
             },
         }
     },
+    {
+        'tailwindcss',
+        {
+            cmd = { 'tailwindcss-language-server', '--stdio' },
+            filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte' },
+            root_markers = { 'tailwind.config.js', 'tailwind.config.cjs', 'tailwind.config.mjs', 'tailwind.config.ts', 'postcss.config.js', '.git' },
+            capabilities = capabilities,
+        }
+    },
 }
 
 for _, lsp in pairs(lsps) do
