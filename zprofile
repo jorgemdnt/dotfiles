@@ -1,3 +1,6 @@
+zmodload zsh/datetime
+__zprofile_start=$EPOCHREALTIME
+
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/bin
 # Set PATH, MANPATH, etc., for Homebrew.
 if [ -f '/opt/homebrew/bin/brew' ]; then
@@ -19,3 +22,6 @@ fi
 
 # Created by `pipx` on 2024-08-11 00:56:47
 export PATH="$PATH:/Users/jorgemodesto/.local/bin"
+
+__zprofile_end=$EPOCHREALTIME
+__zprofile_time=$(printf "%.3f" $(($__zprofile_end - $__zprofile_start)))

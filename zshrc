@@ -1,3 +1,7 @@
+# Startup time (run `zsh_startup_time` to see last boot time)
+zmodload zsh/datetime
+__zsh_start=$EPOCHREALTIME
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -180,3 +184,7 @@ export TERM=xterm-256color
 # Set typewritten ZSH as a prompt
 autoload -U promptinit; promptinit
 prompt typewritten
+
+# Calculate and display startup time
+__zsh_end=$EPOCHREALTIME
+printf "zprofile: ${__zprofile_time:-0.000}s | zshrc: %.3fs\n" $(($__zsh_end - $__zsh_start))
