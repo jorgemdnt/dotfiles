@@ -97,7 +97,7 @@ require("lazy").setup({
             },
         },
     },
-    { "Bilal2453/luvit-meta", lazy = true },     -- optional `vim.uv` typings
+    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         dependencies = "nvim-treesitter/nvim-treesitter",
